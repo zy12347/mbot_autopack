@@ -1,0 +1,30 @@
+[0.071s] Invoking command in '/home/zy/ws/build/mbot_pkg': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/home/zy/ws/install/control:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32
+[0.104s] [100%] Built target mbot_manager
+[0.112s] Invoked command in '/home/zy/ws/build/mbot_pkg' returned '0': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/home/zy/ws/install/control:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32
+[0.117s] Invoking command in '/home/zy/ws/build/mbot_pkg': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/home/zy/ws/install/control:/opt/ros/humble /usr/bin/cmake --install /home/zy/ws/build/mbot_pkg
+[0.121s] -- Install configuration: ""
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/lib/mbot_pkg/mbot_manager
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/launch
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/launch/mbot.launch.py
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf
+[0.122s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf/mbot_gazebo.urdf.xacro
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf/test.urdf
+[0.122s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf/mbot_base.urdf.xacro
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/worlds
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/worlds/empty_world.world
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/package_run_dependencies/mbot_pkg
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/parent_prefix_path/mbot_pkg
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/ament_prefix_path.sh
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/ament_prefix_path.dsv
+[0.122s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/path.sh
+[0.123s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/path.dsv
+[0.123s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.bash
+[0.123s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.sh
+[0.123s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.zsh
+[0.123s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.dsv
+[0.123s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/package.dsv
+[0.123s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/packages/mbot_pkg
+[0.123s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/cmake/mbot_pkgConfig.cmake
+[0.123s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/cmake/mbot_pkgConfig-version.cmake
+[0.123s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/package.xml
+[0.124s] Invoked command in '/home/zy/ws/build/mbot_pkg' returned '0': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/home/zy/ws/install/control:/opt/ros/humble /usr/bin/cmake --install /home/zy/ws/build/mbot_pkg

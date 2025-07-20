@@ -1,0 +1,1 @@
+gazebo_plugins:gazebo_ros:geometry_msgs:mbot_interface:rclcpp:rosidl_default_runtime:sensor_msgs:std_msgs:urdf:xacro

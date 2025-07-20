@@ -1,0 +1,154 @@
+[0.153s] Invoking command in '/home/zy/ws/build/mbot_pkg': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/home/zy/ws/install/control:/opt/ros/humble /usr/bin/cmake /home/zy/ws/src/mbot_pkg -DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/mbot_pkg
+[0.440s] -- The C compiler identification is GNU 11.4.0
+[1.251s] -- The CXX compiler identification is GNU 11.4.0
+[1.931s] -- Detecting C compiler ABI info
+[2.208s] -- Detecting C compiler ABI info - done
+[2.217s] -- Check for working C compiler: /usr/bin/cc - skipped
+[2.264s] -- Detecting C compile features
+[2.265s] -- Detecting C compile features - done
+[2.270s] -- Detecting CXX compiler ABI info
+[2.450s] -- Detecting CXX compiler ABI info - done
+[2.455s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[2.455s] -- Detecting CXX compile features
+[2.455s] -- Detecting CXX compile features - done
+[2.525s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[2.630s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[2.770s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[3.052s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.058s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.066s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.082s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.097s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.141s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.144s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[4.163s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[5.392s] -- Found FastRTPS: /opt/ros/humble/include  
+[7.605s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[7.673s] -- Looking for pthread.h
+[7.875s] -- Looking for pthread.h - found
+[7.875s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[8.134s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[8.134s] -- Found Threads: TRUE  
+[8.288s] -- Found mbot_interface: 0.0.0 (/home/zy/ws/install/mbot_interface/share/mbot_interface/cmake)
+[8.318s] -- Found gazebo_ros: 3.9.0 (/opt/ros/humble/share/gazebo_ros/cmake)
+[8.334s] -- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+[8.335s] -- Checking for module 'bullet>=2.82'
+[8.345s] --   Found bullet, version 3.05
+[8.549s] -- Found fcl: /usr/include (found suitable version "0.7.0", minimum required is "0.5.0") 
+[8.628s] -- Found assimp: /usr/include (found version "5.2.0") 
+[8.665s] -- Found DART: /usr/include (Required is at least version "6.6") found components: dart 
+[8.707s] -- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found suitable version "1.74.0", minimum required is "1.40.0") found components: thread system filesystem program_options regex iostreams date_time 
+[9.253s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found version "3.12.4") 
+[9.258s] -- Looking for ignition-math6 -- found version 6.15.1
+[9.267s] -- Searching for dependencies of ignition-math6
+[9.269s] -- Looking for OGRE...
+[9.270s] -- OGRE_PREFIX_WATCH changed.
+[9.274s] -- Checking for module 'OGRE'
+[9.282s] --   Found OGRE, version 1.9.0
+[9.305s] -- Found Ogre Ghadamon (1.9.0)
+[9.915s] -- Found OGRE: optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so
+[9.923s] -- Looking for OGRE_Paging...
+[10.495s] -- Found OGRE_Paging: optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so
+[10.495s] -- Looking for OGRE_Terrain...
+[11.126s] -- Found OGRE_Terrain: optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so
+[11.126s] -- Looking for OGRE_Property...
+[11.666s] -- Found OGRE_Property: optimized;/usr/lib/x86_64-linux-gnu/libOgreProperty.so;debug;/usr/lib/x86_64-linux-gnu/libOgreProperty.so
+[11.666s] -- Looking for OGRE_RTShaderSystem...
+[12.176s] -- Found OGRE_RTShaderSystem: optimized;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so;debug;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so
+[12.176s] -- Looking for OGRE_Volume...
+[12.586s] -- Found OGRE_Volume: optimized;/usr/lib/x86_64-linux-gnu/libOgreVolume.so;debug;/usr/lib/x86_64-linux-gnu/libOgreVolume.so
+[12.586s] -- Looking for OGRE_Overlay...
+[12.877s] -- Found OGRE_Overlay: optimized;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so;debug;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so
+[32.924s] -- Looking for ignition-math6 -- found version 6.15.1
+[32.973s] -- Looking for ignition-transport8 -- found version 8.2.1
+[32.973s] -- Searching for dependencies of ignition-transport8
+[34.163s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found suitable version "3.12.4", minimum required is "3") 
+[35.333s] -- Config-file not installed for ZeroMQ -- checking for pkg-config
+[35.336s] -- Checking for module 'libzmq >= 4'
+[35.399s] --   Found libzmq , version 4.3.4
+[35.421s] -- Found ZeroMQ: TRUE (Required is at least version "4") 
+[35.530s] -- Checking for module 'uuid'
+[35.538s] --   Found uuid, version 2.37.2
+[35.558s] -- Found UUID: TRUE  
+[35.561s] -- Looking for ignition-msgs5 -- found version 5.8.1
+[35.562s] -- Searching for dependencies of ignition-msgs5
+[36.587s] -- Looking for ignition-math6 -- found version 6.15.1
+[36.639s] -- Checking for module 'tinyxml2'
+[36.649s] --   Found tinyxml2, version 9.0.0
+[36.677s] -- Looking for ignition-msgs5 -- found version 5.8.1
+[36.680s] -- Looking for ignition-common3 -- found version 3.14.0
+[36.680s] -- Searching for dependencies of ignition-common3
+[36.762s] -- Looking for dlfcn.h - found
+[36.787s] -- Looking for libdl - found
+[36.788s] -- Found DL: TRUE  
+[36.889s] -- Found tinyobjloader: /usr/lib/x86_64-linux-gnu/cmake/tinyobjloader/tinyobjloader-config.cmake (found version "2.0.0") 
+[36.891s] -- Searching for <ignition-common3> component [graphics]
+[36.893s] -- Looking for ignition-common3-graphics -- found version 3.14.0
+[36.894s] -- Searching for dependencies of ignition-common3-graphics
+[36.894s] -- Looking for ignition-math6 -- found version 6.15.1
+[36.900s] -- Looking for ignition-fuel_tools4 -- found version 4.4.0
+[36.900s] -- Searching for dependencies of ignition-fuel_tools4
+[39.465s] -- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.81.0")  
+[39.476s] -- Checking for module 'jsoncpp'
+[39.484s] --   Found jsoncpp, version 1.9.5
+[39.506s] -- Found JSONCPP: TRUE  
+[39.511s] -- Checking for module 'libzip'
+[39.521s] --   Found libzip, version 1.7.3
+[39.543s] -- Found ZIP: TRUE  
+[39.544s] -- Looking for ignition-common3 -- found version 3.14.0
+[39.544s] -- Looking for ignition-math6 -- found version 6.15.1
+[39.545s] -- Looking for ignition-msgs5 -- found version 5.8.1
+[39.554s] -- Gazebo version: 11.10
+[39.554s] -- Checking for module 'tbb'
+[39.565s] --   Found tbb, version 2021.5.0
+[39.592s] -- Found gazebo_plugins: 3.9.0 (/opt/ros/humble/share/gazebo_plugins/cmake)
+[39.704s] -- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+[40.935s] -- Found xacro: 2.0.13 (/opt/ros/humble/share/xacro/cmake)
+[40.939s] -- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[40.978s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[41.063s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[41.063s] -- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/zy/ws/src/mbot_pkg/include>
+[41.063s] -- Configured cppcheck exclude dirs and/or files: 
+[41.064s] -- Added test 'flake8' to check Python code syntax and style conventions
+[41.066s] -- Added test 'lint_cmake' to check CMake code style
+[41.067s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[41.068s] -- Added test 'uncrustify' to check C / C++ code style
+[41.068s] -- Configured uncrustify additional arguments: 
+[41.070s] -- Added test 'xmllint' to check XML markup files
+[41.072s] -- Configuring done
+[41.190s] -- Generating done
+[41.195s] -- Build files have been written to: /home/zy/ws/build/mbot_pkg
+[41.205s] Invoked command in '/home/zy/ws/build/mbot_pkg' returned '0': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/home/zy/ws/install/control:/opt/ros/humble /usr/bin/cmake /home/zy/ws/src/mbot_pkg -DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/mbot_pkg
+[41.206s] Invoking command in '/home/zy/ws/build/mbot_pkg': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/home/zy/ws/install/control:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32
+[41.239s] [ 50%] [32mBuilding CXX object CMakeFiles/mbot_manager.dir/src/mbot_manager.cpp.o[0m
+[46.849s] [100%] [32m[1mLinking CXX executable mbot_manager[0m
+[47.800s] [100%] Built target mbot_manager
+[47.810s] Invoked command in '/home/zy/ws/build/mbot_pkg' returned '0': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/home/zy/ws/install/control:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32
+[47.816s] Invoking command in '/home/zy/ws/build/mbot_pkg': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/home/zy/ws/install/control:/opt/ros/humble /usr/bin/cmake --install /home/zy/ws/build/mbot_pkg
+[47.820s] -- Install configuration: ""
+[47.820s] -- Installing: /home/zy/ws/install/mbot_pkg/lib/mbot_pkg/mbot_manager
+[47.823s] -- Set runtime path of "/home/zy/ws/install/mbot_pkg/lib/mbot_pkg/mbot_manager" to ""
+[47.824s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/launch
+[47.824s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/launch/mbot.launch.py
+[47.824s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf
+[47.824s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf/mbot_gazebo.urdf.xacro
+[47.824s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf/test.urdf
+[47.824s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf/mbot_base.urdf.xacro
+[47.824s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/worlds
+[47.824s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/worlds/empty_world.world
+[47.824s] -- Installing: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/package_run_dependencies/mbot_pkg
+[47.825s] -- Installing: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/parent_prefix_path/mbot_pkg
+[47.825s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/ament_prefix_path.sh
+[47.825s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/ament_prefix_path.dsv
+[47.825s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/path.sh
+[47.825s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/path.dsv
+[47.825s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.bash
+[47.825s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.sh
+[47.825s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.zsh
+[47.826s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.dsv
+[47.826s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/package.dsv
+[47.826s] -- Installing: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/packages/mbot_pkg
+[47.826s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/cmake/mbot_pkgConfig.cmake
+[47.826s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/cmake/mbot_pkgConfig-version.cmake
+[47.827s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/package.xml
+[47.828s] Invoked command in '/home/zy/ws/build/mbot_pkg' returned '0': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/home/zy/ws/install/control:/opt/ros/humble /usr/bin/cmake --install /home/zy/ws/build/mbot_pkg

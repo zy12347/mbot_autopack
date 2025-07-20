@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "mbot_interface__py",
+		"source" : "/home/zy/ws/build/mbot_interface/mbot_interface__py"
+	}
+}

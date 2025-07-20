@@ -1,0 +1,21 @@
+[35m[1mConsolidate compiler generated dependencies of target mbot_manager[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/mbot_manager.dir/src/mbot_manager.cpp.o[0m
+[01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:27:2:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ after class definition
+   27 | }
+      |  [01;31m[K^[m[K
+      |  [32m[K;[m[K
+[01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:[m[K In constructor ‘[01m[KMbotManager::MbotManager()[m[K’:
+[01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:11:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpublisher[m[K’ was not declared in this scope
+   11 |     [01;31m[Kpublisher[m[K = this->create_publisher<mbot_interface::msg::Person>("mbot_topic", 10);
+      |     [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:12:73:[m[K [01;31m[Kerror: [m[K‘[01m[Kfrequency[m[K’ was not declared in this scope
+   12 |     timer = this->create_wall_timer(std::chrono::duration<double>(1.0 / [01;31m[Kfrequency[m[K),
+      |                                                                         [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:[m[K In member function ‘[01m[Kvoid MbotManager::timer_callback()[m[K’:
+[01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:24:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpublisher_[m[K’ was not declared in this scope; did you mean ‘[01m[Krmw_publisher_t[m[K’?
+   24 |     [01;31m[Kpublisher_[m[K->publish(person);
+      |     [01;31m[K^~~~~~~~~~[m[K
+      |     [32m[Krmw_publisher_t[m[K
+gmake[2]: *** [CMakeFiles/mbot_manager.dir/build.make:76: CMakeFiles/mbot_manager.dir/src/mbot_manager.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/mbot_manager.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

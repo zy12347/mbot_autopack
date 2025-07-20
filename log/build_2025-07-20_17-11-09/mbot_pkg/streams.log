@@ -1,0 +1,36 @@
+[0.068s] Invoking command in '/home/zy/ws/build/mbot_pkg': AMENT_PREFIX_PATH=/home/zy/ws/install/mbot_interface:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/opt/ros/humble LD_LIBRARY_PATH=/home/zy/ws/install/mbot_interface/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32
+[0.091s] [35m[1mConsolidate compiler generated dependencies of target mbot_manager[0m
+[0.100s] [ 50%] [32mBuilding CXX object CMakeFiles/mbot_manager.dir/src/mbot_manager.cpp.o[0m
+[1.473s] [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:[m[K In lambda function:
+[1.473s] [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:12:168:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KMbotManager::event_callback()[m[K’
+[1.473s]    12 | scription<mbot_interface::msg::Person>("mbot_topic", 10,[this](const mbot_interface::msg::Person::SharedPtr msg){[01;31m[Kthis->event_callback()[m[K;});
+[1.473s]       |                                                                                                                  [01;31m[K~~~~~~~~~~~~~~~~~~~~^~[m[K
+[1.473s] 
+[1.473s] [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:28:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kvoid MbotManager::event_callback(mbot_interface::msg::Person_<std::allocator<void> >::SharedPtr)[m[K’
+[1.473s]    28 |   void [01;36m[Kevent_callback[m[K(const mbot_interface::msg::Person::SharedPtr msg){
+[1.473s]       |        [01;36m[K^~~~~~~~~~~~~~[m[K
+[1.473s] [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:28:8:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[1.473s] [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:12:143:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kmsg[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[1.473s]    12 | _ = this->create_subscription<mbot_interface::msg::Person>("mbot_topic", 10,[this]([01;35m[Kconst mbot_interface::msg::Person::SharedPtr msg[m[K){this->event_callback();});
+[1.473s]       |                                                                                    [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~[m[K
+[1.473s] 
+[1.477s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:24[m[K,
+[1.477s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+[1.477s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+[1.477s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+[1.477s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[1.477s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[1.477s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[1.477s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[1.477s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[1.477s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[1.477s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[1.477s]                  from [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:4[m[K:
+[1.477s] [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:[m[K In member function ‘[01m[Kvoid MbotManager::event_callback(mbot_interface::msg::Person_<std::allocator<void> >::SharedPtr)[m[K’:
+[1.477s] [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:29:60:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing element_type = struct mbot_interface::msg::Person_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct mbot_interface::msg::Person_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kdata[m[K’
+[1.477s]    29 |     RCLCPP_INFO(this->get_logger(), "收到消息: '%s'", msg->[01;31m[Kdata[m[K.c_str());
+[1.477s]       |                                                            [01;31m[K^~~~[m[K
+[2.986s] gmake[2]: *** [CMakeFiles/mbot_manager.dir/build.make:76: CMakeFiles/mbot_manager.dir/src/mbot_manager.cpp.o] Error 1
+[2.986s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/mbot_manager.dir/all] Error 2
+[2.986s] gmake: *** [Makefile:146: all] Error 2
+[2.989s] Invoked command in '/home/zy/ws/build/mbot_pkg' returned '2': AMENT_PREFIX_PATH=/home/zy/ws/install/mbot_interface:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/opt/ros/humble LD_LIBRARY_PATH=/home/zy/ws/install/mbot_interface/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32

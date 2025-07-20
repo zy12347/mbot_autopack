@@ -1,0 +1,108 @@
+[0.071s] Invoking command in '/home/zy/ws/build/mbot_pkg': AMENT_PREFIX_PATH=/home/zy/ws/install/mbot_interface:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/opt/ros/humble LD_LIBRARY_PATH=/home/zy/ws/install/mbot_interface/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32
+[0.131s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.233s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.371s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.378s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.401s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.444s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.471s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.519s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.522s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[3.844s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[3.907s] -- Found mbot_interface: 0.0.0 (/home/zy/ws/install/mbot_interface/share/mbot_interface/cmake)
+[3.918s] -- Found gazebo_ros: 3.9.0 (/opt/ros/humble/share/gazebo_ros/cmake)
+[3.930s] -- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+[3.931s] -- Checking for module 'bullet>=2.82'
+[3.941s] --   Found bullet, version 3.05
+[4.048s] -- Found fcl: /usr/include (found suitable version "0.7.0", minimum required is "0.5.0") 
+[4.077s] -- Found assimp: /usr/include (found version "5.2.0") 
+[4.103s] -- Found DART: /usr/include (Required is at least version "6.6") found components: dart 
+[4.130s] -- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found suitable version "1.74.0", minimum required is "1.40.0") found components: thread system filesystem program_options regex iostreams date_time 
+[4.549s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found version "3.12.4") 
+[4.554s] -- Looking for ignition-math6 -- found version 6.15.1
+[4.564s] -- Searching for dependencies of ignition-math6
+[4.566s] -- Looking for OGRE...
+[4.566s] -- OGRE_PREFIX_WATCH changed.
+[4.570s] -- Checking for module 'OGRE'
+[4.577s] --   Found OGRE, version 1.9.0
+[4.598s] -- Found Ogre Ghadamon (1.9.0)
+[4.896s] -- Found OGRE: optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so
+[4.902s] -- Looking for OGRE_Paging...
+[5.149s] -- Found OGRE_Paging: optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so
+[5.149s] -- Looking for OGRE_Terrain...
+[5.435s] -- Found OGRE_Terrain: optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so
+[5.435s] -- Looking for OGRE_Property...
+[5.735s] -- Found OGRE_Property: optimized;/usr/lib/x86_64-linux-gnu/libOgreProperty.so;debug;/usr/lib/x86_64-linux-gnu/libOgreProperty.so
+[5.735s] -- Looking for OGRE_RTShaderSystem...
+[6.106s] -- Found OGRE_RTShaderSystem: optimized;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so;debug;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so
+[6.107s] -- Looking for OGRE_Volume...
+[6.381s] -- Found OGRE_Volume: optimized;/usr/lib/x86_64-linux-gnu/libOgreVolume.so;debug;/usr/lib/x86_64-linux-gnu/libOgreVolume.so
+[6.381s] -- Looking for OGRE_Overlay...
+[6.608s] -- Found OGRE_Overlay: optimized;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so;debug;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so
+[18.706s] -- Looking for ignition-math6 -- found version 6.15.1
+[18.711s] -- Looking for ignition-transport8 -- found version 8.2.1
+[18.711s] -- Searching for dependencies of ignition-transport8
+[19.486s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found suitable version "3.12.4", minimum required is "3") 
+[20.269s] -- Config-file not installed for ZeroMQ -- checking for pkg-config
+[20.273s] -- Checking for module 'libzmq >= 4'
+[20.290s] --   Found libzmq , version 4.3.4
+[20.309s] -- Found ZeroMQ: TRUE (Required is at least version "4") 
+[20.338s] -- Checking for module 'uuid'
+[20.345s] --   Found uuid, version 2.37.2
+[20.362s] -- Found UUID: TRUE  
+[20.364s] -- Looking for ignition-msgs5 -- found version 5.8.1
+[20.364s] -- Searching for dependencies of ignition-msgs5
+[21.131s] -- Looking for ignition-math6 -- found version 6.15.1
+[21.137s] -- Checking for module 'tinyxml2'
+[21.144s] --   Found tinyxml2, version 9.0.0
+[21.164s] -- Looking for ignition-msgs5 -- found version 5.8.1
+[21.167s] -- Looking for ignition-common3 -- found version 3.14.0
+[21.167s] -- Searching for dependencies of ignition-common3
+[21.197s] -- Looking for dlfcn.h - found
+[21.219s] -- Looking for libdl - found
+[21.220s] -- Found DL: TRUE  
+[21.270s] -- Found tinyobjloader: /usr/lib/x86_64-linux-gnu/cmake/tinyobjloader/tinyobjloader-config.cmake (found version "2.0.0") 
+[21.271s] -- Searching for <ignition-common3> component [graphics]
+[21.272s] -- Looking for ignition-common3-graphics -- found version 3.14.0
+[21.273s] -- Searching for dependencies of ignition-common3-graphics
+[21.273s] -- Looking for ignition-math6 -- found version 6.15.1
+[21.275s] -- Looking for ignition-fuel_tools4 -- found version 4.4.0
+[21.276s] -- Searching for dependencies of ignition-fuel_tools4
+[22.154s] -- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.81.0")  
+[22.161s] -- Checking for module 'jsoncpp'
+[22.168s] --   Found jsoncpp, version 1.9.5
+[22.190s] -- Found JSONCPP: TRUE  
+[22.194s] -- Checking for module 'libzip'
+[22.202s] --   Found libzip, version 1.7.3
+[22.219s] -- Found ZIP: TRUE  
+[22.220s] -- Looking for ignition-common3 -- found version 3.14.0
+[22.220s] -- Looking for ignition-math6 -- found version 6.15.1
+[22.220s] -- Looking for ignition-msgs5 -- found version 5.8.1
+[22.225s] -- Gazebo version: 11.10
+[22.225s] -- Checking for module 'tbb'
+[22.233s] --   Found tbb, version 2021.5.0
+[22.252s] -- Found gazebo_plugins: 3.9.0 (/opt/ros/humble/share/gazebo_plugins/cmake)
+[22.309s] -- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+[23.138s] -- Found xacro: 2.0.13 (/opt/ros/humble/share/xacro/cmake)
+[23.141s] -- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[23.929s] [31mCMake Error at CMakeLists.txt:19 (find_package):
+[23.929s]   By not providing "Findgazebo_ros_diff_drive.cmake" in CMAKE_MODULE_PATH
+[23.929s]   this project has asked CMake to find a package configuration file provided
+[23.929s]   by "gazebo_ros_diff_drive", but CMake did not find one.
+[23.929s] 
+[23.929s]   Could not find a package configuration file provided by
+[23.929s]   "gazebo_ros_diff_drive" with any of the following names:
+[23.929s] 
+[23.930s]     gazebo_ros_diff_driveConfig.cmake
+[23.930s]     gazebo_ros_diff_drive-config.cmake
+[23.930s] 
+[23.930s]   Add the installation prefix of "gazebo_ros_diff_drive" to CMAKE_PREFIX_PATH
+[23.930s]   or set "gazebo_ros_diff_drive_DIR" to a directory containing one of the
+[23.930s]   above files.  If "gazebo_ros_diff_drive" provides a separate development
+[23.930s]   package or SDK, be sure it has been installed.
+[23.930s] 
+[23.930s] [0m
+[23.930s] -- Configuring incomplete, errors occurred!
+[23.930s] See also "/home/zy/ws/build/mbot_pkg/CMakeFiles/CMakeOutput.log".
+[23.945s] gmake: *** [Makefile:267: cmake_check_build_system] Error 1
+[23.947s] Invoked command in '/home/zy/ws/build/mbot_pkg' returned '2': AMENT_PREFIX_PATH=/home/zy/ws/install/mbot_interface:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/opt/ros/humble LD_LIBRARY_PATH=/home/zy/ws/install/mbot_interface/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32

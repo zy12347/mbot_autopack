@@ -1,0 +1,2 @@
+Invoking command in '/home/zy/ws/build/mbot_interface': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/zy/ws/src/mbot_interface -DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/mbot_interface
+Invoked command in '/home/zy/ws/build/mbot_interface' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/zy/ws/src/mbot_interface -DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/mbot_interface

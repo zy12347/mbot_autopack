@@ -1,0 +1,254 @@
+[0.000000] (-) TimerEvent: {}
+[0.000140] (-) JobUnselected: {'identifier': 'control'}
+[0.000171] (-) JobUnselected: {'identifier': 'mbot_pkg'}
+[0.000193] (-) JobUnselected: {'identifier': 'navigation'}
+[0.000202] (-) JobUnselected: {'identifier': 'perception'}
+[0.000224] (-) JobUnselected: {'identifier': 'slam'}
+[0.000254] (mbot_interface) JobQueued: {'identifier': 'mbot_interface', 'dependencies': OrderedDict()}
+[0.001424] (mbot_interface) JobStarted: {'identifier': 'mbot_interface'}
+[0.006853] (mbot_interface) JobProgress: {'identifier': 'mbot_interface', 'progress': 'cmake'}
+[0.008928] (mbot_interface) Command: {'cmd': ['/usr/bin/cmake', '/home/zy/ws/src/mbot_interface', '-DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/mbot_interface'], 'cwd': '/home/zy/ws/build/mbot_interface', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'zy'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/zy'), ('OLDPWD', '/home/zy'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/zy/ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'zy'), ('NAME', 'PCZY'), ('WSL_INTEROP', '/run/WSL/5617_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/c/Users/Administrator/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/HP/OMEN-Broadcast/Common:/mnt/d/SoftWares/cursor/resources/app/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/d/WechatDeveloper/微信web开发者工具/dll:/mnt/d/Git/cmd:/mnt/d/Git/bin:/mnt/c/Users/13689/AppData/Local/Microsoft/WindowsApps:/mnt/d/SoftWares/cursor/resources/app/bin:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/zy/ws/build/mbot_interface'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('WSLENV', ''), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.017881] (mbot_interface) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.080327] (mbot_interface) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[0.080978] (mbot_interface) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.082162] (mbot_interface) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.100079] (-) TimerEvent: {}
+[0.173263] (mbot_interface) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.200988] (-) TimerEvent: {}
+[0.303660] (-) TimerEvent: {}
+[0.323561] (mbot_interface) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[0.405819] (-) TimerEvent: {}
+[0.428451] (mbot_interface) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.506333] (-) TimerEvent: {}
+[0.609032] (-) TimerEvent: {}
+[0.611878] (mbot_interface) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.711175] (-) TimerEvent: {}
+[0.723118] (mbot_interface) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") \n'}
+[0.724840] (mbot_interface) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[0.813124] (-) TimerEvent: {}
+[0.915732] (-) TimerEvent: {}
+[1.000255] (mbot_interface) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") \n'}
+[1.000447] (mbot_interface) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[1.000479] (mbot_interface) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[1.000506] (mbot_interface) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[1.011457] (mbot_interface) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[1.015907] (-) TimerEvent: {}
+[1.060843] (mbot_interface) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[1.081737] (mbot_interface) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.082753] (mbot_interface) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[1.085170] (mbot_interface) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.109392] (mbot_interface) StdoutLine: {'line': b'-- Generating done\n'}
+[1.114717] (mbot_interface) StdoutLine: {'line': b'-- Build files have been written to: /home/zy/ws/build/mbot_interface\n'}
+[1.116123] (-) TimerEvent: {}
+[1.119156] (mbot_interface) CommandEnded: {'returncode': 0}
+[1.120892] (mbot_interface) JobProgress: {'identifier': 'mbot_interface', 'progress': 'build'}
+[1.120946] (mbot_interface) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/zy/ws/build/mbot_interface', '--', '-j32', '-l32'], 'cwd': '/home/zy/ws/build/mbot_interface', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'zy'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/zy'), ('OLDPWD', '/home/zy'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/zy/ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'zy'), ('NAME', 'PCZY'), ('WSL_INTEROP', '/run/WSL/5617_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/c/Users/Administrator/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/HP/OMEN-Broadcast/Common:/mnt/d/SoftWares/cursor/resources/app/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/d/WechatDeveloper/微信web开发者工具/dll:/mnt/d/Git/cmd:/mnt/d/Git/bin:/mnt/c/Users/13689/AppData/Local/Microsoft/WindowsApps:/mnt/d/SoftWares/cursor/resources/app/bin:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/zy/ws/build/mbot_interface'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('WSLENV', ''), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[1.142766] (mbot_interface) StdoutLine: {'line': b'[  3%] \x1b[34m\x1b[1mGenerating C code for ROS interfaces\x1b[0m\n'}
+[1.148984] (mbot_interface) StdoutLine: {'line': b'[  6%] \x1b[34m\x1b[1mGenerating C++ code for ROS interfaces\x1b[0m\n'}
+[1.155531] (mbot_interface) StdoutLine: {'line': b'[  6%] Built target ament_cmake_python_copy_mbot_interface\n'}
+[1.216534] (-) TimerEvent: {}
+[1.295319] (mbot_interface) StdoutLine: {'line': b'running egg_info\n'}
+[1.295928] (mbot_interface) StdoutLine: {'line': b'creating mbot_interface.egg-info\n'}
+[1.296010] (mbot_interface) StdoutLine: {'line': b'writing mbot_interface.egg-info/PKG-INFO\n'}
+[1.296748] (mbot_interface) StdoutLine: {'line': b'writing dependency_links to mbot_interface.egg-info/dependency_links.txt\n'}
+[1.296886] (mbot_interface) StdoutLine: {'line': b'writing top-level names to mbot_interface.egg-info/top_level.txt\n'}
+[1.297424] (mbot_interface) StdoutLine: {'line': b"writing manifest file 'mbot_interface.egg-info/SOURCES.txt'\n"}
+[1.297548] (mbot_interface) StdoutLine: {'line': b'[  6%] Built target mbot_interface__cpp\n'}
+[1.302424] (mbot_interface) StdoutLine: {'line': b"reading manifest file 'mbot_interface.egg-info/SOURCES.txt'\n"}
+[1.303002] (mbot_interface) StdoutLine: {'line': b"writing manifest file 'mbot_interface.egg-info/SOURCES.txt'\n"}
+[1.306180] (mbot_interface) StdoutLine: {'line': b'[  9%] \x1b[34m\x1b[1mGenerating C++ type support for eProsima Fast-RTPS\x1b[0m\n'}
+[1.306643] (mbot_interface) StdoutLine: {'line': b'[ 12%] \x1b[34m\x1b[1mGenerating C++ type support dispatch for ROS interfaces\x1b[0m\n'}
+[1.306787] (mbot_interface) StdoutLine: {'line': b'[ 16%] \x1b[34m\x1b[1mGenerating C++ introspection for ROS interfaces\x1b[0m\n'}
+[1.307231] (mbot_interface) StdoutLine: {'line': b'[ 19%] \x1b[32mBuilding C object CMakeFiles/mbot_interface__rosidl_generator_c.dir/rosidl_generator_c/mbot_interface/msg/detail/person__functions.c.o\x1b[0m\n'}
+[1.317068] (-) TimerEvent: {}
+[1.325571] (mbot_interface) StdoutLine: {'line': b'[ 19%] Built target ament_cmake_python_build_mbot_interface_egg\n'}
+[1.389015] (mbot_interface) StdoutLine: {'line': b'[ 22%] \x1b[32m\x1b[1mLinking C shared library libmbot_interface__rosidl_generator_c.so\x1b[0m\n'}
+[1.417959] (-) TimerEvent: {}
+[1.451207] (mbot_interface) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/mbot_interface__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/mbot_interface/msg/person__type_support.cpp.o\x1b[0m\n'}
+[1.463250] (mbot_interface) StdoutLine: {'line': b'[ 29%] \x1b[32mBuilding CXX object CMakeFiles/mbot_interface__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/mbot_interface/msg/detail/person__type_support.cpp.o\x1b[0m\n'}
+[1.469670] (mbot_interface) StdoutLine: {'line': b'[ 32%] \x1b[32mBuilding CXX object CMakeFiles/mbot_interface__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/mbot_interface/msg/detail/dds_fastrtps/person__type_support.cpp.o\x1b[0m\n'}
+[1.513048] (mbot_interface) StdoutLine: {'line': b'[ 32%] Built target mbot_interface__rosidl_generator_c\n'}
+[1.518336] (-) TimerEvent: {}
+[1.520642] (mbot_interface) StdoutLine: {'line': b'[ 35%] \x1b[34m\x1b[1mGenerating C type support for eProsima Fast-RTPS\x1b[0m\n'}
+[1.520990] (mbot_interface) StdoutLine: {'line': b'[ 38%] \x1b[34m\x1b[1mGenerating C type support dispatch for ROS interfaces\x1b[0m\n'}
+[1.521153] (mbot_interface) StdoutLine: {'line': b'[ 41%] \x1b[34m\x1b[1mGenerating C introspection for ROS interfaces\x1b[0m\n'}
+[1.620884] (-) TimerEvent: {}
+[1.677389] (mbot_interface) StdoutLine: {'line': b'[ 45%] \x1b[32mBuilding CXX object CMakeFiles/mbot_interface__rosidl_typesupport_c.dir/rosidl_typesupport_c/mbot_interface/msg/person__type_support.cpp.o\x1b[0m\n'}
+[1.683261] (mbot_interface) StdoutLine: {'line': b'[ 48%] \x1b[32m\x1b[1mLinking CXX shared library libmbot_interface__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[1.694519] (mbot_interface) StdoutLine: {'line': b'[ 51%] \x1b[32mBuilding CXX object CMakeFiles/mbot_interface__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/mbot_interface/msg/detail/person__type_support_c.cpp.o\x1b[0m\n'}
+[1.695674] (mbot_interface) StdoutLine: {'line': b'[ 54%] \x1b[32mBuilding C object CMakeFiles/mbot_interface__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/mbot_interface/msg/detail/person__type_support.c.o\x1b[0m\n'}
+[1.701183] (mbot_interface) StdoutLine: {'line': b'[ 58%] \x1b[32m\x1b[1mLinking CXX shared library libmbot_interface__rosidl_typesupport_c.so\x1b[0m\n'}
+[1.721296] (-) TimerEvent: {}
+[1.721951] (mbot_interface) StdoutLine: {'line': b'[ 61%] \x1b[32m\x1b[1mLinking C shared library libmbot_interface__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[1.769702] (mbot_interface) StdoutLine: {'line': b'[ 64%] \x1b[32m\x1b[1mLinking CXX shared library libmbot_interface__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[1.771375] (mbot_interface) StdoutLine: {'line': b'[ 67%] \x1b[32m\x1b[1mLinking CXX shared library libmbot_interface__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[1.821483] (-) TimerEvent: {}
+[1.851617] (mbot_interface) StdoutLine: {'line': b'[ 67%] Built target mbot_interface__rosidl_typesupport_cpp\n'}
+[1.851953] (mbot_interface) StdoutLine: {'line': b'[ 67%] Built target mbot_interface__rosidl_typesupport_c\n'}
+[1.887907] (mbot_interface) StdoutLine: {'line': b'[ 67%] Built target mbot_interface__rosidl_typesupport_introspection_c\n'}
+[1.909443] (mbot_interface) StdoutLine: {'line': b'[ 70%] \x1b[32m\x1b[1mLinking CXX shared library libmbot_interface__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[1.909873] (mbot_interface) StdoutLine: {'line': b'[ 70%] Built target mbot_interface__rosidl_typesupport_introspection_cpp\n'}
+[1.922072] (-) TimerEvent: {}
+[1.935386] (mbot_interface) StdoutLine: {'line': b'[ 70%] Built target mbot_interface__rosidl_typesupport_fastrtps_cpp\n'}
+[2.019541] (mbot_interface) StdoutLine: {'line': b'[ 70%] Built target mbot_interface__rosidl_typesupport_fastrtps_c\n'}
+[2.022429] (-) TimerEvent: {}
+[2.031055] (mbot_interface) StdoutLine: {'line': b'[ 70%] Built target mbot_interface\n'}
+[2.042559] (mbot_interface) StdoutLine: {'line': b'[ 74%] \x1b[34m\x1b[1mGenerating Python code for ROS interfaces\x1b[0m\n'}
+[2.124626] (-) TimerEvent: {}
+[2.192411] (mbot_interface) StdoutLine: {'line': b'[ 74%] Built target mbot_interface__py\n'}
+[2.203422] (mbot_interface) StdoutLine: {'line': b'[ 77%] \x1b[32mBuilding C object CMakeFiles/mbot_interface__rosidl_generator_py.dir/rosidl_generator_py/mbot_interface/msg/_person_s.c.o\x1b[0m\n'}
+[2.225204] (-) TimerEvent: {}
+[2.300018] (mbot_interface) StdoutLine: {'line': b'[ 80%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/mbot_interface/libmbot_interface__rosidl_generator_py.so\x1b[0m\n'}
+[2.325858] (-) TimerEvent: {}
+[2.372492] (mbot_interface) StdoutLine: {'line': b'[ 80%] Built target mbot_interface__rosidl_generator_py\n'}
+[2.384861] (mbot_interface) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding C object CMakeFiles/mbot_interface__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/mbot_interface/_mbot_interface_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[2.385064] (mbot_interface) StdoutLine: {'line': b'[ 87%] \x1b[32mBuilding C object CMakeFiles/mbot_interface__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/mbot_interface/_mbot_interface_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[2.385495] (mbot_interface) StdoutLine: {'line': b'[ 90%] \x1b[32mBuilding C object CMakeFiles/mbot_interface__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/mbot_interface/_mbot_interface_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[2.426045] (-) TimerEvent: {}
+[2.444502] (mbot_interface) StdoutLine: {'line': b'[ 96%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/mbot_interface/mbot_interface_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[2.444697] (mbot_interface) StdoutLine: {'line': b'[ 96%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/mbot_interface/mbot_interface_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[2.445849] (mbot_interface) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/mbot_interface/mbot_interface_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[2.512055] (mbot_interface) StdoutLine: {'line': b'[100%] Built target mbot_interface__rosidl_typesupport_c__pyext\n'}
+[2.512638] (mbot_interface) StdoutLine: {'line': b'[100%] Built target mbot_interface__rosidl_typesupport_introspection_c__pyext\n'}
+[2.513113] (mbot_interface) StdoutLine: {'line': b'[100%] Built target mbot_interface__rosidl_typesupport_fastrtps_c__pyext\n'}
+[2.519726] (mbot_interface) CommandEnded: {'returncode': 0}
+[2.520512] (mbot_interface) JobProgress: {'identifier': 'mbot_interface', 'progress': 'install'}
+[2.525281] (mbot_interface) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/zy/ws/build/mbot_interface'], 'cwd': '/home/zy/ws/build/mbot_interface', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'zy'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/zy'), ('OLDPWD', '/home/zy'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/zy/ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'zy'), ('NAME', 'PCZY'), ('WSL_INTEROP', '/run/WSL/5617_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/c/Users/Administrator/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/HP/OMEN-Broadcast/Common:/mnt/d/SoftWares/cursor/resources/app/bin:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/d/WechatDeveloper/微信web开发者工具/dll:/mnt/d/Git/cmd:/mnt/d/Git/bin:/mnt/c/Users/13689/AppData/Local/Microsoft/WindowsApps:/mnt/d/SoftWares/cursor/resources/app/bin:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/zy/ws/build/mbot_interface'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('WSLENV', ''), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[2.526135] (-) TimerEvent: {}
+[2.529739] (mbot_interface) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[2.530299] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/ament_index/resource_index/rosidl_interfaces/mbot_interface\n'}
+[2.530388] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface\n'}
+[2.530622] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg\n'}
+[2.531136] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/person.h\n'}
+[2.531348] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/rosidl_generator_c__visibility_control.h\n'}
+[2.531398] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail\n'}
+[2.531434] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__functions.h\n'}
+[2.531617] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__struct.h\n'}
+[2.531664] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__type_support.h\n'}
+[2.531699] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__functions.c\n'}
+[2.531895] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/environment/library_path.sh\n'}
+[2.531942] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/environment/library_path.dsv\n'}
+[2.532066] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_generator_c.so\n'}
+[2.532216] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_generator_c.so" to ""\n'}
+[2.532472] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface\n'}
+[2.532531] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg\n'}
+[2.532562] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[2.532589] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail\n'}
+[2.532614] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__rosidl_typesupport_fastrtps_c.h\n'}
+[2.532639] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_fastrtps_c.so\n'}
+[2.532789] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[2.532880] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface\n'}
+[2.532985] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg\n'}
+[2.533078] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[2.533265] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail\n'}
+[2.533307] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__rosidl_typesupport_introspection_c.h\n'}
+[2.533341] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__type_support.c\n'}
+[2.533367] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_introspection_c.so\n'}
+[2.533396] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_introspection_c.so" to ""\n'}
+[2.533424] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_c.so\n'}
+[2.533640] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_c.so" to ""\n'}
+[2.533748] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface\n'}
+[2.533781] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg\n'}
+[2.533815] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[2.533845] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/person.hpp\n'}
+[2.533873] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail\n'}
+[2.533947] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__builder.hpp\n'}
+[2.534041] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__traits.hpp\n'}
+[2.534132] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__type_support.hpp\n'}
+[2.534310] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__struct.hpp\n'}
+[2.534349] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface\n'}
+[2.534376] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg\n'}
+[2.534404] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[2.534432] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail\n'}
+[2.534459] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/dds_fastrtps\n'}
+[2.534506] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[2.534599] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_fastrtps_cpp.so\n'}
+[2.534772] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_fastrtps_cpp.so" to ""\n'}
+[2.534843] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface\n'}
+[2.534885] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg\n'}
+[2.535003] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail\n'}
+[2.535038] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__rosidl_typesupport_introspection_cpp.hpp\n'}
+[2.535072] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/include/mbot_interface/mbot_interface/msg/detail/person__type_support.cpp\n'}
+[2.535160] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_introspection_cpp.so\n'}
+[2.535494] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_introspection_cpp.so" to ""\n'}
+[2.535539] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_cpp.so\n'}
+[2.535569] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_typesupport_cpp.so" to ""\n'}
+[2.535600] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/environment/pythonpath.sh\n'}
+[2.535625] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/environment/pythonpath.dsv\n'}
+[2.535925] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface-0.0.0-py3.10.egg-info\n'}
+[2.536126] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface-0.0.0-py3.10.egg-info/top_level.txt\n'}
+[2.536183] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface-0.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[2.536344] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface-0.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[2.536421] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface-0.0.0-py3.10.egg-info/PKG-INFO\n'}
+[2.536452] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface\n'}
+[2.536520] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/_mbot_interface_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[2.536564] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/mbot_interface_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.536679] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/_mbot_interface_s.ep.rosidl_typesupport_c.c\n'}
+[2.536887] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/mbot_interface_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.537179] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/msg\n'}
+[2.537233] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/msg/__init__.py\n'}
+[2.537266] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/msg/_person_s.c\n'}
+[2.537292] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/msg/_person.py\n'}
+[2.537328] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/mbot_interface_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.537356] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/__init__.py\n'}
+[2.537592] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/_mbot_interface_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[2.537642] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/libmbot_interface__rosidl_generator_py.so\n'}
+[2.557143] (mbot_interface) StdoutLine: {'line': b"Listing '/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface'...\n"}
+[2.557239] (mbot_interface) StdoutLine: {'line': b"Compiling '/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/__init__.py'...\n"}
+[2.557269] (mbot_interface) StdoutLine: {'line': b"Listing '/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/msg'...\n"}
+[2.557294] (mbot_interface) StdoutLine: {'line': b"Compiling '/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/msg/__init__.py'...\n"}
+[2.557318] (mbot_interface) StdoutLine: {'line': b"Compiling '/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/msg/_person.py'...\n"}
+[2.559991] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/mbot_interface_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.560078] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/mbot_interface_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[2.560103] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/mbot_interface_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.560204] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/mbot_interface_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[2.560504] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/mbot_interface_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[2.560980] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages/mbot_interface/mbot_interface_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[2.561094] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_generator_py.so\n'}
+[2.561132] (mbot_interface) StdoutLine: {'line': b'-- Set runtime path of "/home/zy/ws/install/mbot_interface/lib/libmbot_interface__rosidl_generator_py.so" to ""\n'}
+[2.561159] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/msg/Person.idl\n'}
+[2.561188] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/msg/Person.msg\n'}
+[2.561302] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/share/mbot_interface/msg\n'}
+[2.561334] (mbot_interface) StdoutLine: {'line': b'-- Up-to-date: /home/zy/ws/install/mbot_interface/share/mbot_interface/msg/Person.msg\n'}
+[2.561362] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/ament_index/resource_index/package_run_dependencies/mbot_interface\n'}
+[2.561425] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/ament_index/resource_index/parent_prefix_path/mbot_interface\n'}
+[2.561464] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/environment/ament_prefix_path.sh\n'}
+[2.561494] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/environment/ament_prefix_path.dsv\n'}
+[2.561654] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/environment/path.sh\n'}
+[2.561695] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/environment/path.dsv\n'}
+[2.561725] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/local_setup.bash\n'}
+[2.561751] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/local_setup.sh\n'}
+[2.561779] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/local_setup.zsh\n'}
+[2.561889] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/local_setup.dsv\n'}
+[2.561926] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/package.dsv\n'}
+[2.562003] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/ament_index/resource_index/packages/mbot_interface\n'}
+[2.562174] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/export_mbot_interface__rosidl_generator_cExport.cmake\n'}
+[2.562282] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/export_mbot_interface__rosidl_generator_cExport-noconfig.cmake\n'}
+[2.562368] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/export_mbot_interface__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[2.562649] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/export_mbot_interface__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[2.562700] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/mbot_interface__rosidl_typesupport_introspection_cExport.cmake\n'}
+[2.562733] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/mbot_interface__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[2.563048] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/mbot_interface__rosidl_typesupport_cExport.cmake\n'}
+[2.563157] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/mbot_interface__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[2.563268] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/export_mbot_interface__rosidl_generator_cppExport.cmake\n'}
+[2.563356] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/export_mbot_interface__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[2.563482] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/export_mbot_interface__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[2.563519] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/mbot_interface__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[2.563551] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/mbot_interface__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[2.563794] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/mbot_interface__rosidl_typesupport_cppExport.cmake\n'}
+[2.563844] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/mbot_interface__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[2.563875] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/export_mbot_interface__rosidl_generator_pyExport.cmake\n'}
+[2.564030] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/export_mbot_interface__rosidl_generator_pyExport-noconfig.cmake\n'}
+[2.564074] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/rosidl_cmake-extras.cmake\n'}
+[2.564104] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[2.564291] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[2.564341] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[2.564372] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[2.564526] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[2.564574] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[2.564809] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/mbot_interfaceConfig.cmake\n'}
+[2.564885] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/cmake/mbot_interfaceConfig-version.cmake\n'}
+[2.564919] (mbot_interface) StdoutLine: {'line': b'-- Installing: /home/zy/ws/install/mbot_interface/share/mbot_interface/package.xml\n'}
+[2.566162] (mbot_interface) CommandEnded: {'returncode': 0}
+[2.579118] (mbot_interface) JobEnded: {'identifier': 'mbot_interface', 'rc': 0}
+[2.580133] (-) EventReactorShutdown: {}

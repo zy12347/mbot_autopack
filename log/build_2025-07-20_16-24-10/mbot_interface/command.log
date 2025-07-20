@@ -1,0 +1,6 @@
+Invoking command in '/home/zy/ws/build/mbot_interface': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/zy/ws/src/mbot_interface -DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/mbot_interface
+Invoked command in '/home/zy/ws/build/mbot_interface' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/zy/ws/src/mbot_interface -DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/mbot_interface
+Invoking command in '/home/zy/ws/build/mbot_interface': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/mbot_interface -- -j32 -l32
+Invoked command in '/home/zy/ws/build/mbot_interface' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/mbot_interface -- -j32 -l32
+Invoking command in '/home/zy/ws/build/mbot_interface': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/zy/ws/build/mbot_interface
+Invoked command in '/home/zy/ws/build/mbot_interface' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/zy/ws/build/mbot_interface

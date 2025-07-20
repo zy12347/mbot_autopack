@@ -1,0 +1,22 @@
+[35m[1mConsolidate compiler generated dependencies of target control_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/control_node.dir/src/control_node.cpp.o[0m
+[100%] [32m[1mLinking CXX executable control_node[0m
+[100%] Built target control_node
+-- Install configuration: ""
+-- Installing: /home/zy/ws/install/control/lib/control/control_node
+-- Set runtime path of "/home/zy/ws/install/control/lib/control/control_node" to ""
+-- Installing: /home/zy/ws/install/control/share/ament_index/resource_index/package_run_dependencies/control
+-- Installing: /home/zy/ws/install/control/share/ament_index/resource_index/parent_prefix_path/control
+-- Installing: /home/zy/ws/install/control/share/control/environment/ament_prefix_path.sh
+-- Installing: /home/zy/ws/install/control/share/control/environment/ament_prefix_path.dsv
+-- Installing: /home/zy/ws/install/control/share/control/environment/path.sh
+-- Installing: /home/zy/ws/install/control/share/control/environment/path.dsv
+-- Installing: /home/zy/ws/install/control/share/control/local_setup.bash
+-- Installing: /home/zy/ws/install/control/share/control/local_setup.sh
+-- Installing: /home/zy/ws/install/control/share/control/local_setup.zsh
+-- Installing: /home/zy/ws/install/control/share/control/local_setup.dsv
+-- Installing: /home/zy/ws/install/control/share/control/package.dsv
+-- Installing: /home/zy/ws/install/control/share/ament_index/resource_index/packages/control
+-- Installing: /home/zy/ws/install/control/share/control/cmake/controlConfig.cmake
+-- Installing: /home/zy/ws/install/control/share/control/cmake/controlConfig-version.cmake
+-- Installing: /home/zy/ws/install/control/share/control/package.xml

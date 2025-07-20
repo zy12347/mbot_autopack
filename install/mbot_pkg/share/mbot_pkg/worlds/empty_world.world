@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+    <!-- 添加地面 -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    
+    <!-- 添加光源 -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    
+    <!-- ROS 2插件 -->
+    <plugin name="ros_gazebo" filename="libgazebo_ros_init.so"/>
+    <plugin name="ros_gazebo_factory" filename="libgazebo_ros_factory.so"/>
+  </world>
+</sdf>

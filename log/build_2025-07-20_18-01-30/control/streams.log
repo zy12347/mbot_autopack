@@ -1,0 +1,26 @@
+[0.009s] Invoking command in '/home/zy/ws/build/control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/control -- -j32 -l32
+[0.033s] [35m[1mConsolidate compiler generated dependencies of target control_node[0m
+[0.042s] [ 50%] [32mBuilding CXX object CMakeFiles/control_node.dir/src/control_node.cpp.o[0m
+[2.312s] [100%] [32m[1mLinking CXX executable control_node[0m
+[2.452s] [100%] Built target control_node
+[2.459s] Invoked command in '/home/zy/ws/build/control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/control -- -j32 -l32
+[2.465s] Invoking command in '/home/zy/ws/build/control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/zy/ws/build/control
+[2.468s] -- Install configuration: ""
+[2.469s] -- Installing: /home/zy/ws/install/control/lib/control/control_node
+[2.469s] -- Set runtime path of "/home/zy/ws/install/control/lib/control/control_node" to ""
+[2.469s] -- Installing: /home/zy/ws/install/control/share/ament_index/resource_index/package_run_dependencies/control
+[2.470s] -- Installing: /home/zy/ws/install/control/share/ament_index/resource_index/parent_prefix_path/control
+[2.470s] -- Installing: /home/zy/ws/install/control/share/control/environment/ament_prefix_path.sh
+[2.470s] -- Installing: /home/zy/ws/install/control/share/control/environment/ament_prefix_path.dsv
+[2.470s] -- Installing: /home/zy/ws/install/control/share/control/environment/path.sh
+[2.470s] -- Installing: /home/zy/ws/install/control/share/control/environment/path.dsv
+[2.470s] -- Installing: /home/zy/ws/install/control/share/control/local_setup.bash
+[2.471s] -- Installing: /home/zy/ws/install/control/share/control/local_setup.sh
+[2.471s] -- Installing: /home/zy/ws/install/control/share/control/local_setup.zsh
+[2.471s] -- Installing: /home/zy/ws/install/control/share/control/local_setup.dsv
+[2.471s] -- Installing: /home/zy/ws/install/control/share/control/package.dsv
+[2.471s] -- Installing: /home/zy/ws/install/control/share/ament_index/resource_index/packages/control
+[2.471s] -- Installing: /home/zy/ws/install/control/share/control/cmake/controlConfig.cmake
+[2.471s] -- Installing: /home/zy/ws/install/control/share/control/cmake/controlConfig-version.cmake
+[2.471s] -- Installing: /home/zy/ws/install/control/share/control/package.xml
+[2.473s] Invoked command in '/home/zy/ws/build/control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/zy/ws/build/control

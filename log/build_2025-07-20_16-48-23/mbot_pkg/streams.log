@@ -1,0 +1,15 @@
+[0.139s] Invoking command in '/home/zy/ws/build/mbot_pkg': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32
+[0.163s] [35m[1mConsolidate compiler generated dependencies of target mbot_manager[0m
+[0.173s] [ 50%] [32mBuilding CXX object CMakeFiles/mbot_manager.dir/src/mbot_manager.cpp.o[0m
+[1.398s] [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:28:2:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ after class definition
+[1.398s]    28 | }
+[1.398s]       |  [01;31m[K^[m[K
+[1.398s]       |  [32m[K;[m[K
+[1.403s] [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:[m[K In constructor ‘[01m[KMbotManager::MbotManager()[m[K’:
+[1.403s] [01m[K/home/zy/ws/src/mbot_pkg/src/mbot_manager.cpp:12:74:[m[K [01;31m[Kerror: [m[K‘[01m[Kfrequency[m[K’ was not declared in this scope
+[1.403s]    12 |     timer_ = this->create_wall_timer(std::chrono::duration<double>(1.0 / [01;31m[Kfrequency[m[K),
+[1.403s]       |                                                                          [01;31m[K^~~~~~~~~[m[K
+[1.839s] gmake[2]: *** [CMakeFiles/mbot_manager.dir/build.make:76: CMakeFiles/mbot_manager.dir/src/mbot_manager.cpp.o] Error 1
+[1.839s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/mbot_manager.dir/all] Error 2
+[1.840s] gmake: *** [Makefile:146: all] Error 2
+[1.843s] Invoked command in '/home/zy/ws/build/mbot_pkg' returned '2': CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/home/zy/ws/install/mbot_pkg:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32

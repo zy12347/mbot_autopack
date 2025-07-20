@@ -1,0 +1,4 @@
+Invoking command in '/home/zy/ws/build/control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/zy/ws/src/control -DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/control
+Invoked command in '/home/zy/ws/build/control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/zy/ws/src/control -DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/control
+Invoking command in '/home/zy/ws/build/control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/control -- -j32 -l32
+Invoked command in '/home/zy/ws/build/control' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/control -- -j32 -l32

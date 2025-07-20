@@ -1,0 +1,10 @@
+/home/zy/ws/build/mbot_pkg/CMakeFiles/uninstall.dir
+/home/zy/ws/build/mbot_pkg/CMakeFiles/mbot_pkg_uninstall.dir
+/home/zy/ws/build/mbot_pkg/CMakeFiles/mbot_manager.dir
+/home/zy/ws/build/mbot_pkg/CMakeFiles/test.dir
+/home/zy/ws/build/mbot_pkg/CMakeFiles/edit_cache.dir
+/home/zy/ws/build/mbot_pkg/CMakeFiles/rebuild_cache.dir
+/home/zy/ws/build/mbot_pkg/CMakeFiles/list_install_components.dir
+/home/zy/ws/build/mbot_pkg/CMakeFiles/install.dir
+/home/zy/ws/build/mbot_pkg/CMakeFiles/install/local.dir
+/home/zy/ws/build/mbot_pkg/CMakeFiles/install/strip.dir

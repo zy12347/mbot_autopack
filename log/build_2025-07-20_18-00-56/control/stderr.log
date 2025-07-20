@@ -1,0 +1,10 @@
+[01m[K/home/zy/ws/src/control/src/control_node.cpp:[m[K In constructor ‘[01m[KMotionController::MotionController()[m[K’:
+[01m[K/home/zy/ws/src/control/src/control_node.cpp:11:10:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Kgeometry_msgs::msg::Twist[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::Twist_<std::allocator<void> >[m[K’}
+   11 |     twist[01;31m[K->[m[Klinear.x = 0.2;
+      |          [01;31m[K^~[m[K
+[01m[K/home/zy/ws/src/control/src/control_node.cpp:12:10:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Kgeometry_msgs::msg::Twist[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::Twist_<std::allocator<void> >[m[K’}
+   12 |     twist[01;31m[K->[m[Kangular.z = 0.5;
+      |          [01;31m[K^~[m[K
+gmake[2]: *** [CMakeFiles/control_node.dir/build.make:76: CMakeFiles/control_node.dir/src/control_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/control_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

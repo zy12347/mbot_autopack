@@ -1,0 +1,8 @@
+setup.py
+mbot_interface/__init__.py
+mbot_interface.egg-info/PKG-INFO
+mbot_interface.egg-info/SOURCES.txt
+mbot_interface.egg-info/dependency_links.txt
+mbot_interface.egg-info/top_level.txt
+mbot_interface/msg/__init__.py
+mbot_interface/msg/_person.py

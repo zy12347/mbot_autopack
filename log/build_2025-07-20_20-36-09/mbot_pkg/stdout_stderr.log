@@ -1,0 +1,26 @@
+[100%] Built target mbot_manager
+-- Install configuration: ""
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/lib/mbot_pkg/mbot_manager
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/launch
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/launch/mbot.launch.py
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf/mbot_gazebo.urdf.xacro
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf/test.urdf
+-- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/urdf/mbot_base.urdf.xacro
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/worlds
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/worlds/empty_world.world
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/package_run_dependencies/mbot_pkg
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/parent_prefix_path/mbot_pkg
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/ament_prefix_path.sh
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/path.sh
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/path.dsv
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.bash
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.sh
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.zsh
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.dsv
+-- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/package.dsv
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/packages/mbot_pkg
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/cmake/mbot_pkgConfig.cmake
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/cmake/mbot_pkgConfig-version.cmake
+-- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/package.xml

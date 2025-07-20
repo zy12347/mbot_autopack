@@ -1,0 +1,23 @@
+[0.085s] Invoking command in '/home/zy/ws/build/mbot_pkg': AMENT_PREFIX_PATH=/home/zy/ws/install/mbot_interface:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/opt/ros/humble LD_LIBRARY_PATH=/home/zy/ws/install/mbot_interface/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32
+[0.145s] [35m[1mConsolidate compiler generated dependencies of target mbot_manager[0m
+[0.155s] [100%] Built target mbot_manager
+[0.162s] Invoked command in '/home/zy/ws/build/mbot_pkg' returned '0': AMENT_PREFIX_PATH=/home/zy/ws/install/mbot_interface:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/opt/ros/humble LD_LIBRARY_PATH=/home/zy/ws/install/mbot_interface/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/zy/ws/build/mbot_pkg -- -j32 -l32
+[0.166s] Invoking command in '/home/zy/ws/build/mbot_pkg': AMENT_PREFIX_PATH=/home/zy/ws/install/mbot_interface:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/opt/ros/humble LD_LIBRARY_PATH=/home/zy/ws/install/mbot_interface/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/zy/ws/build/mbot_pkg
+[0.171s] -- Install configuration: ""
+[0.173s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/lib/mbot_pkg/mbot_manager
+[0.173s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/package_run_dependencies/mbot_pkg
+[0.173s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/parent_prefix_path/mbot_pkg
+[0.173s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/ament_prefix_path.sh
+[0.173s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/ament_prefix_path.dsv
+[0.174s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/path.sh
+[0.174s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/environment/path.dsv
+[0.174s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.bash
+[0.174s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.sh
+[0.174s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.zsh
+[0.174s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/local_setup.dsv
+[0.174s] -- Installing: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/package.dsv
+[0.174s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/ament_index/resource_index/packages/mbot_pkg
+[0.174s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/cmake/mbot_pkgConfig.cmake
+[0.174s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/cmake/mbot_pkgConfig-version.cmake
+[0.174s] -- Up-to-date: /home/zy/ws/install/mbot_pkg/share/mbot_pkg/package.xml
+[0.175s] Invoked command in '/home/zy/ws/build/mbot_pkg' returned '0': AMENT_PREFIX_PATH=/home/zy/ws/install/mbot_interface:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/zy/ws/install/mbot_interface:/opt/ros/humble LD_LIBRARY_PATH=/home/zy/ws/install/mbot_interface/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/zy/ws/install/mbot_interface/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/zy/ws/build/mbot_pkg

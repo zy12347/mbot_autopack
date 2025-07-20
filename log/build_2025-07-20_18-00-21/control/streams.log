@@ -1,0 +1,80 @@
+[0.007s] Invoking command in '/home/zy/ws/build/control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/zy/ws/src/control -DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/control
+[0.125s] -- The C compiler identification is GNU 11.4.0
+[0.381s] -- The CXX compiler identification is GNU 11.4.0
+[0.625s] -- Detecting C compiler ABI info
+[0.724s] -- Detecting C compiler ABI info - done
+[0.728s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.731s] -- Detecting C compile features
+[0.731s] -- Detecting C compile features - done
+[0.733s] -- Detecting CXX compiler ABI info
+[0.823s] -- Detecting CXX compiler ABI info - done
+[0.827s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.827s] -- Detecting CXX compile features
+[0.828s] -- Detecting CXX compile features - done
+[0.829s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.910s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.956s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[1.041s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.044s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.048s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.054s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.062s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.082s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.083s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.699s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[2.417s] -- Found FastRTPS: /opt/ros/humble/include  
+[3.692s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[3.697s] -- Looking for pthread.h
+[3.789s] -- Looking for pthread.h - found
+[3.789s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[3.883s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[3.884s] -- Found Threads: TRUE  
+[3.909s] -- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[3.916s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[3.958s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[3.958s] -- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/zy/ws/src/control/include>
+[3.958s] -- Configured cppcheck exclude dirs and/or files: 
+[3.959s] -- Added test 'lint_cmake' to check CMake code style
+[3.959s] -- Added test 'uncrustify' to check C / C++ code style
+[3.959s] -- Configured uncrustify additional arguments: 
+[3.960s] -- Added test 'xmllint' to check XML markup files
+[3.961s] -- Configuring done
+[3.966s] -- Generating done
+[3.968s] -- Build files have been written to: /home/zy/ws/build/control
+[3.975s] Invoked command in '/home/zy/ws/build/control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/zy/ws/src/control -DCMAKE_INSTALL_PREFIX=/home/zy/ws/install/control
+[3.975s] Invoking command in '/home/zy/ws/build/control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/control -- -j32 -l32
+[4.002s] [ 50%] [32mBuilding CXX object CMakeFiles/control_node.dir/src/control_node.cpp.o[0m
+[5.201s] [01m[K/home/zy/ws/src/control/src/control_node.cpp:20:22:[m[K [01;31m[Kerror: [m[K‘[01m[Kmbot_interface[m[K’ was not declared in this scope
+[5.201s]    20 |    rclcpp::Publisher<[01;31m[Kmbot_interface[m[K::msg::Person>::SharedPtr publisher_;
+[5.201s]       |                      [01;31m[K^~~~~~~~~~~~~~[m[K
+[5.201s] [01m[K/home/zy/ws/src/control/src/control_node.cpp:20:49:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[5.201s]    20 |    rclcpp::Publisher<mbot_interface::msg::Person[01;31m[K>[m[K::SharedPtr publisher_;
+[5.201s]       |                                                 [01;31m[K^[m[K
+[5.207s] [01m[K/home/zy/ws/src/control/src/control_node.cpp:20:52:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ at end of member declaration
+[5.207s]    20 |    rclcpp::Publisher<mbot_interface::msg::Person>::[01;31m[KSharedPtr[m[K publisher_;
+[5.207s]       |                                                    [01;31m[K^~~~~~~~~[m[K
+[5.207s]       |                                                             [32m[K;[m[K
+[5.208s] [01m[K/home/zy/ws/src/control/src/control_node.cpp:20:62:[m[K [01;31m[Kerror: [m[K‘[01m[Kpublisher_[m[K’ does not name a type; did you mean ‘[01m[Krmw_publisher_t[m[K’?
+[5.208s]    20 |    rclcpp::Publisher<mbot_interface::msg::Person>::SharedPtr [01;31m[Kpublisher_[m[K;
+[5.208s]       |                                                              [01;31m[K^~~~~~~~~~[m[K
+[5.208s]       |                                                              [32m[Krmw_publisher_t[m[K
+[5.209s] [01m[K/home/zy/ws/src/control/src/control_node.cpp:[m[K In constructor ‘[01m[KMotionController::MotionController()[m[K’:
+[5.209s] [01m[K/home/zy/ws/src/control/src/control_node.cpp:11:10:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Kgeometry_msgs::msg::Twist[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::Twist_<std::allocator<void> >[m[K’}
+[5.209s]    11 |     twist[01;31m[K->[m[Klinear.x = 0.2;
+[5.209s]       |          [01;31m[K^~[m[K
+[5.209s] [01m[K/home/zy/ws/src/control/src/control_node.cpp:12:10:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Kgeometry_msgs::msg::Twist[m[K’ {aka ‘[01m[Kgeometry_msgs::msg::Twist_<std::allocator<void> >[m[K’}
+[5.209s]    12 |     twist[01;31m[K->[m[Kangular.z = 0.5;
+[5.209s]       |          [01;31m[K^~[m[K
+[5.212s] [01m[K/home/zy/ws/src/control/src/control_node.cpp:13:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpublisher_[m[K’ was not declared in this scope; did you mean ‘[01m[Krmw_publisher_t[m[K’?
+[5.212s]    13 |     [01;31m[Kpublisher_[m[K = this->create_publisher<geometry_msgs::msg::Twist>("/mbot/cmd_vel", 10);
+[5.212s]       |     [01;31m[K^~~~~~~~~~[m[K
+[5.212s]       |     [32m[Krmw_publisher_t[m[K
+[5.221s] [01m[K/home/zy/ws/src/control/src/control_node.cpp:[m[K In member function ‘[01m[Kvoid MotionController::timer_callback()[m[K’:
+[5.221s] [01m[K/home/zy/ws/src/control/src/control_node.cpp:25:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpublisher_[m[K’ was not declared in this scope; did you mean ‘[01m[Krmw_publisher_t[m[K’?
+[5.221s]    25 |     [01;31m[Kpublisher_[m[K->publish(twist);
+[5.221s]       |     [01;31m[K^~~~~~~~~~[m[K
+[5.221s]       |     [32m[Krmw_publisher_t[m[K
+[5.570s] gmake[2]: *** [CMakeFiles/control_node.dir/build.make:76: CMakeFiles/control_node.dir/src/control_node.cpp.o] Error 1
+[5.570s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/control_node.dir/all] Error 2
+[5.571s] gmake: *** [Makefile:146: all] Error 2
+[5.573s] Invoked command in '/home/zy/ws/build/control' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/zy/ws/build/control -- -j32 -l32

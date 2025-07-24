@@ -1,3 +1,7 @@
 {
-    "cmake.sourceDirectory": "/home/zy/ws/src/control"
+    "cmake.sourceDirectory": "/home/zy/ws/src/control",
+    "lldb.displayFormat": "auto",
+    "lldb.showDisassembly": "auto",
+    "lldb.dereferencePointers": true,
+    "lldb.consoleMode": "commands"
 }

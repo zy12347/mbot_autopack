@@ -9,6 +9,8 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 
 add_executable(slam_node src/slam_node.cpp)
 target_include_directories(slam_node PUBLIC
@@ -19,6 +21,8 @@ ament_target_dependencies(
   slam_node
   "rclcpp"
   "std_msgs"
+  "sensor_msgs"
+  "nav_msgs"
 )
 
 install(TARGETS slam_node

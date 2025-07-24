@@ -1,8 +1,0 @@
-[0.000000] (-) TimerEvent: {}
-[0.000338] (-) JobUnselected: {'identifier': 'control'}
-[0.000376] (-) JobUnselected: {'identifier': 'mbot_interface'}
-[0.000385] (-) JobUnselected: {'identifier': 'mbot_pkg'}
-[0.000392] (-) JobUnselected: {'identifier': 'navigation'}
-[0.000417] (-) JobUnselected: {'identifier': 'perception'}
-[0.000428] (-) JobUnselected: {'identifier': 'slam'}
-[0.001076] (-) EventReactorShutdown: {}

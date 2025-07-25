@@ -4,9 +4,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "nav_msgs/msg/odometry.hpp"
 #include "sensor_msgs/msg/laser_scan.hpp"  // 雷达消息类型
-#include "mbot_interface/msg/person.hpp"
-#include "mbot_interface/msg/Pose2D.hpp"
-#include "mbot_interface/msg/GridMap.hpp"
 #include "gmapping/gmapping.h"
 
 #include "common.h"

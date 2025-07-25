@@ -8,9 +8,16 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(urdf REQUIRED)
+find_package(xacro REQUIRED)
+
+find_package(gazebo_ros REQUIRED)
+find_package(gazebo_plugins REQUIRED)
+
+find_package(mbot_interface REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(nav_msgs REQUIRED)
 
 add_executable(slam_node src/slam_node.cpp)
 target_include_directories(slam_node PUBLIC
@@ -21,8 +28,13 @@ ament_target_dependencies(
   slam_node
   "rclcpp"
   "std_msgs"
+  "mbot_interface"
+  "gazebo_ros"
+  "gazebo_plugins"
+  "urdf"
+  "xacro"
+  "geometry_msgs"
   "sensor_msgs"
-  "nav_msgs"
 )
 
 install(TARGETS slam_node

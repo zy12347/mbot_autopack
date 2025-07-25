@@ -10,9 +10,12 @@ public:
 
 class Gmapping {
  public:
-  Gmapping();
-  void ProcessScan(LaserSacn scan,Pose2D pose);
-  void Predict();
+  Gmapping(GmappingParams& param):gmap_param(param){
+    particles.clear();
+  };
+  void Initialize(Pose2D& init_pose);
+  void ProcessScan(LaserSacn& scan,Pose2D& pose);
+  void Predict(Odom& odom);
   void Resample();
   void UpdateMap();
   void OptimizePose();

@@ -18,8 +18,13 @@ find_package(mbot_interface REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 
-add_executable(slam_node src/slam_node.cpp)
+file(GLOB_RECURSE src_list
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"  # 匹配 src 下所有 .cpp 文件
+)
+add_executable(slam_node ${src_list})
+
 target_include_directories(slam_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -35,6 +40,7 @@ ament_target_dependencies(
   "xacro"
   "geometry_msgs"
   "sensor_msgs"
+  "nav_msgs"
 )
 
 install(TARGETS slam_node

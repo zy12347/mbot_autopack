@@ -1,20 +1,22 @@
-#include "particle.h"
 #include <vector>
 
-class GmappingParams{
-public:
-    int particle_count = 50;
-    float nerf_threshold = 0.5;
-    float map_resolution = 0.01;
+#include "particle.h"
+
+#include "mbot_common.h"
+
+class GmappingParams {
+ public:
+  int particle_count = 50;
+  float nerf_threshold = 0.5;
+  float map_resolution = 0.01;
 };
 
 class Gmapping {
  public:
-  Gmapping(GmappingParams& param):gmap_param(param){
-    particles.clear();
-  };
+  Gmapping(){};
+  Gmapping(GmappingParams& param) : gmap_param_(param) { particles_.clear(); };
   void Initialize(Pose2D& init_pose);
-  void ProcessScan(LaserSacn& scan,Pose2D& pose);
+  void ProcessScan(LaserScan& scan, Pose2D& pose);
   void Predict(Odom& odom);
   void Resample();
   void UpdateMap();
@@ -25,6 +27,6 @@ class Gmapping {
  private:
   int particle_num = 0;
   float nerf_threshold = 0;
-  std::vector<Particle> particles;
-  GmappingParams gmap_param;
-}
+  std::vector<Particle> particles_;
+  GmappingParams gmap_param_;
+};

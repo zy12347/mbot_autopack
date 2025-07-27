@@ -16,12 +16,16 @@ find_package(urdf REQUIRED)
 find_package(xacro REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+
+# message(WARNING "mbot_interface 头文件路径: ${mbot_interface_INCLUDE_DIRS}")
+# message(WARNING "mbot_interface 库路径: ${mbot_interface_LIBRARIES}")
+# message(WARNING "mbot_interface 包路径: ${mbot_interface_DIR}")
+
 # find_package(gazebo_ros_diff_drive REQUIRED)
 
 add_executable(mbot_manager src/mbot_manager.cpp)
-target_include_directories(mbot_manager PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
+
 target_compile_features(mbot_manager PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
   mbot_manager
@@ -34,7 +38,14 @@ ament_target_dependencies(
   "xacro"
   "geometry_msgs"
   "sensor_msgs"
+  "nav_msgs"
 )
+
+target_include_directories(mbot_manager PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+  # get_target_property(MBOT_MANAGER_INCLUDES mbot_manager INCLUDE_DIRECTORIES)
+  # message(WARNING "mbot_manager 实际头文件路径: ${MBOT_MANAGER_INCLUDES}")
 
 install(TARGETS mbot_manager
   DESTINATION lib/${PROJECT_NAME})

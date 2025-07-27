@@ -1,12 +1,6 @@
-#include <chrono>
-#include <cstdio>
-#include <memory>
-#include "rclcpp/rclcpp.hpp"
-#include "nav_msgs/msg/odometry.hpp"
-#include "sensor_msgs/msg/laser_scan.hpp"  // 雷达消息类型
-#include "gmapping/gmapping.h"
+#include "mbot_common.h"
 
-#include "common.h"
+#include "gmapping/gmapping.h"
 
 class SlamManager : public rclcpp::Node {
  public:
@@ -39,21 +33,21 @@ class SlamManager : public rclcpp::Node {
   //  mbot_interface::msg::Person person;
   //  rclcpp::TimerBase::SharedPtr timer_;
   //  rclcpp::Publisher<mbot_interface::msg::Person>::SharedPtr publisher_;
-  rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr
-      laser_subscriber_;
+  rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr laser_subscriber_;
 
   rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_subscriber_;
 
-  rclcpp::Publisher<mbot_interface_msg::GridMap>::SharedPtr map_publisher_;
+  rclcpp::Publisher<mbot_interface::msg::GridMap>::SharedPtr map_publisher_;
 
-  rclcpp::Publisher<mbot_interface_msg::Pose2D>::SharedPtr pose_publisher_;
+  rclcpp::Publisher<mbot_interface::msg::Pose2D>::SharedPtr pose_publisher_;
 
   void laser_event_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
     RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
                 "雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m", msg->range_min,
                 msg->range_max);
     Pose2D odom_pose = GetOdom();
-    gmapping_.ProcessScan(scan,odom_pose);
+    LaserScan laser_scan;
+    gmapping_.ProcessScan(laser_scan,odom_pose);
   }
 
   void odom_event_callback(const nav_msgs::msg::Odometry::SharedPtr msg) {

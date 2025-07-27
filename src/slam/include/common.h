@@ -1,5 +1,0 @@
-#include "Pose2D.h"
-#include "LaserScan.h"
-#include "mbot_interface/msg/person.hpp"
-#include "mbot_interface/msg/Pose2D.hpp"
-#include "mbot_interface/msg/GridMap.hpp"

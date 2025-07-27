@@ -3,8 +3,9 @@
 #include <memory>
 
 #include "mbot_interface/msg/person.hpp"
-#include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+
+#include "mbot_common.h"
 
 class MbotManager : public rclcpp::Node {
  public:

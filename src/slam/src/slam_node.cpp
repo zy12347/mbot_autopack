@@ -45,9 +45,8 @@ class SlamManager : public rclcpp::Node {
     RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
                 "雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m", msg->range_min,
                 msg->range_max);
-    Pose2D odom_pose = GetOdom();
-    LaserScan laser_scan;
-    gmapping_.ProcessScan(laser_scan,odom_pose);
+    laser_scan_.FromRosMsg(msg);
+    gmapping_.ProcessScan(laser_scan_,odo_);
   }
 
   void odom_event_callback(const nav_msgs::msg::Odometry::SharedPtr msg) {
@@ -57,6 +56,7 @@ class SlamManager : public rclcpp::Node {
         msg->pose.pose.position.x, msg->pose.pose.position.y,
         msg->pose.pose.position.z, msg->pose.pose.orientation.x, msg->pose.pose.orientation.y,
         msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
+        odo_.FromRosMsg(msg);
   }
 
   Pose2D GetOdom(){return odom_pose_;};
@@ -67,6 +67,8 @@ class SlamManager : public rclcpp::Node {
 
   double freq = 10;
   Pose2D odom_pose_;
+  Odom odo_;
+  LaserScan laser_scan_;
 
 };
 

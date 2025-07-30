@@ -23,7 +23,7 @@ public:
         return angle_min + index * angle_increment;
     }
 
-    void FromRosMsg(const sensor_msgs::msg::LaserScan);
+    void FromRosMsg(const sensor_msgs::msg::LaserScan::SharedPtr);
 
     sensor_msgs::msg::LaserScan toRosMsg() const;
 };

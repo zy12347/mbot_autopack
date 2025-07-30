@@ -8,6 +8,17 @@ class GridMap{
     delete[] map_;
     map_ = nullptr;
   }
+  int GetWidth(){return width;};
+  int GetHeight(){return height;};
+  float GetResolution(){return resolution;};
+  int x2idx(float x);
+  int y2idy(float y);
+
+  float idx2x(int x);
+  float idy2y(int y);
+
+  int GetValue(int idx,int idy);
+  
   void UpdateCell();
   void GetDistance();
   void ToOccupancyGrid();

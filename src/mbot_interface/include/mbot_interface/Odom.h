@@ -1,10 +1,6 @@
 #pragma once
 #include <rclcpp/rclcpp.hpp>
 
-struct Twist{
-
-};
-
 class Odom {
 public:
     // 位置信息
@@ -23,10 +19,10 @@ public:
     double angular_z = 0.0; // z方向角速度（转向速度）
 
     // 时间戳
-    rclcpp::Time stamp;
+    uint64_t stamp;
 
     // 从ROS Odometry消息转换为自定义Odom类
-    void fromRosMsg(const nav_msgs::msg::Odometry& ros_odom);
+    void fromRosMsg(const nav_msgs::msg::Odometry::SharedPtr& ros_odom);
     
     // 转换为ROS Odometry消息
     nav_msgs::msg::Odometry toRosMsg() const;

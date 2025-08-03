@@ -1,5 +1,6 @@
 #pragma once
 #include <rclcpp/rclcpp.hpp>
+#include "nav_msgs/msg/odometry.hpp"
 
 class Odom {
 public:
@@ -22,8 +23,8 @@ public:
     uint64_t stamp;
 
     // 从ROS Odometry消息转换为自定义Odom类
-    void fromRosMsg(const nav_msgs::msg::Odometry::SharedPtr& ros_odom);
+    void FromRosMsg(const nav_msgs::msg::Odometry::SharedPtr& ros_odom);
     
     // 转换为ROS Odometry消息
-    nav_msgs::msg::Odometry toRosMsg() const;
+    nav_msgs::msg::Odometry ToRosMsg() const;
 };

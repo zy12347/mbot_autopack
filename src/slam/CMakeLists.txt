@@ -19,6 +19,7 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(tf2 REQUIRED)
 
 file(GLOB_RECURSE src_list
   "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"  # 匹配 src 下所有 .cpp 文件
@@ -41,10 +42,14 @@ ament_target_dependencies(
   "geometry_msgs"
   "sensor_msgs"
   "nav_msgs"
+  "tf2"
 )
 
+# 链接 mbot_interface 的静态库
+target_link_libraries(slam_node mbot_interface::mbot_interface_lib)
+
 install(TARGETS slam_node
-  DESTINATION lib/${PROJECT_NAME})
+  DESTINATION lib/${PROJECT_NAME}/)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

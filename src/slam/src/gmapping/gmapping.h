@@ -22,14 +22,20 @@ class Gmapping {
   void Predict();
   void Resample();
   void UpdateMap();
-  void OptimizePose(float max_range);
-  void ComputeError();
-  void GetBestEstimate();
+  void OptimizePose();
+  Pose2D GetBestEstimate();
+  void computeAndNormalizeWeights();
+  float ComputeParticleWeight(Particle& particle);
 
-  static void ICP(std::vector<std::pair<float,float>>& p1,std::vector<std::pair<float,float>>& p2, Pose2D& init_pose);
+  static void ICP(std::vector<std::pair<float, float>>& p1,
+                  std::vector<std::pair<float, float>>& p2, Pose2D& init_pose);
+  GridMap GetGridMap() { return grid_map_; };
 
  private:
-  std::vector<std::pair<float,float>> Polar2Cartesian(std::vector<float> ranges);
+  std::vector<std::pair<float, float>> Polar2Cartesian(
+      std::vector<float>& ranges);
+
+  GridMap grid_map_;
   int particle_num = 0;
   float nerf_threshold = 0;
   uint64_t last_stamp_time_;

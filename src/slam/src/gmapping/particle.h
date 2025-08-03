@@ -1,17 +1,25 @@
 #pragma once
-#include "mbot_common.h"
+#include "mbot_interface/mbot_common.h"
 
 class Particle {
  public:
-  Particle(Pose2D& init_pose) : pose(init_pose) { map = GridMap(); };
+  Particle(Pose2D& pose, double map_resolution = 0.05, int map_width = 100,
+           int map_height = 100)
+      : map(map_width, map_height, map_resolution), pose(pose), weight(1.0){};
   void SetWeight(double w) { weight = w; };
-  Pose2D GetPose() { return pose; };
+  double GetWeight() const { return weight; };
+  void SetPose(Pose2D& pose) { this->pose = pose; };
+  Pose2D GetPose() const { return pose; };
   std::vector<std::pair<float, float>> ScanMap(float max_range);
-  std::pair<int,int> Bresnham(GridMap& map,int start_x,int start_y,int end_x,int end_y);
+  const GridMap& GetGridMap() const { return map; };
+  GridMap& GetGridMap() { return map; };
+  void PertubPose();
 
  private:
   GridMap map;
-  double weight;
+  double weight = 1.0;
   Pose2D pose;
-  Pose2D init_pose;
+  int K = 10;
+  float delta_p = 0.1;
+  float delta_theta = 1;
 };

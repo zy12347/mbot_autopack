@@ -17,6 +17,13 @@ find_package(xacro REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+
+# if(mbot_interface_FOUND)
+#   message(WARNING  "mbot_interface 找到，配置文件路径: ${mbot_interface_DIR}")
+# else()
+#   message(WARNING  "mbot_interface 未找到，请检查是否安装或路径是否正确")
+# endif()
 
 # message(WARNING "mbot_interface 头文件路径: ${mbot_interface_INCLUDE_DIRS}")
 # message(WARNING "mbot_interface 库路径: ${mbot_interface_LIBRARIES}")
@@ -39,6 +46,7 @@ ament_target_dependencies(
   "geometry_msgs"
   "sensor_msgs"
   "nav_msgs"
+  "tf2"
 )
 
 target_include_directories(mbot_manager PUBLIC
@@ -46,6 +54,8 @@ target_include_directories(mbot_manager PUBLIC
   $<INSTALL_INTERFACE:include>)
   # get_target_property(MBOT_MANAGER_INCLUDES mbot_manager INCLUDE_DIRECTORIES)
   # message(WARNING "mbot_manager 实际头文件路径: ${MBOT_MANAGER_INCLUDES}")
+
+target_link_libraries(mbot_manager mbot_interface::mbot_interface_lib)
 
 install(TARGETS mbot_manager
   DESTINATION lib/${PROJECT_NAME})

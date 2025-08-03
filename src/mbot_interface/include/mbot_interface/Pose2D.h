@@ -1,6 +1,8 @@
 #pragma once
 #include <cmath>
 
+#include "mbot_interface/msg/pose2_d.hpp"
+
 class Pose2D {
  public:
   Pose2D(float x = 0.0, float y = 0.0, float phi = 0.0)
@@ -15,9 +17,25 @@ class Pose2D {
 
   static float RAD2DEG(float phi) { return phi / M_PI * 180.0; }
 
-  float GetPhi(){return Phi_;};
+  const float GetPhi() const { return Phi_; };
 
-  float GetTheta(){return Phi_ / M_PI * 180.0;};
+  const float GetTheta() const { return Phi_ / M_PI * 180.0; };
+
+  void SetPhi(float phi) { Phi_ = phi; };
+
+  void FromRosMsg(const mbot_interface::msg::Pose2D& msg) {
+    x = msg.x;
+    y = msg.y;
+    Phi_ = msg.phi;
+  }
+
+  mbot_interface::msg::Pose2D ToRosMsg() const {
+    mbot_interface::msg::Pose2D msg;
+    msg.x = x;
+    msg.y = y;
+    msg.phi = Phi_;
+    return msg;
+  }
 
   float x;
   float y;

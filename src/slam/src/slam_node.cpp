@@ -1,5 +1,3 @@
-#include "mbot_common.h"
-
 #include "gmapping/gmapping.h"
 
 class SlamManager : public rclcpp::Node {
@@ -23,8 +21,9 @@ class SlamManager : public rclcpp::Node {
     //     period,
     //     std::bind(&SlamManager::main_loop, this)
     // );
-    
-    RCLCPP_INFO(this->get_logger(), "SLAM节点初始化完成，主循环频率: %.1f Hz", freq);
+
+    RCLCPP_INFO(this->get_logger(), "SLAM节点初始化完成，主循环频率: %.1f Hz",
+                freq);
 
     gmapping_ = Gmapping();
   }
@@ -33,7 +32,8 @@ class SlamManager : public rclcpp::Node {
   //  mbot_interface::msg::Person person;
   //  rclcpp::TimerBase::SharedPtr timer_;
   //  rclcpp::Publisher<mbot_interface::msg::Person>::SharedPtr publisher_;
-  rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr laser_subscriber_;
+  rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr
+      laser_subscriber_;
 
   rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_subscriber_;
 
@@ -46,7 +46,9 @@ class SlamManager : public rclcpp::Node {
                 "雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m", msg->range_min,
                 msg->range_max);
     laser_scan_.FromRosMsg(msg);
-    gmapping_.ProcessScan(laser_scan_,odo_);
+    gmapping_.ProcessScan(laser_scan_, odo_);
+    pose_publisher_->publish(gmapping_.GetBestEstimate().ToRosMsg());
+    map_publisher_->publish(gmapping_.GetGridMap().ToRosMsg());
   }
 
   void odom_event_callback(const nav_msgs::msg::Odometry::SharedPtr msg) {
@@ -54,12 +56,13 @@ class SlamManager : public rclcpp::Node {
         rclcpp::get_logger("gazebo_subscriber"),
         "里程计数据 - 位置: (%.2f, %.2f, %.2f), 姿态: (%.2f, %.2f, %.2f, %.2f)",
         msg->pose.pose.position.x, msg->pose.pose.position.y,
-        msg->pose.pose.position.z, msg->pose.pose.orientation.x, msg->pose.pose.orientation.y,
-        msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
-        odo_.FromRosMsg(msg);
+        msg->pose.pose.position.z, msg->pose.pose.orientation.x,
+        msg->pose.pose.orientation.y, msg->pose.pose.orientation.z,
+        msg->pose.pose.orientation.w);
+    odo_.FromRosMsg(msg);
   }
 
-  Pose2D GetOdom(){return odom_pose_;};
+  Pose2D GetOdom() { return odom_pose_; };
   void PublishResult();
 
   Gmapping gmapping_;
@@ -69,7 +72,6 @@ class SlamManager : public rclcpp::Node {
   Pose2D odom_pose_;
   Odom odo_;
   LaserScan laser_scan_;
-
 };
 
 int main(int argc, char** argv) {

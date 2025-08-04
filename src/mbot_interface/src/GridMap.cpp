@@ -3,10 +3,11 @@
 #include <algorithm>
 #include <cmath>
 
-void GridMap::FromRosMsg(const mbot_interface::msg::GridMap& msg) {
+void GridMap::FromRosMsg(const nav_msgs::msg::OccupancyGrid& msg) {
   // 如果尺寸和分辨率一致，则直接复制数据
-  if (width == msg.width && height == msg.height &&
-      resolution == msg.resolution && map_ != nullptr) {
+  if (width == static_cast<int>(msg.info.width) &&
+      height == static_cast<int>(msg.info.height) &&
+      std::abs(resolution - msg.info.resolution) < 1e-6 && map_ != nullptr) {
     if (msg.data.size() == width * height) {
       for (size_t i = 0; i < msg.data.size(); ++i) {
         map_[i] = static_cast<uint8_t>(msg.data[i]);
@@ -14,9 +15,9 @@ void GridMap::FromRosMsg(const mbot_interface::msg::GridMap& msg) {
     }
   } else {
     // 更新栅格图的尺寸和分辨率
-    width = msg.width;
-    height = msg.height;
-    resolution = msg.resolution;
+    width = static_cast<int>(msg.info.width);
+    height = static_cast<int>(msg.info.height);
+    resolution = msg.info.resolution;
 
     // 重新分配内存
     if (map_ != nullptr) {
@@ -33,11 +34,11 @@ void GridMap::FromRosMsg(const mbot_interface::msg::GridMap& msg) {
   }
 }
 
-mbot_interface::msg::GridMap GridMap::ToRosMsg() const {
-  mbot_interface::msg::GridMap msg;
-  msg.width = width;
-  msg.height = height;
-  msg.resolution = resolution;
+nav_msgs::msg::OccupancyGrid GridMap::ToRosMsg() const {
+  nav_msgs::msg::OccupancyGrid msg;
+  msg.info.width = width;
+  msg.info.height = height;
+  msg.info.resolution = resolution;
   msg.data.resize(width * height);
   for (int i = 0; i < width * height; ++i) {
     msg.data[i] = static_cast<uint8_t>(map_[i]);
@@ -56,8 +57,9 @@ std::vector<std::pair<float, float>> GridMap::ScanMap(const Pose2D& pose,
 
   for (int x = min_grid_x; x <= max_grid_x; x++) {
     for (int y = min_grid_y; y <= max_grid_y; y++) {
-      if (GetValue(x, y)) {
+      if (GetValue(x, y) > 0) {  // 检查是否有障碍物
         points.push_back(std::make_pair(idx2x(x), idy2y(y)));
+        obstacle_count++;
       }
     }
   }

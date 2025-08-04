@@ -1,15 +1,48 @@
 #pragma once
+#include <algorithm>
+
 #include "mbot_interface/LaserScan.h"
 #include "mbot_interface/Pose2D.h"
-#include "mbot_interface/msg/grid_map.hpp"
+#include "nav_msgs/msg/occupancy_grid.hpp"
 
 class GridMap {
  public:
   GridMap(int w = 100, int h = 100, float r = 0.05)
       : width(w), height(h), resolution(r) {
     map_ = new uint8_t[width * height]();
+    std::cout << "GridMap: Constructor called, map_=" << (void*)map_
+              << std::endl;
   };
+
+  // 拷贝构造函数
+  GridMap(const GridMap& other)
+      : width(other.width), height(other.height), resolution(other.resolution) {
+    map_ = new uint8_t[width * height];
+    std::copy(other.map_, other.map_ + width * height, map_);
+    std::cout << "GridMap: Copy constructor called, map_=" << (void*)map_
+              << std::endl;
+  }
+
+  // 赋值运算符
+  GridMap& operator=(const GridMap& other) {
+    if (this != &other) {
+      std::cout << "GridMap: Assignment operator called, old map_="
+                << (void*)map_ << std::endl;
+      delete[] map_;
+      width = other.width;
+      height = other.height;
+      resolution = other.resolution;
+      map_ = new uint8_t[width * height];
+      std::copy(other.map_, other.map_ + width * height, map_);
+      std::cout << "GridMap: Assignment operator completed, new map_="
+                << (void*)map_ << std::endl;
+    }
+    return *this;
+  }
+
   ~GridMap() {
+    std::cout << "GridMap: Destructor called, map_=" << (void*)map_
+              << std::endl;
     delete[] map_;
     map_ = nullptr;
   }
@@ -34,9 +67,9 @@ class GridMap {
 
   void UpdateCell(const Pose2D& pose, const LaserScan& scan);
 
-  void FromRosMsg(const mbot_interface::msg::GridMap& msg);
+  void FromRosMsg(const nav_msgs::msg::OccupancyGrid& msg);
 
-  mbot_interface::msg::GridMap ToRosMsg() const;
+  nav_msgs::msg::OccupancyGrid ToRosMsg() const;
 
   std::vector<std::pair<float, float>> ScanMap(const Pose2D& pose,
                                                float max_range) const;

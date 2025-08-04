@@ -6,6 +6,28 @@ class Particle {
   Particle(Pose2D& pose, double map_resolution = 0.05, int map_width = 100,
            int map_height = 100)
       : pose(pose), map(map_width, map_height, map_resolution), weight(1.0){};
+
+  // 拷贝构造函数
+  Particle(const Particle& other)
+      : pose(other.pose),
+        map(other.map),
+        weight(other.weight),
+        K(other.K),
+        delta_p(other.delta_p),
+        delta_theta(other.delta_theta) {}
+
+  // 赋值运算符
+  Particle& operator=(const Particle& other) {
+    if (this != &other) {
+      pose = other.pose;
+      map = other.map;
+      weight = other.weight;
+      K = other.K;
+      delta_p = other.delta_p;
+      delta_theta = other.delta_theta;
+    }
+    return *this;
+  }
   void SetWeight(double w) { weight = w; };
   double GetWeight() const { return weight; };
   void SetPose(Pose2D& pose) { this->pose = pose; };

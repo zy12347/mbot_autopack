@@ -22,10 +22,19 @@ class SlamManager : public rclcpp::Node {
     //     std::bind(&SlamManager::main_loop, this)
     // );
 
+    // 初始化发布者
+    map_publisher_ =
+        this->create_publisher<nav_msgs::msg::OccupancyGrid>("map", 10);
+    pose_publisher_ =
+        this->create_publisher<mbot_interface::msg::Pose2D>("robot_pose", 10);
+
     RCLCPP_INFO(this->get_logger(), "SLAM节点初始化完成，主循环频率: %.1f Hz",
                 freq);
 
     gmapping_ = Gmapping();
+    // 初始化Gmapping，设置初始位姿
+    Pose2D init_pose(0.0, 0.0, 0.0);
+    gmapping_.Initialize(init_pose);
   }
 
  private:
@@ -37,18 +46,48 @@ class SlamManager : public rclcpp::Node {
 
   rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_subscriber_;
 
-  rclcpp::Publisher<mbot_interface::msg::GridMap>::SharedPtr map_publisher_;
+  rclcpp::Publisher<nav_msgs::msg::OccupancyGrid>::SharedPtr map_publisher_;
 
   rclcpp::Publisher<mbot_interface::msg::Pose2D>::SharedPtr pose_publisher_;
 
   void laser_event_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
+    if (!msg) {
+      RCLCPP_WARN(this->get_logger(), "收到空的激光扫描消息");
+      return;
+    }
+
     RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
                 "雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m", msg->range_min,
                 msg->range_max);
-    laser_scan_.FromRosMsg(msg);
-    gmapping_.ProcessScan(laser_scan_, odo_);
-    pose_publisher_->publish(gmapping_.GetBestEstimate().ToRosMsg());
-    map_publisher_->publish(gmapping_.GetGridMap().ToRosMsg());
+
+    try {
+      laser_scan_.FromRosMsg(msg);
+      RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
+                  "1雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m",
+                  msg->range_min, msg->range_max);
+
+      gmapping_.ProcessScan(laser_scan_, odo_);
+      RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
+                  "2雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m",
+                  msg->range_min, msg->range_max);
+
+      if (pose_publisher_) {
+        pose_publisher_->publish(gmapping_.GetBestEstimate().ToRosMsg());
+      }
+      RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
+                  "3雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m",
+                  msg->range_min, msg->range_max);
+
+      if (map_publisher_) {
+        map_publisher_->publish(gmapping_.GetGridMap().ToRosMsg());
+      }
+      RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
+                  "4雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m",
+                  msg->range_min, msg->range_max);
+    } catch (const std::exception& e) {
+      RCLCPP_ERROR(this->get_logger(), "处理激光扫描数据时发生异常: %s",
+                   e.what());
+    }
   }
 
   void odom_event_callback(const nav_msgs::msg::Odometry::SharedPtr msg) {

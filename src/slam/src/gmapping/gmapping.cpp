@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <random>
 
 void Gmapping::Initialize(Pose2D& init_pose) {
   particles_.reserve(gmap_param_.particle_count);
@@ -43,6 +44,34 @@ void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
 
 void Gmapping::Resample() {
   // TODO: 实现重采样算法
+  std::vector<Particle> new_particles;
+  std::vector<double> cdf(particles_.size(), 0.0);
+  cdf[0] = particles_[0].GetWeight();
+  for (size_t i = 1; i < particles_.size(); ++i) {
+    cdf[i] = cdf[i - 1] + particles_[i].GetWeight();
+  }
+  static std::random_device rd;
+  static std::mt19937 gen(rd());
+  std::uniform_real_distribution<float> dist(0.0, 1.0 / particles_.size());
+  std::uniform_real_distribution<float> dist_noise(0.0, 0.01);
+  float r = dist(gen);
+  size_t i = 0;
+  for (size_t m = 0; m < particles_.size(); ++m) {
+    float U = r + m * (1.0 / particles_.size());
+    while (U > cdf[i] && i < particles_.size() - 1) {
+      i++;
+    }
+    Particle new_p = particles_[i];
+    new_p.SetWeight(1.0 / particles_.size());
+    Pose2D new_pose = new_p.GetPose();
+    // 可选：添加微小噪声避免粒子完全相同（增加多样性）
+    new_pose.x += dist_noise(gen);  // 0.01m标准差的噪声
+    new_pose.y += dist_noise(gen);
+    new_pose.SetPhi(new_pose.GetPhi() + dist_noise(gen));  // 弧度噪声
+    new_p.SetPose(new_pose);
+    new_particles.push_back(new_p);
+  }
+  particles_ = new_particles;
 }
 
 void Gmapping::UpdateMap() {
@@ -67,6 +96,15 @@ void Gmapping::computeAndNormalizeWeights() {
       double normalized = particle.GetWeight() / total_weight;
       particle.SetWeight(normalized);
     }
+  }
+  // 计算N_nerf
+  float nerf = 0.0;
+  for (auto& particle : particles_) {
+    nerf += particle.GetWeight() * particle.GetWeight();
+  }
+  nerf = 1 / nerf;
+  if (nerf < nerf_threshold_) {
+    Resample();
   }
 }
 
@@ -117,7 +155,7 @@ Pose2D Gmapping::GetBestEstimate() {
 std::vector<std::pair<float, float>> Gmapping::Polar2Cartesian(
     std::vector<float>& ranges) {
   std::vector<std::pair<float, float>> points;
-  for (int i = 0; i < ranges.size(); i++) {
+  for (size_t i = 0; i < ranges.size(); i++) {
     float x = cos(Pose2D::DEG2RAD(i)) * ranges[i];
     float y = sin(Pose2D::DEG2RAD(i)) * ranges[i];
     std::pair<float, float> point(x, y);

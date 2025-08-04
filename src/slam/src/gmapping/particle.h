@@ -5,7 +5,7 @@ class Particle {
  public:
   Particle(Pose2D& pose, double map_resolution = 0.05, int map_width = 100,
            int map_height = 100)
-      : map(map_width, map_height, map_resolution), pose(pose), weight(1.0){};
+      : pose(pose), map(map_width, map_height, map_resolution), weight(1.0){};
   void SetWeight(double w) { weight = w; };
   double GetWeight() const { return weight; };
   void SetPose(Pose2D& pose) { this->pose = pose; };

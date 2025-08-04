@@ -37,7 +37,7 @@ class Gmapping {
 
   GridMap grid_map_;
   int particle_num = 0;
-  float nerf_threshold = 0;
+  float nerf_threshold_ = 0.5;
   uint64_t last_stamp_time_;
   std::vector<Particle> particles_;
   GmappingParams gmap_param_;

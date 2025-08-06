@@ -31,9 +31,10 @@ class SlamManager : public rclcpp::Node {
     RCLCPP_INFO(this->get_logger(), "SLAM节点初始化完成，主循环频率: %.1f Hz",
                 freq);
 
-    gmapping_ = Gmapping();
     // 初始化Gmapping，设置初始位姿
+    RCLCPP_INFO(this->get_logger(), "Gmapping初始化");
     Pose2D init_pose(0.0, 0.0, 0.0);
+    RCLCPP_INFO(this->get_logger(), "Gmapping初始化");
     gmapping_.Initialize(init_pose);
   }
 
@@ -56,34 +57,19 @@ class SlamManager : public rclcpp::Node {
       return;
     }
 
-    RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
-                "雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m", msg->range_min,
-                msg->range_max);
-
     try {
       laser_scan_.FromRosMsg(msg);
-      RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
-                  "1雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m",
-                  msg->range_min, msg->range_max);
 
       gmapping_.ProcessScan(laser_scan_, odo_);
-      RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
-                  "2雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m",
-                  msg->range_min, msg->range_max);
 
       if (pose_publisher_) {
         pose_publisher_->publish(gmapping_.GetBestEstimate().ToRosMsg());
       }
-      RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
-                  "3雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m",
-                  msg->range_min, msg->range_max);
 
+      // RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"), "grid_map");
       if (map_publisher_) {
         map_publisher_->publish(gmapping_.GetGridMap().ToRosMsg());
       }
-      RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"),
-                  "4雷达数据 - 最小距离: %.2f m, 最大距离: %.2f m",
-                  msg->range_min, msg->range_max);
     } catch (const std::exception& e) {
       RCLCPP_ERROR(this->get_logger(), "处理激光扫描数据时发生异常: %s",
                    e.what());
@@ -91,13 +77,14 @@ class SlamManager : public rclcpp::Node {
   }
 
   void odom_event_callback(const nav_msgs::msg::Odometry::SharedPtr msg) {
-    RCLCPP_INFO(
-        rclcpp::get_logger("gazebo_subscriber"),
-        "里程计数据 - 位置: (%.2f, %.2f, %.2f), 姿态: (%.2f, %.2f, %.2f, %.2f)",
-        msg->pose.pose.position.x, msg->pose.pose.position.y,
-        msg->pose.pose.position.z, msg->pose.pose.orientation.x,
-        msg->pose.pose.orientation.y, msg->pose.pose.orientation.z,
-        msg->pose.pose.orientation.w);
+    // RCLCPP_INFO(
+    // rclcpp::get_logger("gazebo_subscriber"),
+    // "里程计数据 - 位置: (%.2f, %.2f, %.2f), 姿态: (%.2f, %.2f, %.2f,
+    // %.2f)",
+    // msg->pose.pose.position.x, msg->pose.pose.position.y,
+    // msg->pose.pose.position.z, msg->pose.pose.orientation.x,
+    // msg->pose.pose.orientation.y, msg->pose.pose.orientation.z,
+    // msg->pose.pose.orientation.w);
     odo_.FromRosMsg(msg);
   }
 

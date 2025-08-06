@@ -40,6 +40,7 @@ nav_msgs::msg::OccupancyGrid GridMap::ToRosMsg() const {
   msg.info.height = height;
   msg.info.resolution = resolution;
   msg.data.resize(width * height);
+  msg.header.frame_id = "map";
   for (int i = 0; i < width * height; ++i) {
     msg.data[i] = static_cast<uint8_t>(map_[i]);
   }
@@ -59,7 +60,6 @@ std::vector<std::pair<float, float>> GridMap::ScanMap(const Pose2D& pose,
     for (int y = min_grid_y; y <= max_grid_y; y++) {
       if (GetValue(x, y) > 0) {  // 检查是否有障碍物
         points.push_back(std::make_pair(idx2x(x), idy2y(y)));
-        obstacle_count++;
       }
     }
   }

@@ -4,17 +4,68 @@
 #include <iostream>
 #include <random>
 
+Gmapping::Gmapping() {
+  gmap_param_.particle_count = 50;
+  gmap_param_.map_resolution = 0.05;
+  // gmap_param_.map_size = 10000;
+  // gmap_param_.map_origin = Pose2D(0.0, 0.0, 0.0);
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "Gmapping constructor called");
+  grid_map_ = GridMap(100, 100, 0.05);
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "grid_map_ initialized");
+}
+
+Gmapping::Gmapping(const Gmapping& other)
+    : grid_map_(other.grid_map_),
+      particle_num(other.particle_num),
+      nerf_threshold_(other.nerf_threshold_),
+      last_stamp_time_(other.last_stamp_time_),
+      particles_(other.particles_),
+      gmap_param_(other.gmap_param_),
+      laser_scan_(other.laser_scan_),
+      odo_(other.odo_),
+      scan_matcher_(other.scan_matcher_) {
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"),
+              "Gmapping copy constructor called");
+}
+
+Gmapping& Gmapping::operator=(const Gmapping& other) {
+  if (this != &other) {
+    RCLCPP_INFO(rclcpp::get_logger("gmapping"),
+                "Gmapping assignment operator called");
+    grid_map_ = other.grid_map_;
+    particle_num = other.particle_num;
+    nerf_threshold_ = other.nerf_threshold_;
+    last_stamp_time_ = other.last_stamp_time_;
+    particles_ = other.particles_;
+    gmap_param_ = other.gmap_param_;
+    laser_scan_ = other.laser_scan_;
+    odo_ = other.odo_;
+    scan_matcher_ = other.scan_matcher_;
+  }
+  return *this;
+}
+
+Gmapping::~Gmapping() {
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "Gmapping destructor called");
+}
+
 void Gmapping::Initialize(Pose2D& init_pose) {
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "Initialize called");
   particles_.reserve(gmap_param_.particle_count);
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "particles reserved count: %d",
+              gmap_param_.particle_count);
   for (int i = 0; i < gmap_param_.particle_count; i++) {
     Particle p(init_pose);
     p.SetWeight(1.0 / double(gmap_param_.particle_count));
     particles_.emplace_back(p);
   }
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "particles initialized");
 }
 
 void Gmapping::Predict() {
-  double delta_t = odo_.stamp - last_stamp_time_;
+  // 确保时间差不为负数
+  double delta_t =
+      std::max(0.0, static_cast<double>(odo_.stamp - last_stamp_time_));
   last_stamp_time_ = odo_.stamp;
   double delta_d = odo_.linear_x * delta_t;
   double delta_theta = odo_.angular_z * delta_t;
@@ -31,20 +82,11 @@ void Gmapping::Predict() {
 }
 
 void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
-  std::cout << "ProcessScan: scan.ranges.size()=" << scan.ranges.size()
-            << ", range_min=" << scan.range_min
-            << ", range_max=" << scan.range_max << std::endl;
-
   UpdateSensorData(scan, odom);
   Predict();
   OptimizePose();
-  std::cout << "optimize: completed" << std::endl;
   computeAndNormalizeWeights();
-  std::cout << "computeAndNormalizeWeights: completed" << std::endl;
   UpdateMap();
-
-  std::cout << "UpdateMap: completed" << std::endl;
-  return;
 }
 
 void Gmapping::Resample() {
@@ -81,8 +123,8 @@ void Gmapping::Resample() {
 
 void Gmapping::UpdateMap() {
   Pose2D best_pose = GetBestEstimate();
-  std::cout << "UpdateMap: best_pose=(" << best_pose.x << "," << best_pose.y
-            << "," << best_pose.GetPhi() << ")" << std::endl;
+  // std::cout << "UpdateMap: best_pose=(" << best_pose.x << "," << best_pose.y
+  //           << "," << best_pose.GetPhi() << ")" << std::endl;
 
   // 更新全局地图
   grid_map_.UpdateCell(best_pose, laser_scan_);
@@ -92,20 +134,20 @@ void Gmapping::UpdateMap() {
     particle.GetGridMap().UpdateCell(best_pose, laser_scan_);
   }
 
-  std::cout << "UpdateMap: updated " << particles_.size() << " particles"
-            << std::endl;
+  // std::cout << "UpdateMap: updated " << particles_.size() << " particles"
+  //           << std::endl;
 }
 
 void Gmapping::computeAndNormalizeWeights() {
   double total_weight = 0.0;
-  std::cout << "computeAndNormalizeWeights: starting" << std::endl;
+  // std::cout << "computeAndNormalizeWeights: starting" << std::endl;
   // 遍历每个粒子计算权重
   for (auto& particle : particles_) {
     double weight = ComputeParticleWeight(particle);
     particle.SetWeight(weight);
     total_weight += weight;
   }
-  std::cout << "computeWeights: completed" << std::endl;
+  // std::cout << "computeWeights: completed" << std::endl;
   // 归一化权重
   if (total_weight > 0) {
     for (auto& particle : particles_) {
@@ -113,7 +155,7 @@ void Gmapping::computeAndNormalizeWeights() {
       particle.SetWeight(normalized);
     }
   }
-  std::cout << "NormalizeWeights: completed" << std::endl;
+  // std::cout << "NormalizeWeights: completed" << std::endl;
   // 计算N_nerf
   float nerf = 0.0;
   for (auto& particle : particles_) {
@@ -123,14 +165,15 @@ void Gmapping::computeAndNormalizeWeights() {
   if (nerf < nerf_threshold_) {
     Resample();
   }
-  std::cout << "Nerf: completed" << std::endl;
+  // std::cout << "Nerf: completed" << std::endl;
 }
 
 float Gmapping::ComputeParticleWeight(Particle& particle) {
-  std::cout << "ComputeParticleWeight: starting" << std::endl;
+  // std::cout << "ComputeParticleWeight: starting" << std::endl;
   const GridMap& grid_map = particle.GetGridMap();  // 使用引用避免拷贝
   Pose2D p_pose = particle.GetPose();
-  std::cout << "ComputeParticleWeight: grid_map.Raycast: starting" << std::endl;
+  // std::cout << "ComputeParticleWeight: grid_map.Raycast: starting" <<
+  // std::endl;
   float sigma = 0.05;
   float log_weight = 0;
   for (size_t i = 0; i < laser_scan_.ranges.size(); i++) {
@@ -142,25 +185,28 @@ float Gmapping::ComputeParticleWeight(Particle& particle) {
     float diff = distance - laser_scan_.ranges[i];
     log_weight += -0.5 * (diff * diff) / (sigma * sigma);
   }
-  std::cout << "ComputeParticleWeight grid_map.Raycast: completed" << std::endl;
+  // std::cout << "ComputeParticleWeight grid_map.Raycast: completed" <<
+  // std::endl;
   return std::exp(log_weight);
 }
 
 void Gmapping::OptimizePose() {
-  std::cout << "OptimizePose: starting pose optimization" << std::endl;
+  // std::cout << "OptimizePose: starting pose optimization" << std::endl;
 
   std::vector<std::pair<float, float>> points =
       Polar2Cartesian(laser_scan_.ranges);
 
   // 检查当前激光扫描点云是否为空
   if (points.empty()) {
-    std::cout << "Warning: Current laser scan points are empty, skipping ICP"
-              << std::endl;
+    // std::cout << "Warning: Current laser scan points are empty, skipping ICP"
+    //           << std::endl;
     return;
   }
-
-  std::cout << "OptimizePose: current scan has " << points.size() << " points"
-            << std::endl;
+  // RCLCPP_INFO(rclcpp::get_logger("gmapping"),
+  //             "OptimizePose: current scan has %d points", points.size());
+  // std::cout << "OptimizePose: current scan has " << points.size() << "
+  // points"
+  //           << std::endl;
 
   for (auto& p : particles_) {
     std::vector<std::pair<float, float>> points_scan =
@@ -168,9 +214,9 @@ void Gmapping::OptimizePose() {
 
     // 检查粒子地图点云是否为空
     if (points_scan.empty()) {
-      std::cout
-          << "Warning: Particle map points are empty, skipping this particle"
-          << std::endl;
+      // std::cout
+      //     << "Warning: Particle map points are empty, skipping this particle"
+      //     << std::endl;
       continue;
     }
 

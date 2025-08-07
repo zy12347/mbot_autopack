@@ -12,10 +12,10 @@ void LaserScan::FromRosMsg(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
   intensities = msg->intensities;
 
   // 添加调试信息
-  std::cout << "LaserScan::FromRosMsg: ranges.size()=" << ranges.size()
-            << ", range_min=" << range_min << ", range_max=" << range_max
-            << ", angle_min=" << angle_min << ", angle_max=" << angle_max
-            << ", angle_increment=" << angle_increment << std::endl;
+  // std::cout << "LaserScan::FromRosMsg: ranges.size()=" << ranges.size()
+  //           << ", range_min=" << range_min << ", range_max=" << range_max
+  //           << ", angle_min=" << angle_min << ", angle_max=" << angle_max
+  //           << ", angle_increment=" << angle_increment << std::endl;
 
   // 检查有效距离的数量
   int valid_ranges = 0;
@@ -24,8 +24,8 @@ void LaserScan::FromRosMsg(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
       valid_ranges++;
     }
   }
-  std::cout << "LaserScan::FromRosMsg: valid_ranges=" << valid_ranges << "/"
-            << ranges.size() << std::endl;
+  // std::cout << "LaserScan::FromRosMsg: valid_ranges=" << valid_ranges << "/"
+  //           << ranges.size() << std::endl;
 }
 
 sensor_msgs::msg::LaserScan LaserScan::ToRosMsg() const {

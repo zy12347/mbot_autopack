@@ -35,15 +35,19 @@ void GridMap::FromRosMsg(const nav_msgs::msg::OccupancyGrid& msg) {
 }
 
 nav_msgs::msg::OccupancyGrid GridMap::ToRosMsg() const {
-  nav_msgs::msg::OccupancyGrid msg;
+  nav_msgs::msg::OccupancyGrid msg{};
+  msg.header.stamp = rclcpp::Clock().now();
+  msg.header.frame_id = "map";
   msg.info.width = width;
   msg.info.height = height;
   msg.info.resolution = resolution;
   msg.data.resize(width * height);
-  msg.header.frame_id = "map";
   for (int i = 0; i < width * height; ++i) {
-    msg.data[i] = static_cast<uint8_t>(map_[i]);
+    msg.data[i] = static_cast<int8_t>(map_[i]);
+    msg.data[i] = std::clamp(msg.data[i], int8_t(-1), int8_t(100));
   }
+  // RCLCPP_INFO(rclcpp::get_logger("GridMap"), "ToRosMsg() 中 frame_id: [%s]",
+  //             msg.header.frame_id.c_str());
   return msg;
 }
 

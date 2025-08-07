@@ -5,6 +5,15 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+# 检查是否有 -r 参数，如果有则删除 build、install、log 文件夹
+if [[ " $@ " =~ " -r " ]]; then
+    echo "检测到 -r 参数，正在删除 build、install、log 文件夹..."
+    rm -rf build install log
+    # 移除 -r 参数，防止后续 colcon build 误识别
+    set -- "${@/-r/}"
+fi
+
+
 PACKAGE_ARGS=""
 for pkg in "$@"; do
     PACKAGE_ARGS+=" $pkg"

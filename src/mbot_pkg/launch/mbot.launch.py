@@ -55,9 +55,27 @@ def generate_launch_description():
         arguments=['-entity', 'mbot', '-topic', 'robot_description']
     )
     
+    # 启动SLAM节点
+    slam_node = Node(
+        package='slam',
+        executable='slam_node',
+        name='slam_node',
+        output='screen'
+    )
+    
+    # 启动SLAM节点
+    control_node = Node(
+        package='control',
+        executable='control_node',
+        name='control_node',
+        output='screen'
+    )
+
     return LaunchDescription([
         gazebo_server,
         gazebo_client,
         load_urdf,
-        spawn_entity
+        spawn_entity,
+        slam_node, 
+        control_node
     ])

@@ -13,8 +13,15 @@ if [[ " $@ " =~ " -r " ]]; then
     set -- "${@/-r/}"
 fi
 
+if [[ " $@ " =~ " -a " ]]; then
+    echo "检测到 -a 参数，编译全部的文件夹"
+    # 移除 -r 参数，防止后续 colcon build 误识别
+    set -- "${@/-a/}"
+    PACKAGE_ARGS="slam mbot_pkg mbot_interface control"
+else
+    PACKAGE_ARGS=""
+fi
 
-PACKAGE_ARGS=""
 for pkg in "$@"; do
     PACKAGE_ARGS+=" $pkg"
 done

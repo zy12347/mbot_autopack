@@ -64,11 +64,13 @@ void Gmapping::Initialize(Pose2D& init_pose) {
 
 void Gmapping::Predict() {
   // 确保时间差不为负数
-  double delta_t =
-      std::max(0.0, static_cast<double>(odo_.stamp - last_stamp_time_));
+  uint64_t delta_t = odo_.stamp - last_stamp_time_; // nano
   last_stamp_time_ = odo_.stamp;
-  double delta_d = odo_.linear_x * delta_t;
-  double delta_theta = odo_.angular_z * delta_t;
+  float delta_d = odo_.linear_x * delta_t / 1e9;
+  float delta_theta = odo_.angular_z * delta_t / 1e9;
+  RCLCPP_INFO(rclcpp::get_logger("gmapping Predict"),
+              "delta_t:%ld delta_d:%f delta_theta:%f", delta_t, delta_d,
+              delta_theta);
   for (auto& p : particles_) {
     Pose2D last_pose = p.GetPose();
     Pose2D cur_pose;
@@ -108,13 +110,13 @@ void Gmapping::Resample() {
     while (U > cdf[i] && i < particles_.size() - 1) {
       i++;
     }
-    Particle new_p = particles_[i];  // 这里会调用拷贝构造函数
+    Particle new_p = particles_[i]; // 这里会调用拷贝构造函数
     new_p.SetWeight(1.0 / particles_.size());
     Pose2D new_pose = new_p.GetPose();
     // 可选：添加微小噪声避免粒子完全相同（增加多样性）
-    new_pose.x += dist_noise(gen);  // 0.01m标准差的噪声
+    new_pose.x += dist_noise(gen); // 0.01m标准差的噪声
     new_pose.y += dist_noise(gen);
-    new_pose.SetPhi(new_pose.GetPhi() + dist_noise(gen));  // 弧度噪声
+    new_pose.SetPhi(new_pose.GetPhi() + dist_noise(gen)); // 弧度噪声
     new_p.SetPose(new_pose);
     new_particles.push_back(new_p);
   }
@@ -123,8 +125,8 @@ void Gmapping::Resample() {
 
 void Gmapping::UpdateMap() {
   Pose2D best_pose = GetBestEstimate();
-  // std::cout << "UpdateMap: best_pose=(" << best_pose.x << "," << best_pose.y
-  //           << "," << best_pose.GetPhi() << ")" << std::endl;
+  std::cout << "UpdateMap: best_pose=(" << best_pose.x << "," << best_pose.y
+            << "," << best_pose.GetPhi() << ")" << std::endl;
 
   // 更新全局地图
   grid_map_.UpdateCell(best_pose, laser_scan_);
@@ -170,7 +172,7 @@ void Gmapping::computeAndNormalizeWeights() {
 
 float Gmapping::ComputeParticleWeight(Particle& particle) {
   // std::cout << "ComputeParticleWeight: starting" << std::endl;
-  const GridMap& grid_map = particle.GetGridMap();  // 使用引用避免拷贝
+  const GridMap& grid_map = particle.GetGridMap(); // 使用引用避免拷贝
   Pose2D p_pose = particle.GetPose();
   // std::cout << "ComputeParticleWeight: grid_map.Raycast: starting" <<
   // std::endl;
@@ -234,7 +236,7 @@ Pose2D Gmapping::GetBestEstimate() {
   }
 
   double max_weight = 0.0;
-  Pose2D best_pose = particles_[0].GetPose();  // 初始化为第一个粒子
+  Pose2D best_pose = particles_[0].GetPose(); // 初始化为第一个粒子
 
   for (const auto& p : particles_) {
     if (p.GetWeight() > max_weight) {

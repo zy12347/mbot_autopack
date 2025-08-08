@@ -1,4 +1,5 @@
 import os
+import sys
 import xacro
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -8,6 +9,8 @@ from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
+    use_rviz = '-rviz2' in sys.argv
+
     # 获取包路径
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
     pkg_mbot = get_package_share_directory('mbot_pkg')
@@ -70,12 +73,25 @@ def generate_launch_description():
         name='control_node',
         output='screen'
     )
-
-    return LaunchDescription([
-        gazebo_server,
+    Nodes = [gazebo_server,
         gazebo_client,
         load_urdf,
         spawn_entity,
         slam_node, 
-        control_node
-    ])
+        control_node]
+
+    if(use_rviz):
+        Nodes.append(Node(package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen'))
+
+    # return LaunchDescription([
+    #     gazebo_server,
+    #     gazebo_client,
+    #     load_urdf,
+    #     spawn_entity,
+    #     slam_node, 
+    #     control_node
+    # ])
+    return LaunchDescription(Nodes)

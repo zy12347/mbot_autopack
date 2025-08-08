@@ -88,7 +88,9 @@ class SlamManager : public rclcpp::Node {
     odo_.FromRosMsg(msg);
   }
 
-  Pose2D GetOdom() { return odom_pose_; };
+  Pose2D GetOdom() {
+    return odom_pose_;
+  };
   void PublishResult();
 
   Gmapping gmapping_;

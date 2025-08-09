@@ -28,7 +28,7 @@ class SlamManager : public rclcpp::Node {
     pose_publisher_ =
         this->create_publisher<mbot_interface::msg::Pose2D>("robot_pose", 10);
 
-    RCLCPP_INFO(this->get_logger(), "SLAM节点初始化完成，主循环频率: %.1f Hz",
+    RCLCPP_INFO(this->get_logger(), "SLAM节点初始化完成,主循环频率: %.1f Hz",
                 freq);
 
     // 初始化Gmapping，设置初始位姿

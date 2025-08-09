@@ -141,6 +141,8 @@ float GridMap::Raycast(double start_x, double start_y, double angle,
 }
 
 void GridMap::UpdateCell(const Pose2D& pose, const LaserScan& scan) {
+  std::cout << " angle_min " << scan.angle_min << " angle_increment "
+            << scan.angle_increment << std::endl;
   for (size_t k = 0; k < scan.ranges.size(); ++k) {
     double range = scan.ranges[k];
     // 过滤无效数据
@@ -166,7 +168,7 @@ void GridMap::UpdateCell(const Pose2D& pose, const LaserScan& scan) {
     if (!grid_path.empty()) {
       // 标记终点栅格为占据（最后一个栅格）
       auto [end_gx, end_gy] = grid_path.back();
-      SetValue(end_gx, end_gy, 1); // true表示占据
+      SetValue(end_gx, end_gy, 255); // true表示占据
 
       // 标记路径上的其他栅格为空闲（除了终点）
       for (size_t i = 0; i < grid_path.size() - 1; ++i) {

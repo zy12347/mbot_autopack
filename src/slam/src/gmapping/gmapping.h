@@ -33,9 +33,11 @@ class Gmapping {
     //             "laser_scan_.min_angle = %f, laser_scan_.max_angle = %f",
     //             laser_scan_.angle_min, laser_scan_.angle_max);
     // for (int i = 0; i < laser_scan_.ranges.size(); i++) {
-    //   RCLCPP_INFO(rclcpp::get_logger("gmapping"), "laser_scan_.ranges[%d] =
-    //   %f",
-    //               i, laser_scan_.ranges[i]);
+    //   RCLCPP_INFO(rclcpp::get_logger("gmapping"),
+    //               "laser_scan_.ranges[%d] =
+    //                   % f ",
+    //                   i,
+    //               laser_scan_.ranges[i]);
     // }
     odo_ = odom;
   };

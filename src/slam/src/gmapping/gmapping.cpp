@@ -65,20 +65,21 @@ void Gmapping::Initialize(Pose2D& init_pose) {
 void Gmapping::Predict() {
   // 确保时间差不为负数
   uint64_t delta_t = odo_.stamp - last_stamp_time_; // nano
+  float delta_t_s = delta_t / 1e9;
   last_stamp_time_ = odo_.stamp;
-  float delta_d = odo_.linear_x * delta_t / 1e9;
-  float delta_theta = odo_.angular_z * delta_t / 1e9;
+  float delta_d = odo_.linear_x * delta_t_s;
+  float delta_phi = odo_.angular_z * delta_t_s;
   RCLCPP_INFO(rclcpp::get_logger("gmapping Predict"),
-              "delta_t:%ld delta_d:%f delta_theta:%f", delta_t, delta_d,
-              delta_theta);
+              "delta_t:%f delta_d:%f delta_phi:%f", delta_t_s, delta_d,
+              delta_phi);
   for (auto& p : particles_) {
     Pose2D last_pose = p.GetPose();
     Pose2D cur_pose;
     cur_pose.x =
-        last_pose.x + delta_d * cos(last_pose.GetPhi() + delta_theta / 2);
+        last_pose.x + delta_d * cos(last_pose.GetPhi() + delta_phi / 2);
     cur_pose.y =
-        last_pose.y + delta_d * sin(last_pose.GetPhi() + delta_theta / 2);
-    cur_pose.SetPhi(last_pose.GetPhi() + delta_theta);
+        last_pose.y + delta_d * sin(last_pose.GetPhi() + delta_phi / 2);
+    cur_pose.SetPhi(last_pose.GetPhi() + delta_phi);
     p.SetPose(cur_pose);
   }
 }
@@ -86,8 +87,8 @@ void Gmapping::Predict() {
 void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
   UpdateSensorData(scan, odom);
   Predict();
-  OptimizePose();
-  computeAndNormalizeWeights();
+  // OptimizePose();
+  // computeAndNormalizeWeights();
   UpdateMap();
 }
 

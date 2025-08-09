@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 
+#include <opencv2/opencv.hpp>
 #include "mbot_interface/LaserScan.h"
 #include "mbot_interface/Pose2D.h"
 #include "nav_msgs/msg/occupancy_grid.hpp"
@@ -46,20 +47,40 @@ class GridMap {
     delete[] map_;
     map_ = nullptr;
   }
-  int GetWidth() const { return width; };
-  int GetHeight() const { return height; };
-  float GetResolution() const { return resolution; };
-  int x2idx(float x) const { return int(x / resolution); };
-  int y2idy(float y) const { return int(y / resolution); };
+  uint8_t* GetMapData() {
+    return map_;
+  };
 
-  float idx2x(int x) const { return float(x * resolution); };
-  float idy2y(int y) const { return float(y * resolution); };
+  int GetWidth() const {
+    return width;
+  };
+  int GetHeight() const {
+    return height;
+  };
+  float GetResolution() const {
+    return resolution;
+  };
+  int x2idx(float x) const {
+    return int(x / resolution);
+  };
+  int y2idy(float y) const {
+    return int(y / resolution);
+  };
+
+  float idx2x(int x) const {
+    return float(x * resolution);
+  };
+  float idy2y(int y) const {
+    return float(y * resolution);
+  };
 
   bool isGridInBounds(int idx, int idy) const {
     return idx >= 0 && idx < width && idy >= 0 && idy < height;
   };
 
-  int GetValue(int idx, int idy) const { return map_[idy * width + idx]; };
+  int GetValue(int idx, int idy) const {
+    return map_[idy * width + idx];
+  };
 
   void SetValue(int idx, int idy, uint8_t value) {
     map_[idy * width + idx] = value;
@@ -80,6 +101,8 @@ class GridMap {
   std::vector<std::pair<int, int>> Bresnham(int start_idx, int start_idy,
                                             int end_idx, int end_idy,
                                             float max_range) const;
+
+  void SaveAsBmp(std::string filename);
 
  private:
   int width = 100;

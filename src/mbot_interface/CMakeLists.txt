@@ -7,6 +7,7 @@
 
   # find dependencies
   find_package(ament_cmake REQUIRED)
+  find_package(OpenCV REQUIRED)
   find_package(rosidl_default_generators REQUIRED)
   find_package(rclcpp REQUIRED)
   find_package(std_msgs REQUIRED)
@@ -42,7 +43,8 @@
 
   target_include_directories(mbot_interface_lib PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>)
+    $<INSTALL_INTERFACE:include>
+    ${OpenCV_INCLUDE_DIRS})
 
   target_compile_features(mbot_interface_lib PUBLIC c_std_99 cxx_std_17)
 
@@ -60,7 +62,7 @@
   ${PROJECT_NAME} rosidl_typesupport_cpp)
   
   # 链接消息类型支持库（关键部分）
-  target_link_libraries(mbot_interface_lib "${cpp_typesupport_target}")
+  target_link_libraries(mbot_interface_lib "${cpp_typesupport_target}"  ${OpenCV_LIBS})
 
   # 安装头文件
   install(
@@ -93,5 +95,5 @@
     set(ament_cmake_cpplint_FOUND TRUE)
     ament_lint_auto_find_test_dependencies()
   endif()
-
-  ament_package()
+ament_export_dependencies(OpenCV)
+ament_package()

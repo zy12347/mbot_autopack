@@ -12,7 +12,9 @@ class GmappingParams {
 class Gmapping {
  public:
   Gmapping();
-  Gmapping(GmappingParams& param) : gmap_param_(param) { particles_.clear(); };
+  Gmapping(GmappingParams& param) : gmap_param_(param) {
+    particles_.clear();
+  };
 
   // 拷贝构造函数
   Gmapping(const Gmapping& other);
@@ -47,7 +49,9 @@ class Gmapping {
 
   static void ICP(std::vector<std::pair<float, float>>& p1,
                   std::vector<std::pair<float, float>>& p2, Pose2D& init_pose);
-  GridMap& GetGridMap() { return grid_map_; };
+  GridMap& GetGridMap() {
+    return grid_map_;
+  };
 
  private:
   std::vector<std::pair<float, float>> Polar2Cartesian(

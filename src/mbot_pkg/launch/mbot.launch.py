@@ -73,18 +73,19 @@ def generate_launch_description():
         name='control_node',
         output='screen'
     )
+
+    rviz2_node = Node(package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen')
+    
     Nodes = [gazebo_server,
         gazebo_client,
         load_urdf,
         spawn_entity,
         slam_node, 
-        control_node]
-
-    if(use_rviz):
-        Nodes.append(Node(package='rviz2',
-        executable='rviz2',
-        name='rviz2',
-        output='screen'))
+        control_node,
+        rviz2_node]
 
     # return LaunchDescription([
     #     gazebo_server,

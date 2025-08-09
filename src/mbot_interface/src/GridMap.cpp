@@ -62,7 +62,7 @@ std::vector<std::pair<float, float>> GridMap::ScanMap(const Pose2D& pose,
 
   for (int x = min_grid_x; x <= max_grid_x; x++) {
     for (int y = min_grid_y; y <= max_grid_y; y++) {
-      if (GetValue(x, y) > 0) {  // 检查是否有障碍物
+      if (GetValue(x, y) > 0) { // 检查是否有障碍物
         points.push_back(std::make_pair(idx2x(x), idy2y(y)));
       }
     }
@@ -132,7 +132,7 @@ float GridMap::Raycast(double start_x, double start_y, double angle,
       float wx = idx2x(gx);
       float wy = idy2y(gy);
       float distance = std::hypot(wx - start_x, wy - start_y);
-      return distance;  // 击中障碍物
+      return distance; // 击中障碍物
     }
   }
 
@@ -166,13 +166,18 @@ void GridMap::UpdateCell(const Pose2D& pose, const LaserScan& scan) {
     if (!grid_path.empty()) {
       // 标记终点栅格为占据（最后一个栅格）
       auto [end_gx, end_gy] = grid_path.back();
-      SetValue(end_gx, end_gy, 1);  // true表示占据
+      SetValue(end_gx, end_gy, 1); // true表示占据
 
       // 标记路径上的其他栅格为空闲（除了终点）
       for (size_t i = 0; i < grid_path.size() - 1; ++i) {
         auto [gx, gy] = grid_path[i];
-        SetValue(gx, gy, 0);  // false表示空闲
+        SetValue(gx, gy, 0); // false表示空闲
       }
     }
   }
+}
+
+void GridMap::SaveAsBmp(std::string filename) {
+  cv::Mat img(height, width, CV_8UC1, const_cast<uint8_t*>(map_));
+  cv::imwrite(filename, img);
 }

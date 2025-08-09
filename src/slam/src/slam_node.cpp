@@ -67,8 +67,10 @@ class SlamManager : public rclcpp::Node {
       }
 
       // RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"), "grid_map");
+      GridMap& grid = gmapping_.GetGridMap();
+      grid.SaveAsBmp("/home/zy/ws/map.bmp");
       if (map_publisher_) {
-        map_publisher_->publish(gmapping_.GetGridMap().ToRosMsg());
+        map_publisher_->publish(grid.ToRosMsg());
       }
     } catch (const std::exception& e) {
       RCLCPP_ERROR(this->get_logger(), "处理激光扫描数据时发生异常: %s",

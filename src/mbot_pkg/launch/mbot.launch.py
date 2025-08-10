@@ -16,7 +16,7 @@ def generate_launch_description():
     pkg_mbot = get_package_share_directory('mbot_pkg')
 
     # 世界文件路径
-    world_file = os.path.join(pkg_mbot, 'worlds', 'empty_world.world')
+    world_file = os.path.join(pkg_mbot, 'worlds', 'world_wall.world')
     
     # URDF文件路径
     urdf_file = os.path.join(pkg_mbot, 'urdf', 'mbot_gazebo.urdf.xacro')

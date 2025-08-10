@@ -17,7 +17,7 @@ class ScanMatcher {
       std::vector<std::pair<float, float>>& points, Eigen::Matrix3d& T);
 
   // 寻找最近点对应关系
-  void FindCorresponcePoints(
+  void FindCorrespondencePoints(
       std::vector<std::pair<float, float>>& transformed_pts,
       std::vector<std::pair<float, float>>& p_d,
       std::vector<std::pair<float, float>>& corresponce_pts);

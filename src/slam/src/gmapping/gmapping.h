@@ -59,6 +59,7 @@ class Gmapping {
   std::vector<std::pair<float, float>> Polar2Cartesian(
       std::vector<float>& ranges);
 
+  bool CheckReachEdge(Pose2D& pose);
   GridMap grid_map_;
   int particle_num = 0;
   float nerf_threshold_ = 0.5;

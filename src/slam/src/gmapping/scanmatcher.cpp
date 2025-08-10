@@ -22,7 +22,7 @@ Pose2D ScanMatcher::ICP(std::vector<std::pair<float, float>>& p_s,
 
   for (int i = 0; i < max_iteration; i++) {
     std::vector<std::pair<float, float>> correspondence_pts;
-    FindCorresponcePoints(transformed_pts, p_d, correspondence_pts);
+    FindCorrespondencePoints(transformed_pts, p_d, correspondence_pts);
 
     if (correspondence_pts.empty()) {
       break;
@@ -75,17 +75,17 @@ std::vector<std::pair<float, float>> ScanMatcher::TransFormPoints(
   return transformed_points;
 }
 
-void ScanMatcher::FindCorresponcePoints(
+void ScanMatcher::FindCorrespondencePoints(
     std::vector<std::pair<float, float>>& transformed_pts,
     std::vector<std::pair<float, float>>& p_d,
     std::vector<std::pair<float, float>>& correspondence_pts) {
   correspondence_pts.clear();
   for (auto& p : transformed_pts) {
-    float min_dist = 1000000;
+    float min_dist = 1e8;
     int min_index = -1;
     for (int i = 0; i < p_d.size(); i++) {
-      float dist = sqrt(pow(p.first - p_d[i].first, 2) +
-                        pow(p.second - p_d[i].second, 2));
+      float dist =
+          pow(p.first - p_d[i].first, 2) + pow(p.second - p_d[i].second, 2);
       if (dist < min_dist) {
         min_dist = dist;
         min_index = i;
@@ -104,7 +104,7 @@ Eigen::Matrix3d ScanMatcher::ComputeOptimalTransform(
   Eigen::Matrix3d T = Eigen::Matrix3d::Identity();
 
   if (correspondence_pts.size() < 4) {
-    return T;  // 至少需要2个对应点对
+    return T; // 至少需要2个对应点对
   }
 
   // 计算质心

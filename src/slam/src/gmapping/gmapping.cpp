@@ -85,11 +85,43 @@ void Gmapping::Predict() {
 }
 
 void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
+  auto start_time = std::chrono::high_resolution_clock::now(); // 记录开始时间
   UpdateSensorData(scan, odom);
+  auto end_time = std::chrono::high_resolution_clock::now(); // 记录结束时间
+  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(
+                      end_time - start_time)
+                      .count();
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "ProcessScan took %ld ms",
+              duration);
+
   Predict();
-  // OptimizePose();
-  // computeAndNormalizeWeights();
+  auto end_time1 = std::chrono::high_resolution_clock::now(); // 记录结束时间
+  auto duration1 = std::chrono::duration_cast<std::chrono::milliseconds>(
+                       end_time1 - end_time)
+                       .count();
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "Predict took %ld ms", duration1);
+
+  OptimizePose();
+  auto end_time2 = std::chrono::high_resolution_clock::now(); // 记录结束时间
+  auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(
+                       end_time2 - end_time1)
+                       .count();
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "OptimizePose took %ld ms",
+              duration2);
+  computeAndNormalizeWeights();
+  auto end_time3 = std::chrono::high_resolution_clock::now(); // 记录结束时间
+  auto duration3 = std::chrono::duration_cast<std::chrono::milliseconds>(
+                       end_time3 - end_time2)
+                       .count();
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"),
+              "ComputeAndNormalizeWeights took %ld ms", duration3);
   UpdateMap();
+  auto end_time4 = std::chrono::high_resolution_clock::now(); // 记录结束时间
+  auto duration4 = std::chrono::duration_cast<std::chrono::milliseconds>(
+                       end_time4 - end_time3)
+                       .count();
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "UpdateMap took %ld ms",
+              duration4);
 }
 
 void Gmapping::Resample() {
@@ -129,11 +161,23 @@ void Gmapping::UpdateMap() {
   std::cout << "UpdateMap: best_pose=(" << best_pose.x << "," << best_pose.y
             << "," << best_pose.GetPhi() << ")" << std::endl;
 
+  bool need_extend = CheckReachEdge(best_pose);
+  if (need_extend) {
+    grid_map_.ExtendMap();
+    RCLCPP_INFO(
+        rclcpp::get_logger("Gmapping"),
+        "Reach Max Map, EXTEND width:%d height:%d origin_x:%f origin_y:%f",
+        grid_map_.GetWidth(), grid_map_.GetHeight(), grid_map_.GetOriginX(),
+        grid_map_.GetOriginY());
+  }
   // 更新全局地图
   grid_map_.UpdateCell(best_pose, laser_scan_);
 
   // 更新所有粒子的地图
   for (auto& particle : particles_) {
+    if (need_extend) {
+      particle.GetGridMap().ExtendMap();
+    }
     particle.GetGridMap().UpdateCell(best_pose, laser_scan_);
   }
 
@@ -173,7 +217,7 @@ void Gmapping::computeAndNormalizeWeights() {
 
 float Gmapping::ComputeParticleWeight(Particle& particle) {
   // std::cout << "ComputeParticleWeight: starting" << std::endl;
-  const GridMap& grid_map = particle.GetGridMap(); // 使用引用避免拷贝
+  GridMap& grid_map = particle.GetGridMap(); // 使用引用避免拷贝
   Pose2D p_pose = particle.GetPose();
   // std::cout << "ComputeParticleWeight: grid_map.Raycast: starting" <<
   // std::endl;
@@ -196,9 +240,17 @@ float Gmapping::ComputeParticleWeight(Particle& particle) {
 void Gmapping::OptimizePose() {
   // std::cout << "OptimizePose: starting pose optimization" << std::endl;
 
+  auto start_time = std::chrono::high_resolution_clock::now(); // 记录结束时间
+
   std::vector<std::pair<float, float>> points =
       Polar2Cartesian(laser_scan_.ranges);
+  auto end_time = std::chrono::high_resolution_clock::now(); // 记录结束时间
 
+  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(
+                      end_time - start_time)
+                      .count();
+  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "Polar2cartesian took %ld ms",
+              duration);
   // 检查当前激光扫描点云是否为空
   if (points.empty()) {
     // std::cout << "Warning: Current laser scan points are empty, skipping ICP"
@@ -210,11 +262,17 @@ void Gmapping::OptimizePose() {
   // std::cout << "OptimizePose: current scan has " << points.size() << "
   // points"
   //           << std::endl;
-
   for (auto& p : particles_) {
+    auto end_time = std::chrono::high_resolution_clock::now(); // 记录结束时间
     std::vector<std::pair<float, float>> points_scan =
         p.ScanMap(laser_scan_.range_max);
+    auto end_time1 = std::chrono::high_resolution_clock::now(); // 记录结束时间
 
+    auto duration1 = std::chrono::duration_cast<std::chrono::milliseconds>(
+                         end_time1 - end_time)
+                         .count();
+    RCLCPP_INFO(rclcpp::get_logger("gmapping"), "scanmap took %ld ms",
+                duration1);
     // 检查粒子地图点云是否为空
     if (points_scan.empty()) {
       // std::cout
@@ -222,8 +280,16 @@ void Gmapping::OptimizePose() {
       //     << std::endl;
       continue;
     }
-
+    RCLCPP_INFO(rclcpp::get_logger("gmapping"),
+                "points.size:%d points_scan.size:%d", points.size(),
+                points_scan.size());
     Pose2D optimized_pose = scan_matcher_.ICP(points, points_scan, p.GetPose());
+    auto end_time2 = std::chrono::high_resolution_clock::now(); // 记录结束时间
+
+    auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(
+                         end_time2 - end_time1)
+                         .count();
+    RCLCPP_INFO(rclcpp::get_logger("gmapping"), "ICP took %ld ms", duration2);
     p.SetPose(optimized_pose);
     p.PertubPose();
   }
@@ -267,4 +333,24 @@ std::vector<std::pair<float, float>> Gmapping::Polar2Cartesian(
     points.emplace_back(point);
   }
   return points;
+}
+
+bool Gmapping::CheckReachEdge(Pose2D& pose) {
+  for (size_t i = 0; i < laser_scan_.ranges.size(); ++i) {
+    float range = laser_scan_.ranges[i];
+    if (range < laser_scan_.range_min || range > laser_scan_.range_max) {
+      continue; // 跳过无效的激光点
+    }
+    // 计算激光点的全局坐标
+    float angle = laser_scan_.angle_min + i * laser_scan_.angle_increment;
+    float global_x = pose.x + range * cos(pose.GetPhi() + angle);
+    float global_y = pose.y + range * sin(pose.GetPhi() + angle);
+
+    // 检查是否超出地图边界
+    if (!grid_map_.isGridInBounds(grid_map_.x2idx(global_x),
+                                  grid_map_.y2idy(global_y))) {
+      return true; // 超出边界，需扩展地图
+    }
+  }
+  return false; // 所有点都在边界内
 }

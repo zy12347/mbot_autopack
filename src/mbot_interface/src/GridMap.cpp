@@ -18,6 +18,8 @@ void GridMap::FromRosMsg(const nav_msgs::msg::OccupancyGrid& msg) {
     width = static_cast<int>(msg.info.width);
     height = static_cast<int>(msg.info.height);
     resolution = msg.info.resolution;
+    origin_x = msg.info.origin.position.x;
+    origin_y = msg.info.origin.position.y;
 
     // 重新分配内存
     if (map_ != nullptr) {
@@ -41,6 +43,8 @@ nav_msgs::msg::OccupancyGrid GridMap::ToRosMsg() const {
   msg.info.width = width;
   msg.info.height = height;
   msg.info.resolution = resolution;
+  msg.info.origin.position.x = origin_x;
+  msg.info.origin.position.y = origin_y;
   msg.data.resize(width * height);
   for (int i = 0; i < width * height; ++i) {
     msg.data[i] = static_cast<int8_t>(map_[i]);
@@ -113,7 +117,7 @@ std::vector<std::pair<int, int>> GridMap::Bresnham(int start_idx, int start_idy,
 }
 
 float GridMap::Raycast(double start_x, double start_y, double angle,
-                       double max_range) const {
+                       double max_range) {
   int start_idx = x2idx(start_x);
   int start_idy = y2idy(start_y);
   // 计算射线终点（最大射程处）
@@ -141,11 +145,13 @@ float GridMap::Raycast(double start_x, double start_y, double angle,
 }
 
 void GridMap::UpdateCell(const Pose2D& pose, const LaserScan& scan) {
-  std::cout << " angle_min " << scan.angle_min << " angle_increment "
-            << scan.angle_increment << std::endl;
+  // std::cout << " angle_min " << scan.angle_min << " angle_increment "
+  //           << scan.angle_increment << std::endl;
   for (size_t k = 0; k < scan.ranges.size(); ++k) {
     double range = scan.ranges[k];
     // 过滤无效数据
+    // std::cout << "range:%f " << range << " angle:%f "
+    //           << (scan.angle_min + k * scan.angle_increment) << std::endl;
     if (range < scan.range_min || range > scan.range_max) {
       continue;
     }
@@ -182,4 +188,30 @@ void GridMap::UpdateCell(const Pose2D& pose, const LaserScan& scan) {
 void GridMap::SaveAsBmp(std::string filename) {
   cv::Mat img(height, width, CV_8UC1, const_cast<uint8_t*>(map_));
   cv::imwrite(filename, img);
+}
+
+void GridMap::ExtendMap() {
+  if (width >= 6400 || height >= 6400) {
+    return;
+  }
+  int new_width = width * 2;
+  int new_height = height * 2;
+  float new_origin_x = -width * resolution / 2;
+  float new_origin_y = -height * resolution / 2;
+  uint8_t* new_map = new uint8_t[new_width * new_height]();
+
+  // Copy old map data to new map
+  for (int y = 0; y < height; ++y) {
+    for (int x = 0; x < width; ++x) {
+      new_map[(y + height) * new_width + (x + width)] = map_[y * width + x];
+    }
+  }
+
+  // Update map parameters
+  delete[] map_;
+  map_ = new_map;
+  width = new_width;
+  height = new_height;
+  origin_x = new_origin_x;
+  origin_y = new_origin_y;
 }

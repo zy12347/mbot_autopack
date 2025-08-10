@@ -8,11 +8,13 @@
 
 class GridMap {
  public:
-  GridMap(int w = 100, int h = 100, float r = 0.05)
+  GridMap(int w = 400, int h = 400, float r = 0.05)
       : width(w), height(h), resolution(r) {
+    origin_x = -width * resolution / 2;
+    origin_y = -height * resolution / 2;
     map_ = new uint8_t[width * height]();
-    std::cout << "GridMap: Constructor called, map_=" << (void*)map_
-              << std::endl;
+    // std::cout << "GridMap: Constructor called, map_=" << (void*)map_
+    //           << std::endl;
   };
 
   // 拷贝构造函数
@@ -20,35 +22,43 @@ class GridMap {
       : width(other.width), height(other.height), resolution(other.resolution) {
     map_ = new uint8_t[width * height];
     std::copy(other.map_, other.map_ + width * height, map_);
-    std::cout << "GridMap: Copy constructor called, map_=" << (void*)map_
-              << std::endl;
+    // std::cout << "GridMap: Copy constructor called, map_=" << (void*)map_
+    //           << std::endl;
   }
 
   // 赋值运算符
   GridMap& operator=(const GridMap& other) {
     if (this != &other) {
-      std::cout << "GridMap: Assignment operator called, old map_="
-                << (void*)map_ << std::endl;
+      // std::cout << "GridMap: Assignment operator called, old map_="
+      //           << (void*)map_ << std::endl;
       delete[] map_;
       width = other.width;
       height = other.height;
       resolution = other.resolution;
       map_ = new uint8_t[width * height];
       std::copy(other.map_, other.map_ + width * height, map_);
-      std::cout << "GridMap: Assignment operator completed, new map_="
-                << (void*)map_ << std::endl;
+      // std::cout << "GridMap: Assignment operator completed, new map_="
+      //           << (void*)map_ << std::endl;
     }
     return *this;
   }
 
   ~GridMap() {
-    std::cout << "GridMap: Destructor called, map_=" << (void*)map_
-              << std::endl;
+    // std::cout << "GridMap: Destructor called, map_=" << (void*)map_
+    //           << std::endl;
     delete[] map_;
     map_ = nullptr;
   }
   uint8_t* GetMapData() {
     return map_;
+  };
+
+  float GetOriginX() const {
+    return origin_x;
+  };
+
+  float GetOriginY() const {
+    return origin_y;
   };
 
   int GetWidth() const {
@@ -61,17 +71,17 @@ class GridMap {
     return resolution;
   };
   int x2idx(float x) const {
-    return int(x / resolution);
+    return int((x - origin_x) / resolution);
   };
   int y2idy(float y) const {
-    return int(y / resolution);
+    return int((y - origin_y) / resolution);
   };
 
   float idx2x(int x) const {
-    return float(x * resolution);
+    return float(x * resolution + origin_x);
   };
   float idy2y(int y) const {
-    return float(y * resolution);
+    return float(y * resolution + origin_y);
   };
 
   bool isGridInBounds(int idx, int idy) const {
@@ -95,8 +105,7 @@ class GridMap {
   std::vector<std::pair<float, float>> ScanMap(const Pose2D& pose,
                                                float max_range) const;
 
-  float Raycast(double start_x, double start_y, double angle,
-                double max_range) const;
+  float Raycast(double start_x, double start_y, double angle, double max_range);
 
   std::vector<std::pair<int, int>> Bresnham(int start_idx, int start_idy,
                                             int end_idx, int end_idy,
@@ -104,9 +113,13 @@ class GridMap {
 
   void SaveAsBmp(std::string filename);
 
+  void ExtendMap();
+
  private:
-  int width = 100;
-  int height = 100;
+  int width = 400;
+  int height = 400;
   float resolution = 0.05f;
+  float origin_x = -width * resolution / 2;
+  float origin_y = -height * resolution / 2;
   uint8_t* map_ = nullptr;
 };

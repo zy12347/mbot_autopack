@@ -29,5 +29,7 @@ done
 
 # 使用传入的参数作为包名
 colcon build --packages-select $PACKAGE_ARGS
+echo "source setup.bash...."
+source ./install/setup.bash
 
 # colcon build --packages-select mbot_pkg

@@ -7,7 +7,7 @@ std::vector<std::pair<float, float>> Particle::ScanMap(float max_range) {
   return map.ScanMap(pose, max_range);
 }
 
-void Particle::PertubPose() {
+void Particle::PerturbPose() {
   // std::vector<Pose2D> candidate_poses;
   // for (int k = 0; k < K; ++k) {
   //   // 生成满足限制的随机位姿

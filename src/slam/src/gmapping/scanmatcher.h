@@ -1,7 +1,7 @@
 #pragma once
 #include <Eigen/Dense>
-
 #include "mbot_interface/mbot_common.h"
+#include "particle.h"
 
 class ScanMatcher {
  public:
@@ -15,6 +15,8 @@ class ScanMatcher {
       std::vector<std::pair<float, float>>& source_points, int step = 1);
   // ICP算法：输入源点云、目标点云和初始位姿，输出优化后的位姿
   Pose2D ICP(std::vector<std::pair<float, float>>& p_d, Pose2D init_pose);
+
+  Pose2D SearchMatch(Particle& p, LaserScan& laser_scan);
 
   // 根据初始位姿生成齐次变换矩阵（3x3）
   Eigen::Matrix3d GetTransForm(Pose2D& init_pose);

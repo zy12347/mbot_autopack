@@ -41,6 +41,14 @@ class Pose2D {
     Phi_ = msg.phi;
   }
 
+  float GetDistance(Pose2D& other) const {
+    return std::sqrt(std::pow(x - other.x, 2) + std::pow(y - other.y, 2));
+  }
+
+  float GetAngDis(Pose2D& other) const {
+    return std::abs(Wrap2PI(Phi_ - other.Phi_));
+  }
+
   mbot_interface::msg::Pose2D ToRosMsg() const {
     mbot_interface::msg::Pose2D msg;
     msg.x = x;

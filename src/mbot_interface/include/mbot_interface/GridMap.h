@@ -103,7 +103,7 @@ class GridMap {
   nav_msgs::msg::OccupancyGrid ToRosMsg() const;
 
   std::vector<std::pair<float, float>> ScanMap(const Pose2D& pose,
-                                               float max_range) const;
+                                               float max_range);
 
   float Raycast(double start_x, double start_y, double angle, double max_range);
 
@@ -113,6 +113,8 @@ class GridMap {
   void SaveAsBmp(std::string filename);
 
   void ExtendMap();
+
+  int ComputeScore(std::vector<std::pair<float, float>>& global_pts);
 
  private:
   int width = 400;

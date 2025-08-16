@@ -15,9 +15,65 @@ std::vector<std::pair<float, float>> ScanMatcher::DownSample(
   return down_sampled;
 }
 
+Pose2D ScanMatcher::SearchMatch(Particle& p, LaserScan& laser_scan) {
+  int iteration = 5; // 迭代次数
+  float dis_range = 0.10;
+  float phi_range = M_PI / 180 * 5;
+  float dis_step = 0.1;
+  float phi_step = M_PI / 180 * 5;
+
+  float best_score = -INFINITY;
+  Pose2D best_pose = p.GetPose();
+  Pose2D last_best_pose = best_pose;
+  int iteration_count = 0;
+  while (iteration_count < iteration) {
+    for (float dx = -dis_range; dx <= dis_range; dx += dis_step) {
+      for (float dy = -dis_range; dy <= dis_range; dy += dis_step) {
+        for (float dphi = -phi_range; dphi <= phi_range; dphi += phi_step) {
+          Pose2D candidate(best_pose.x + dx, best_pose.y + dy,
+                           best_pose.GetPhi() + dphi);
+          std::vector<std::pair<float, float>> global_scan;
+          for (size_t i = 0; i < laser_scan.ranges.size(); i = i + 2) {
+            float angle = laser_scan.angle_min + i * laser_scan.angle_increment;
+
+            // 计算变换后的坐标（直接使用预计算的cos和sin）
+            float x_transformed =
+                candidate.x +
+                cos(candidate.GetPhi() + angle) * laser_scan.ranges[i];
+            float y_transformed =
+                candidate.y +
+                sin(candidate.GetPhi() + angle) * laser_scan.ranges[i];
+
+            // 添加到输出列表
+            global_scan.emplace_back(x_transformed, y_transformed);
+          }
+          float score = p.GetGridMap().ComputeScore(global_scan);
+
+          if (score > best_score) {
+            best_score = score;
+            best_pose = candidate;
+          }
+        }
+      }
+    }
+    if (last_best_pose.GetDistance(best_pose) < 0.01 &&
+        last_best_pose.GetAngDis(best_pose) < Pose2D::DEG2RAD(1)) {
+      return best_pose; // 如果位姿变化很小，提前结束
+    }
+    dis_range = dis_range / 2;
+    phi_range = phi_range / 2;
+    dis_step = dis_step / 2;
+    phi_step = phi_step / 2;
+    // 在这里执行每次迭代的操作
+    iteration_count++;
+  }
+
+  return best_pose;
+}
+
 Pose2D ScanMatcher::ICP(std::vector<std::pair<float, float>>& p_d,
                         Pose2D init_pose) {
-  int max_iteration = 10;
+  int max_iteration = 5;
   float rotation_epsilon = 1e-4;
   float translation_epsilon = 1e-4;
 

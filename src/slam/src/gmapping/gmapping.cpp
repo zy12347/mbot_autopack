@@ -5,7 +5,7 @@
 #include <random>
 
 Gmapping::Gmapping() {
-  gmap_param_.particle_count = 50;
+  gmap_param_.particle_count = 30;
   gmap_param_.map_resolution = 0.05;
   // gmap_param_.map_size = 10000;
   // gmap_param_.map_origin = Pose2D(0.0, 0.0, 0.0);
@@ -98,7 +98,7 @@ void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
   RCLCPP_INFO(rclcpp::get_logger("gmapping"), "OptimizePose took %ld ms",
               duration2);
 
-  // computeAndNormalizeWeights();
+  ComputeAndNormalizeWeights();
   auto end_time3 = std::chrono::high_resolution_clock::now(); // 记录结束时间
   auto duration3 = std::chrono::duration_cast<std::chrono::milliseconds>(
                        end_time3 - end_time2)
@@ -164,19 +164,36 @@ void Gmapping::UpdateMap() {
   // 更新全局地图
   grid_map_.UpdateCell(best_pose, laser_scan_);
 
-  // 更新所有粒子的地图
-  for (auto& particle : particles_) {
-    if (need_extend) {
-      particle.GetGridMap().ExtendMap();
+  auto update_map = [this](size_t start, size_t end, bool need_extend) {
+    for (size_t i = start; i < end; ++i) {
+      Particle& p = particles_[i];
+      if (need_extend) {
+        p.GetGridMap().ExtendMap();
+      }
+      p.GetGridMap().UpdateCell(p.GetPose(), laser_scan_);
     }
-    particle.GetGridMap().UpdateCell(best_pose, laser_scan_);
-  }
+  };
+  std::thread thread1(update_map, 0, particles_.size() / 2, need_extend);
+  std::thread thread2(update_map, particles_.size() / 2, particles_.size(),
+                      need_extend);
+
+  // 等待线程完成
+  thread1.join();
+  thread2.join();
+
+  // 更新所有粒子的地图
+  // for (auto& particle : particles_) {
+  //   if (need_extend) {
+  //     particle.GetGridMap().ExtendMap();
+  //   }
+  //   particle.GetGridMap().UpdateCell(best_pose, laser_scan_);
+  // }
 
   // std::cout << "UpdateMap: updated " << particles_.size() << " particles"
   //           << std::endl;
 }
 
-void Gmapping::computeAndNormalizeWeights() {
+void Gmapping::ComputeAndNormalizeWeights() {
   double total_weight = 0.0;
   // std::cout << "computeAndNormalizeWeights: starting" << std::endl;
   // 遍历每个粒子计算权重
@@ -229,56 +246,29 @@ float Gmapping::ComputeParticleWeight(Particle& particle) {
 }
 
 void Gmapping::OptimizePose() {
-  // std::cout << "OptimizePose: starting pose optimization" << std::endl;
-
-  auto start_time = std::chrono::high_resolution_clock::now(); // 记录结束时间
-
-  std::vector<std::pair<float, float>> points =
-      Polar2Cartesian(laser_scan_.ranges);
-  auto end_time = std::chrono::high_resolution_clock::now(); // 记录结束时间
-
-  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(
-                      end_time - start_time)
-                      .count();
-  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "Polar2cartesian took %ld ms",
-              duration);
   // 检查当前激光扫描点云是否为空
-  if (points.empty()) {
-    // std::cout << "Warning: Current laser scan points are empty, skipping ICP"
-    //           << std::endl;
+  if (laser_scan_.ranges.empty()) {
+    std::cout << "Warning: Current laser scan points are empty, skipping ICP"
+              << std::endl;
     return;
   }
-  // RCLCPP_INFO(rclcpp::get_logger("gmapping"),
-  //             "OptimizePose: current scan has %d points", points.size());
-  // std::cout << "OptimizePose: current scan has " << points.size() << "
-  // points"
-  //           << std::endl;
-  points = scan_matcher_.DownSample(points, 2);
-  scan_matcher_.BuildKdTree(points);
-  for (auto& p : particles_) {
-    std::vector<std::pair<float, float>> points_scan =
-        p.ScanMap(laser_scan_.range_max);
-    // 检查粒子地图点云是否为空
-    if (points_scan.empty()) {
-      // std::cout
-      //     << "Warning: Particle map points are empty, skipping this particle"
-      //     << std::endl;
-      continue;
+  auto process_particle_range = [this](size_t start, size_t end) {
+    for (size_t i = start; i < end; ++i) {
+      Particle& p = particles_[i];
+      Pose2D optimized_pose = scan_matcher_.SearchMatch(p, laser_scan_);
+      p.SetPose(optimized_pose); // 更新粒子位姿
+      p.PerturbPose();
     }
-    RCLCPP_INFO(rclcpp::get_logger("gmapping"),
-                "points.size:%zu points_scan.size:%zu", points.size(),
-                points_scan.size());
-    auto end_time1 = std::chrono::high_resolution_clock::now();
-    Pose2D optimized_pose = scan_matcher_.ICP(points_scan, p.GetPose());
-    auto end_time2 = std::chrono::high_resolution_clock::now(); // 记录结束时间
+  };
+  std::thread thread1(process_particle_range, 0, particles_.size() / 2);
+  std::thread thread2(process_particle_range, particles_.size() / 2,
+                      particles_.size());
 
-    auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(
-                         end_time2 - end_time1)
-                         .count();
-    RCLCPP_INFO(rclcpp::get_logger("gmapping"), "ICP took %ld ms", duration2);
-    p.SetPose(optimized_pose);
-    p.PertubPose();
-  }
+  // 等待线程完成
+  thread1.join();
+  thread2.join();
+  // RCLCPP_INFO(rclcpp::get_logger("gmapping"), "ICP took %ld ms",
+  // duration2); p.SetPose(optimized_pose); p.PertubPose();
 }
 
 Pose2D Gmapping::GetBestEstimate() {

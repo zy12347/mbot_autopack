@@ -4,7 +4,7 @@
 
 class GmappingParams {
  public:
-  int particle_count = 50;
+  int particle_count = 30;
   float nerf_threshold = 0.5;
   float map_resolution = 0.05;
 };
@@ -46,7 +46,7 @@ class Gmapping {
   void UpdateMap();
   void OptimizePose();
   Pose2D GetBestEstimate();
-  void computeAndNormalizeWeights();
+  void ComputeAndNormalizeWeights();
   float ComputeParticleWeight(Particle& particle);
   GridMap& GetGridMap() {
     return grid_map_;

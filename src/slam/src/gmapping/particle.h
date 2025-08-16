@@ -33,14 +33,26 @@ class Particle {
     }
     return *this;
   }
-  void SetWeight(double w) { weight = w; };
-  double GetWeight() const { return weight; };
-  void SetPose(Pose2D& pose) { this->pose = pose; };
-  Pose2D GetPose() const { return pose; };
+  void SetWeight(double w) {
+    weight = w;
+  };
+  double GetWeight() const {
+    return weight;
+  };
+  void SetPose(Pose2D& pose) {
+    this->pose = pose;
+  };
+  Pose2D GetPose() const {
+    return pose;
+  };
   std::vector<std::pair<float, float>> ScanMap(float max_range);
-  const GridMap& GetGridMap() const { return map; };
-  GridMap& GetGridMap() { return map; };
-  void PertubPose();
+  const GridMap& GetGridMap() const {
+    return map;
+  };
+  GridMap& GetGridMap() {
+    return map;
+  };
+  void PerturbPose();
 
  private:
   GridMap map;

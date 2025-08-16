@@ -55,23 +55,24 @@ nav_msgs::msg::OccupancyGrid GridMap::ToRosMsg() const {
   return msg;
 }
 
-//局部区域提取,直接遍历不适用bresnham算法
+// 局部区域提取，使用raycast返回每个方向上的第一个障碍物点
 std::vector<std::pair<float, float>> GridMap::ScanMap(const Pose2D& pose,
-                                                      float max_range) const {
+                                                      float max_range) {
   std::vector<std::pair<float, float>> points;
-  int min_grid_x = std::max(0, x2idx(pose.x - max_range));
-  int max_grid_x = std::min(width, x2idx(pose.x + max_range));
-  int min_grid_y = std::max(0, y2idy(pose.y - max_range));
-  int max_grid_y = std::min(height, y2idy(pose.y + max_range));
-
-  for (int x = min_grid_x; x <= max_grid_x; x++) {
-    for (int y = min_grid_y; y <= max_grid_y; y++) {
-      if (GetValue(x, y) > 0) { // 检查是否有障碍物
-        points.push_back(std::make_pair(idx2x(x), idy2y(y)));
-      }
+  int num_rays = 360; // 360度遍历，每度一条射线
+  double angle_step = 2 * M_PI / num_rays;
+  // std::cout << "x " << pose.x << " " << pose.y << std::endl;
+  for (int i = 0; i < num_rays; ++i) {
+    double angle = i * angle_step;
+    float distance = Raycast(pose.x, pose.y, angle, max_range);
+    // std::cout << "angle " << Pose2D::RAD2DEG(angle) << " dis: " << distance
+    //           << " max_range: " << max_range << std::endl;
+    if (distance < max_range) { // 命中障碍物
+      float hit_x = pose.x + distance * std::cos(angle);
+      float hit_y = pose.y + distance * std::sin(angle);
+      points.emplace_back(hit_x, hit_y);
     }
   }
-
   return points;
 }
 
@@ -131,7 +132,7 @@ float GridMap::Raycast(double start_x, double start_y, double angle,
 
   // 遍历栅格，寻找第一个障碍物
   for (const auto& [gx, gy] : grid_path) {
-    if (GetValue(gx, gy) == 1) {
+    if (GetValue(gx, gy) == 255) {
       // 计算障碍物距离起点的物理距离
       float wx = idx2x(gx);
       float wy = idy2y(gy);
@@ -213,4 +214,15 @@ void GridMap::ExtendMap() {
   height = new_height;
   origin_x = new_origin_x;
   origin_y = new_origin_y;
+}
+
+int GridMap::ComputeScore(std::vector<std::pair<float, float>>& global_pts) {
+  int total_score = 0;
+  for (auto p : global_pts) {
+    int idx = x2idx(p.first);
+    int idy = y2idy(p.second);
+    int score = GetValue(idx, idy) > 0 ? 10 : 0;
+    total_score += score;
+  }
+  return total_score;
 }

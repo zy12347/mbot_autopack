@@ -3,34 +3,44 @@
 #include <cmath>
 #include <iostream>
 
-Pose2D ScanMatcher::ICP(std::vector<std::pair<float, float>>& p_s,
-                        std::vector<std::pair<float, float>>& p_d,
+std::vector<std::pair<float, float>> ScanMatcher::DownSample(
+    std::vector<std::pair<float, float>>& source_points, int step) {
+  std::vector<std::pair<float, float>> down_sampled;
+  if (source_points.empty()) {
+    return down_sampled;
+  }
+  for (size_t i = 0; i < source_points.size(); i += step) {
+    down_sampled.push_back(source_points[i]);
+  }
+  return down_sampled;
+}
+
+Pose2D ScanMatcher::ICP(std::vector<std::pair<float, float>>& p_d,
                         Pose2D init_pose) {
   int max_iteration = 10;
   float rotation_epsilon = 1e-4;
   float translation_epsilon = 1e-4;
 
-  if (p_d.empty() || p_s.empty()) {
+  if (p_d.empty() || kd_tree_->empty()) {
     std::cout << "error: empty point clouds" << std::endl;
     return init_pose;
   }
-
-  Eigen::Matrix3d T = GetTransForm(init_pose);
-  std::vector<std::pair<float, float>> transformed_pts =
-      TransFormPoints(p_s, T);
   Pose2D optimized_pose = init_pose;
-
+  Eigen::Matrix3d T = GetTransForm(optimized_pose);
   for (int i = 0; i < max_iteration; i++) {
+    Eigen::Matrix3d T_inv = GetInverseTransForm(optimized_pose);
+    std::vector<std::pair<float, float>> transformed_pts =
+        TransFormPoints(p_d, T_inv);
+
     std::vector<std::pair<float, float>> correspondence_pts;
-    FindCorrespondencePoints(transformed_pts, p_d, correspondence_pts);
+    FindCorrespondencePoints(transformed_pts, correspondence_pts);
 
     if (correspondence_pts.empty()) {
       break;
     }
 
-    Eigen::Matrix3d delta_T = ComputeOptimalTransform(correspondence_pts);
+    Eigen::Matrix3d delta_T = ComputeOptimalTransForm(correspondence_pts);
     T = delta_T * T;
-    transformed_pts = TransFormPoints(p_s, T);
 
     float phi = atan2(T(1, 0), T(0, 0));
     float x = T(0, 2);
@@ -64,6 +74,26 @@ Eigen::Matrix3d ScanMatcher::GetTransForm(Pose2D& init_pose) {
   return T;
 }
 
+// 该函数根据初始位姿生成对应的齐次变换矩阵（3x3）
+Eigen::Matrix3d ScanMatcher::GetInverseTransForm(Pose2D& init_pose) {
+  Eigen::Matrix3d T_inv = Eigen::Matrix3d::Identity(); // 初始化3x3单位矩阵
+  float phi = init_pose.GetPhi();
+  float x = init_pose.x;
+  float y = init_pose.y;
+
+  T_inv(0, 0) = cos(phi); // R^T(0,0) = cosφ
+  T_inv(0, 1) = sin(phi); // R^T(0,1) = sinφ（原矩阵为-sinφ，转置后变号）
+  T_inv(1, 0) = -sin(phi); // R^T(1,0) = -sinφ（原矩阵为sinφ，转置后变号）
+  T_inv(1, 1) = cos(phi); // R^T(1,1) = cosφ
+
+  // 2. 平移部分：-R^T * [x; y]（推导逆机器人在世界坐标系的位置）
+  // 推导逆变换的平移公式：t_inv = -R^T * t
+  T_inv(0, 2) = -(x * cos(phi) + y * sin(phi));  // x分量
+  T_inv(1, 2) = -(-x * sin(phi) + y * cos(phi)); // y分量
+
+  return T_inv;
+}
+
 std::vector<std::pair<float, float>> ScanMatcher::TransFormPoints(
     std::vector<std::pair<float, float>>& points, Eigen::Matrix3d& T) {
   std::vector<std::pair<float, float>> transformed_points;
@@ -77,29 +107,29 @@ std::vector<std::pair<float, float>> ScanMatcher::TransFormPoints(
 
 void ScanMatcher::FindCorrespondencePoints(
     std::vector<std::pair<float, float>>& transformed_pts,
-    std::vector<std::pair<float, float>>& p_d,
     std::vector<std::pair<float, float>>& correspondence_pts) {
   correspondence_pts.clear();
   for (auto& p : transformed_pts) {
-    float min_dist = 1e8;
-    int min_index = -1;
-    for (int i = 0; i < p_d.size(); i++) {
-      float dist =
-          pow(p.first - p_d[i].first, 2) + pow(p.second - p_d[i].second, 2);
-      if (dist < min_dist) {
-        min_dist = dist;
-        min_index = i;
-      }
-    }
-    if (min_index >= 0) {
+    std::vector<float> query = {p.first, p.second};
+    std::vector<float> nearest_pt = kd_tree_->FindNearestNeighbor(query);
+    // float dis = kd_tree_.GetDistanceSq(nearest_pt, query);
+    // for (int i = 0; i < p_d.size(); i++) {
+    //   float dist =
+    //       pow(p.first - p_d[i].first, 2) + pow(p.second -
+    //       p_d[i].second, 2);
+    //   if (dist < min_dist) {
+    //     min_dist = dist;
+    //     min_index = i;
+    //   }
+    // }
+    if (nearest_pt.size() > 0) {
       correspondence_pts.emplace_back(p.first, p.second);
-      correspondence_pts.emplace_back(p_d[min_index].first,
-                                      p_d[min_index].second);
+      correspondence_pts.emplace_back(nearest_pt[0], nearest_pt[1]);
     }
   }
 }
 
-Eigen::Matrix3d ScanMatcher::ComputeOptimalTransform(
+Eigen::Matrix3d ScanMatcher::ComputeOptimalTransForm(
     std::vector<std::pair<float, float>>& correspondence_pts) {
   Eigen::Matrix3d T = Eigen::Matrix3d::Identity();
 
@@ -155,8 +185,22 @@ Eigen::Matrix3d ScanMatcher::ComputeOptimalTransform(
   return T;
 }
 
-float ScanMatcher::ComputeError(Pose2D& opt_pose, LaserScan& scan,
-                                GridMap& grid_map) {
-  float error = 0;
-  return error;
+// float ScanMatcher::ComputeError(Pose2D& opt_pose, LaserScan& scan,
+//                                 GridMap& grid_map) {
+//   float error = 0;
+//   return error;
+// }
+
+void ScanMatcher::BuildKdTree(std::vector<std::pair<float, float>>& points) {
+  if (points.empty()) {
+    return;
+  }
+  if (kd_tree_ == nullptr) {
+    kd_tree_ = new KDTree(2);
+  }
+  std::vector<std::vector<float>> kdtree_points;
+  for (const auto& p : points) {
+    kdtree_points.push_back({p.first, p.second});
+  }
+  kd_tree_->BuildKdTree(kdtree_points, 0);
 }

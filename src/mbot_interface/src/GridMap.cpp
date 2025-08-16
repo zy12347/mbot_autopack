@@ -8,7 +8,7 @@ void GridMap::FromRosMsg(const nav_msgs::msg::OccupancyGrid& msg) {
   if (width == static_cast<int>(msg.info.width) &&
       height == static_cast<int>(msg.info.height) &&
       std::abs(resolution - msg.info.resolution) < 1e-6 && map_ != nullptr) {
-    if (msg.data.size() == width * height) {
+    if (int(msg.data.size()) == width * height) {
       for (size_t i = 0; i < msg.data.size(); ++i) {
         map_[i] = static_cast<uint8_t>(msg.data[i]);
       }
@@ -28,7 +28,7 @@ void GridMap::FromRosMsg(const nav_msgs::msg::OccupancyGrid& msg) {
     map_ = new uint8_t[width * height]();
 
     // 复制栅格数据
-    if (msg.data.size() == width * height) {
+    if (int(msg.data.size()) == width * height) {
       for (size_t i = 0; i < msg.data.size(); ++i) {
         map_[i] = static_cast<uint8_t>(msg.data[i]);
       }
@@ -76,8 +76,8 @@ std::vector<std::pair<float, float>> GridMap::ScanMap(const Pose2D& pose,
 }
 
 std::vector<std::pair<int, int>> GridMap::Bresnham(int start_idx, int start_idy,
-                                                   int end_idx, int end_idy,
-                                                   float max_range) const {
+                                                   int end_idx,
+                                                   int end_idy) const {
   std::vector<std::pair<int, int>> grid_path;
 
   // Bresenham算法核心逻辑
@@ -127,7 +127,7 @@ float GridMap::Raycast(double start_x, double start_y, double angle,
   // 获取射线经过的所有栅格
   int end_idx = x2idx(end_x);
   int end_idy = y2idy(end_y);
-  auto grid_path = Bresnham(start_idx, start_idy, end_idx, end_idy, max_range);
+  auto grid_path = Bresnham(start_idx, start_idy, end_idx, end_idy);
 
   // 遍历栅格，寻找第一个障碍物
   for (const auto& [gx, gy] : grid_path) {
@@ -167,8 +167,7 @@ void GridMap::UpdateCell(const Pose2D& pose, const LaserScan& scan) {
     int end_idy = y2idy(end_y);
 
     // 2. 射线投射：获取从机器人到障碍物的所有栅格
-    auto grid_path =
-        Bresnham(start_idx, start_idy, end_idx, end_idy, scan.range_max);
+    auto grid_path = Bresnham(start_idx, start_idy, end_idx, end_idy);
 
     // 3. 更新栅格：路径上的栅格标记为空闲，终点标记为占据
     if (!grid_path.empty()) {

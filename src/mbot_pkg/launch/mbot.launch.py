@@ -66,7 +66,7 @@ def generate_launch_description():
         output='screen'
     )
     
-    # 启动SLAM节点
+    # 启动control节点
     control_node = Node(
         package='control',
         executable='control_node',
@@ -83,7 +83,7 @@ def generate_launch_description():
         gazebo_client,
         load_urdf,
         spawn_entity,
-        slam_node, 
+        # slam_node, 
         control_node,
         rviz2_node]
 

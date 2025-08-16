@@ -48,9 +48,6 @@ class Gmapping {
   Pose2D GetBestEstimate();
   void computeAndNormalizeWeights();
   float ComputeParticleWeight(Particle& particle);
-
-  static void ICP(std::vector<std::pair<float, float>>& p1,
-                  std::vector<std::pair<float, float>>& p2, Pose2D& init_pose);
   GridMap& GetGridMap() {
     return grid_map_;
   };

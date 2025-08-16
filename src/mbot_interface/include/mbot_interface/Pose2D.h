@@ -23,11 +23,11 @@ class Pose2D {
     return phi / M_PI * 180.0;
   }
 
-  const float GetPhi() const {
+  float GetPhi() const {
     return Phi_;
   };
 
-  const float GetTheta() const {
+  float GetTheta() const {
     return Phi_ / M_PI * 180.0;
   };
 

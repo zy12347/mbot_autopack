@@ -92,6 +92,7 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "*.txx": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "core": "cpp"
     }
 }

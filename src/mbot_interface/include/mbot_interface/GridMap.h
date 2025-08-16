@@ -108,8 +108,7 @@ class GridMap {
   float Raycast(double start_x, double start_y, double angle, double max_range);
 
   std::vector<std::pair<int, int>> Bresnham(int start_idx, int start_idy,
-                                            int end_idx, int end_idy,
-                                            float max_range) const;
+                                            int end_idx, int end_idy) const;
 
   void SaveAsBmp(std::string filename);
 

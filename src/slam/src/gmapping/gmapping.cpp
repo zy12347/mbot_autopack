@@ -85,22 +85,11 @@ void Gmapping::Predict() {
 }
 
 void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
-  auto start_time = std::chrono::high_resolution_clock::now(); // 记录开始时间
   UpdateSensorData(scan, odom);
-  auto end_time = std::chrono::high_resolution_clock::now(); // 记录结束时间
-  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(
-                      end_time - start_time)
-                      .count();
-  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "ProcessScan took %ld ms",
-              duration);
 
   Predict();
-  auto end_time1 = std::chrono::high_resolution_clock::now(); // 记录结束时间
-  auto duration1 = std::chrono::duration_cast<std::chrono::milliseconds>(
-                       end_time1 - end_time)
-                       .count();
-  RCLCPP_INFO(rclcpp::get_logger("gmapping"), "Predict took %ld ms", duration1);
 
+  auto end_time1 = std::chrono::high_resolution_clock::now(); // 记录结束时间
   OptimizePose();
   auto end_time2 = std::chrono::high_resolution_clock::now(); // 记录结束时间
   auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -108,7 +97,8 @@ void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
                        .count();
   RCLCPP_INFO(rclcpp::get_logger("gmapping"), "OptimizePose took %ld ms",
               duration2);
-  computeAndNormalizeWeights();
+
+  // computeAndNormalizeWeights();
   auto end_time3 = std::chrono::high_resolution_clock::now(); // 记录结束时间
   auto duration3 = std::chrono::duration_cast<std::chrono::milliseconds>(
                        end_time3 - end_time2)
@@ -160,7 +150,8 @@ void Gmapping::UpdateMap() {
   Pose2D best_pose = GetBestEstimate();
   std::cout << "UpdateMap: best_pose=(" << best_pose.x << "," << best_pose.y
             << "," << best_pose.GetPhi() << ")" << std::endl;
-
+  std::cout << "UpdateMap: laser_scan_=(" << laser_scan_.ranges[0] << ","
+            << laser_scan_.ranges[1] << ",...) " << std::endl;
   bool need_extend = CheckReachEdge(best_pose);
   if (need_extend) {
     grid_map_.ExtendMap();
@@ -262,17 +253,11 @@ void Gmapping::OptimizePose() {
   // std::cout << "OptimizePose: current scan has " << points.size() << "
   // points"
   //           << std::endl;
+  points = scan_matcher_.DownSample(points, 2);
+  scan_matcher_.BuildKdTree(points);
   for (auto& p : particles_) {
-    auto end_time = std::chrono::high_resolution_clock::now(); // 记录结束时间
     std::vector<std::pair<float, float>> points_scan =
         p.ScanMap(laser_scan_.range_max);
-    auto end_time1 = std::chrono::high_resolution_clock::now(); // 记录结束时间
-
-    auto duration1 = std::chrono::duration_cast<std::chrono::milliseconds>(
-                         end_time1 - end_time)
-                         .count();
-    RCLCPP_INFO(rclcpp::get_logger("gmapping"), "scanmap took %ld ms",
-                duration1);
     // 检查粒子地图点云是否为空
     if (points_scan.empty()) {
       // std::cout
@@ -281,9 +266,10 @@ void Gmapping::OptimizePose() {
       continue;
     }
     RCLCPP_INFO(rclcpp::get_logger("gmapping"),
-                "points.size:%d points_scan.size:%d", points.size(),
+                "points.size:%zu points_scan.size:%zu", points.size(),
                 points_scan.size());
-    Pose2D optimized_pose = scan_matcher_.ICP(points, points_scan, p.GetPose());
+    auto end_time1 = std::chrono::high_resolution_clock::now();
+    Pose2D optimized_pose = scan_matcher_.ICP(points_scan, p.GetPose());
     auto end_time2 = std::chrono::high_resolution_clock::now(); // 记录结束时间
 
     auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(

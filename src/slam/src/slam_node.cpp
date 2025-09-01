@@ -67,9 +67,9 @@ class SlamManager : public rclcpp::Node {
       }
 
       // RCLCPP_INFO(rclcpp::get_logger("gazebo_subscriber"), "grid_map");
-      GridMap& grid = gmapping_.GetGridMap();
       // grid.SaveAsBmp("/home/zy/ws/map.bmp");
       if (map_publisher_) {
+        GridMap& grid = gmapping_.GetGridMap();
         map_publisher_->publish(grid.ToRosMsg());
       }
     } catch (const std::exception& e) {

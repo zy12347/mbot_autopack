@@ -82,6 +82,7 @@ void Gmapping::Predict() {
     cur_pose.SetPhi(last_pose.GetPhi() + delta_phi);
     p.SetPose(cur_pose);
   }
+  // RCLCPP_INFO(rclcpp::get_logger("gmapping Predict"), "test");
 }
 
 void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
@@ -90,6 +91,7 @@ void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
   Predict();
 
   auto end_time1 = std::chrono::high_resolution_clock::now(); // 记录结束时间
+
   OptimizePose();
   auto end_time2 = std::chrono::high_resolution_clock::now(); // 记录结束时间
   auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -97,7 +99,7 @@ void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
                        .count();
   RCLCPP_INFO(rclcpp::get_logger("gmapping"), "OptimizePose took %ld ms",
               duration2);
-
+  RCLCPP_INFO(rclcpp::get_logger("gmapping Predict"), "ComputeWeight");
   ComputeAndNormalizeWeights();
   auto end_time3 = std::chrono::high_resolution_clock::now(); // 记录结束时间
   auto duration3 = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -105,6 +107,7 @@ void Gmapping::ProcessScan(LaserScan& scan, Odom& odom) {
                        .count();
   RCLCPP_INFO(rclcpp::get_logger("gmapping"),
               "ComputeAndNormalizeWeights took %ld ms", duration3);
+  RCLCPP_INFO(rclcpp::get_logger("gmapping Predict"), "UpdateMap");
   UpdateMap();
   auto end_time4 = std::chrono::high_resolution_clock::now(); // 记录结束时间
   auto duration4 = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -164,22 +167,29 @@ void Gmapping::UpdateMap() {
   // 更新全局地图
   grid_map_.UpdateCell(best_pose, laser_scan_);
 
-  auto update_map = [this](size_t start, size_t end, bool need_extend) {
-    for (size_t i = start; i < end; ++i) {
-      Particle& p = particles_[i];
-      if (need_extend) {
-        p.GetGridMap().ExtendMap();
-      }
-      p.GetGridMap().UpdateCell(p.GetPose(), laser_scan_);
+  for (size_t i = 0; i < particles_.size(); ++i) {
+    Particle& p = particles_[i];
+    if (need_extend) {
+      p.GetGridMap().ExtendMap();
     }
-  };
-  std::thread thread1(update_map, 0, particles_.size() / 2, need_extend);
-  std::thread thread2(update_map, particles_.size() / 2, particles_.size(),
-                      need_extend);
+    p.GetGridMap().UpdateCell(p.GetPose(), laser_scan_);
+  }
+  // auto update_map = [this](size_t start, size_t end, bool need_extend) {
+  //   for (size_t i = start; i < end; ++i) {
+  //     Particle& p = particles_[i];
+  //     if (need_extend) {
+  //       p.GetGridMap().ExtendMap();
+  //     }
+  //     p.GetGridMap().UpdateCell(p.GetPose(), laser_scan_);
+  //   }
+  // };
+  // std::thread thread1(update_map, 0, particles_.size() / 2, need_extend);
+  // std::thread thread2(update_map, particles_.size() / 2, particles_.size(),
+  //                     need_extend);
 
-  // 等待线程完成
-  thread1.join();
-  thread2.join();
+  // // 等待线程完成
+  // thread1.join();
+  // thread2.join();
 
   // 更新所有粒子的地图
   // for (auto& particle : particles_) {
@@ -197,10 +207,23 @@ void Gmapping::ComputeAndNormalizeWeights() {
   double total_weight = 0.0;
   // std::cout << "computeAndNormalizeWeights: starting" << std::endl;
   // 遍历每个粒子计算权重
-  for (auto& particle : particles_) {
-    double weight = ComputeParticleWeight(particle);
-    particle.SetWeight(weight);
-    total_weight += weight;
+  // 多线程计算粒子权重
+  for (size_t i = 0; i < particles_.size(); ++i) {
+    double weight = ComputeParticleWeight(particles_[i]);
+    particles_[i].SetWeight(weight);
+  }
+  // auto compute_weights = [this](size_t start, size_t end) {
+  //   for (size_t i = start; i < end; ++i) {
+  //     double weight = ComputeParticleWeight(particles_[i]);
+  //     particles_[i].SetWeight(weight);
+  //   }
+  // };
+  // std::thread t1(compute_weights, 0, particles_.size() / 2);
+  // std::thread t2(compute_weights, particles_.size() / 2, particles_.size());
+  // t1.join();
+  // t2.join();
+  for (const auto& particle : particles_) {
+    total_weight += particle.GetWeight();
   }
   // std::cout << "computeWeights: completed" << std::endl;
   // 归一化权重
@@ -234,9 +257,10 @@ float Gmapping::ComputeParticleWeight(Particle& particle) {
   for (size_t i = 0; i < laser_scan_.ranges.size(); i++) {
     float angle = laser_scan_.angle_min + i * laser_scan_.angle_increment;
     float global_angle = p_pose.GetPhi() + angle;
-
+    // std::cout << "raycast" << std::endl;
     float distance = grid_map.Raycast(p_pose.x, p_pose.y, global_angle,
                                       laser_scan_.range_max);
+    // std::cout << "rayout over" << std::endl;
     float diff = distance - laser_scan_.ranges[i];
     log_weight += -0.5 * (diff * diff) / (sigma * sigma);
   }
@@ -252,21 +276,30 @@ void Gmapping::OptimizePose() {
               << std::endl;
     return;
   }
-  auto process_particle_range = [this](size_t start, size_t end) {
-    for (size_t i = start; i < end; ++i) {
-      Particle& p = particles_[i];
-      Pose2D optimized_pose = scan_matcher_.SearchMatch(p, laser_scan_);
-      p.SetPose(optimized_pose); // 更新粒子位姿
-      p.PerturbPose();
-    }
-  };
-  std::thread thread1(process_particle_range, 0, particles_.size() / 2);
-  std::thread thread2(process_particle_range, particles_.size() / 2,
-                      particles_.size());
-
-  // 等待线程完成
-  thread1.join();
-  thread2.join();
+  for (size_t i = 0; i < particles_.size(); ++i) {
+    Particle& p = particles_[i];
+    Pose2D optimized_pose = scan_matcher_.SearchMatch(p, laser_scan_);
+    p.SetPose(optimized_pose); // 更新粒子位姿
+    p.PerturbPose();
+  }
+  // auto process_particle_range = [this](size_t start, size_t end) {
+  //   for (size_t i = start; i < end; ++i) {
+  //     Particle& p = particles_[i];
+  //     std::cout << " optimize3 " << i << std::endl;
+  //     Pose2D optimized_pose = scan_matcher_.SearchMatch(p, laser_scan_);
+  //     std::cout << "searchMatch " << i << std::endl;
+  //     p.SetPose(optimized_pose); // 更新粒子位姿
+  //     p.PerturbPose();
+  //   }
+  // };
+  // std::cout << " optimize" << std::endl;
+  // std::thread thread1(process_particle_range, 0, particles_.size() / 2);
+  // std::thread thread2(process_particle_range, particles_.size() / 2,
+  //                     particles_.size());
+  // std::cout << " optimize2" << std::endl;
+  // // 等待线程完成
+  // thread1.join();
+  // thread2.join();
   // RCLCPP_INFO(rclcpp::get_logger("gmapping"), "ICP took %ld ms",
   // duration2); p.SetPose(optimized_pose); p.PertubPose();
 }

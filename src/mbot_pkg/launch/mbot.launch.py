@@ -7,9 +7,12 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
+from launch.conditions import IfCondition
+from launch.actions import DeclareLaunchArgument
 
 def generate_launch_description():
-    use_rviz = '-rviz2' in sys.argv
+    use_rviz = '--rviz2' in sys.argv
+    use_slam = '--slam' in sys.argv
 
     # 获取包路径
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
@@ -63,7 +66,8 @@ def generate_launch_description():
         package='slam',
         executable='slam_node',
         name='slam_node',
-        output='screen'
+        output='screen',
+        condition=IfCondition(use_slam)
     )
     
     # 启动control节点
@@ -86,6 +90,9 @@ def generate_launch_description():
         slam_node, 
         control_node,
         rviz2_node]
+    # if use_slam:
+    #     print("use slam")
+    #     Nodes.append(slam_node)
 
     # return LaunchDescription([
     #     gazebo_server,

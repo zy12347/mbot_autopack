@@ -77,8 +77,8 @@ std::vector<std::pair<float, float>> GridMap::ScanMap(const Pose2D& pose,
 }
 
 std::vector<std::pair<int, int>> GridMap::Bresnham(int start_idx, int start_idy,
-                                                   int end_idx,
-                                                   int end_idy) const {
+                                                   int end_idx, int end_idy,
+                                                   bool stop_at_obs) const {
   std::vector<std::pair<int, int>> grid_path;
 
   // Bresenham算法核心逻辑
@@ -93,10 +93,14 @@ std::vector<std::pair<int, int>> GridMap::Bresnham(int start_idx, int start_idy,
 
   while (true) {
     // 检查栅格是否在地图范围内
-    if (isGridInBounds(current_idx, current_idy)) {
-      grid_path.emplace_back(current_idx, current_idy);
+    if (!isGridInBounds(current_idx, current_idy)) {
+      break;
     }
+    grid_path.emplace_back(current_idx, current_idy);
 
+    if (stop_at_obs && GetValue(current_idx, current_idy) == 255) {
+      break;
+    }
     // 到达终点，退出循环
     if (current_idx == end_idx && current_idy == end_idy) {
       break;
@@ -128,11 +132,12 @@ float GridMap::Raycast(double start_x, double start_y, double angle,
   // 获取射线经过的所有栅格
   int end_idx = x2idx(end_x);
   int end_idy = y2idy(end_y);
-  auto grid_path = Bresnham(start_idx, start_idy, end_idx, end_idy);
+  auto grid_path = Bresnham(start_idx, start_idy, end_idx, end_idy, true);
 
-  // 遍历栅格，寻找第一个障碍物
-  for (const auto& [gx, gy] : grid_path) {
-    if (GetValue(gx, gy) == 255) {
+  if (grid_path.size() > 0) {
+    int gx = grid_path[grid_path.size() - 1].first;
+    int gy = grid_path[grid_path.size() - 1].second;
+    if (isGridInBounds(gx, gy) && GetValue(gx, gy) == 255) {
       // 计算障碍物距离起点的物理距离
       float wx = idx2x(gx);
       float wy = idy2y(gy);
@@ -140,7 +145,6 @@ float GridMap::Raycast(double start_x, double start_y, double angle,
       return distance; // 击中障碍物
     }
   }
-
   // 未击中障碍物，返回最大射程
   return max_range;
 }
@@ -221,8 +225,10 @@ int GridMap::ComputeScore(std::vector<std::pair<float, float>>& global_pts) {
   for (auto p : global_pts) {
     int idx = x2idx(p.first);
     int idy = y2idy(p.second);
-    int score = GetValue(idx, idy) > 0 ? 10 : 0;
-    total_score += score;
+    if (isGridInBounds(idx, idy)) {
+      int score = GetValue(idx, idy) > 0 ? 10 : 0;
+      total_score += score;
+    }
   }
   return total_score;
 }

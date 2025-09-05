@@ -9,9 +9,18 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(tf2 REQUIRED)
 find_package(mbot_interface REQUIRED)
 
-add_executable(navigation_node src/navigation_node.cpp)
+
+file(GLOB_RECURSE src_list
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"  # 匹配 src 下所有 .cpp 文件
+)
+add_executable(navigation_node ${src_list})
+
 target_include_directories(navigation_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -20,7 +29,11 @@ ament_target_dependencies(
   navigation_node
   "rclcpp"
   "std_msgs"
+  "geometry_msgs"
+  "sensor_msgs"
+  "nav_msgs"
   "mbot_interface"
+  "tf2"
 )
 target_link_libraries(navigation_node mbot_interface::mbot_interface_lib)
 

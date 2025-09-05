@@ -7,7 +7,7 @@ def generate_grid_map(width, height, cell_size):
     grid_map = np.zeros((height, width))
     # 将grid_map保存为bmp图片
     # 随机生成障碍物，0为障碍物，255为空白
-    obstacle_prob = 0.1  # 障碍物概率，可调整
+    obstacle_prob = 0.2  # 障碍物概率，可调整
     random_matrix = np.random.rand(height, width)
     grid_map[random_matrix < obstacle_prob] = 0      # 障碍物
     grid_map[random_matrix >= obstacle_prob] = 255   # 空白

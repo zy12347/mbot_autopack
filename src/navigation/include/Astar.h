@@ -3,6 +3,7 @@
 #include <iostream>
 // #include <priority_queue>
 #include <limits>
+#include <opencv2/opencv.hpp>
 #include <unordered_map>
 #include <vector>
 
@@ -61,7 +62,7 @@ class Astar {
            close_map_.find(y * width_ + x) == close_map_.end();
   };
   bool IsTarget(int x, int y) {
-    return x == target_idx && y == target_idy;
+    return x == target_idx_ && y == target_idy_;
   };
   int GetMinScoreIndex();
   std::vector<std::pair<int, int>> BuildPath(int x, int y);

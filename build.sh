@@ -17,7 +17,7 @@ if [[ " $@ " =~ " -a " ]]; then
     echo "检测到 -a 参数，编译全部的文件夹"
     # 移除 -r 参数，防止后续 colcon build 误识别
     set -- "${@/-a/}"
-    PACKAGE_ARGS="slam mbot_pkg mbot_interface control"
+    PACKAGE_ARGS="slam mbot_pkg mbot_interface control navigation"
 else
     PACKAGE_ARGS=""
 fi

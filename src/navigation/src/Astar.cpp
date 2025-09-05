@@ -12,14 +12,29 @@ std::vector<std::pair<int, int>> Astar::PlanPath(int start_idx, int start_idy,
   }
   target_idx_ = target_idx;
   target_idy_ = target_idy;
+  std::cout << "start: " << start_idx << "," << start_idy
+            << ", target: " << target_idx_ << "," << target_idy_ << std::endl;
   open_map_[start_idy * width_ + start_idx] = std::make_pair(0, -1);
   while (!open_map_.empty()) {
     int cur_node_index = GetMinScoreIndex();
+    // std::cout << "cur_node_index: " << cur_node_index % width_ << ","
+    //           << cur_node_index / width_ << std::endl;
+    ProcessNeighbor(cur_node_index % width_, cur_node_index / width_);
     if (IsTarget(cur_node_index % width_, cur_node_index / width_)) {
+      std::cout << "Found path! cur_node_index: " << cur_node_index % width_
+                << " " << cur_node_index / width_ << std::endl;
       return BuildPath(cur_node_index % width_, cur_node_index / width_);
     }
-    ProcessNeighbor(cur_node_index % width_, cur_node_index / width_);
+    // for (auto it = open_map_.begin(); it != open_map_.end(); it++) {
+    //   std::cout << it->first % width_ << "," << it->first / width_ << ":"
+    //             << it->second.first << std::endl;
+    // }
+    // for (auto it = close_map_.begin(); it != close_map_.end(); it++) {
+    //   std::cout << it->first % width_ << "," << it->first / width_ << ":"
+    //             << it->second << std::endl;
+    // }
   }
+  std::cout << "Failed to find path!" << std::endl;
   return std::vector<std::pair<int, int>>();
 }
 
@@ -32,7 +47,6 @@ int Astar::GetMinScoreIndex() {
       min_node_index = it->first;
     }
   }
-  open_map_.erase(min_node_index);
   return min_node_index;
 }
 
@@ -42,7 +56,7 @@ float Astar::HeuristicScore(int x, int y) {
 void Astar::ProcessNeighbor(int x, int y) {
   for (int dx = -1; dx <= 1; dx++) {
     for (int dy = -1; dy <= 1; dy++) {
-      if (!IsValid(x + dx, y + dy))
+      if (!IsValid(x + dx, y + dy) || (dx == 0 && dy == 0))
         continue;
       float base_score =
           open_map_[y * width_ + x].first + std::sqrt(dx * dx + dy * dy);
@@ -57,13 +71,21 @@ void Astar::ProcessNeighbor(int x, int y) {
     }
   }
   close_map_[y * width_ + x] = open_map_[y * width_ + x].second;
+  open_map_.erase(y * width_ + x);
 }
 std::vector<std::pair<int, int>> Astar::BuildPath(int x, int y) {
   std::vector<std::pair<int, int>> path;
   int current_index = y * width_ + x;
+  // std::cout << "current index " << current_index << std::endl;
+  // for (auto it = close_map_.begin(); it != close_map_.end(); it++) {
+  //   std::cout << it->first % width_ << "," << it->first / width_ << ":"
+  //             << it->second << std::endl;
+  // }
   while (current_index != -1) {
     path.emplace_back(current_index % width_, current_index / width_);
     current_index = close_map_[current_index];
+    // std::cout << "current_index: " << current_index % width_ << ","
+    //           << current_index / width_ << std::endl;
   }
   std::reverse(path.begin(), path.end());
   return path;
@@ -82,6 +104,7 @@ void Astar::PlotMap(std::vector<std::pair<int, int>>& path) {
   }
   cv::imshow("img", img);
   cv::waitKey(0);
+  cv::imwrite("path.png", img);
 }
 // void Astar::ProcessNode(GridNode& neighbor_node) {
 //   float total_score = TotalScore(neighbor_node);

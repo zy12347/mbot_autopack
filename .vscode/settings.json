@@ -14,7 +14,7 @@
     "editor.formatOnType": true,
     "editor.formatOnPaste": true,
     "[cpp]": {
-        "editor.defaultFormatter": "xaver.clang-format",
+        "editor.defaultFormatter": "ms-vscode.cpptools",
         "editor.formatOnSave": true
     },
     "[c]": {
@@ -93,6 +93,25 @@
         "typeinfo": "cpp",
         "*.txx": "cpp",
         "variant": "cpp",
-        "core": "cpp"
+        "core": "cpp",
+        "charconv": "cpp",
+        "format": "cpp",
+        "ios": "cpp",
+        "locale": "cpp",
+        "xfacet": "cpp",
+        "xhash": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocbuf": "cpp",
+        "xlocinfo": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp",
+        "xmemory": "cpp",
+        "xstring": "cpp",
+        "xtr1common": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp"
     }
 }

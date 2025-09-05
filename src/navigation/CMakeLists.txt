@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(mbot_interface REQUIRED)
 
 add_executable(navigation_node src/navigation_node.cpp)
 target_include_directories(navigation_node PUBLIC
@@ -19,7 +20,9 @@ ament_target_dependencies(
   navigation_node
   "rclcpp"
   "std_msgs"
+  "mbot_interface"
 )
+target_link_libraries(navigation_node mbot_interface::mbot_interface_lib)
 
 install(TARGETS navigation_node
   DESTINATION lib/${PROJECT_NAME})

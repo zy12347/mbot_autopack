@@ -14,7 +14,7 @@ def generate_grid_map(width, height, cell_size):
     plt.imshow(grid_map, cmap='gray', vmin=0, vmax=255)
     plt.show()
     # 保存为bmp图片
-    plt.imsave('grid_map.bmp', grid_map, cmap='gray', vmin=0, vmax=255)
+    plt.imsave('img/grid_map.bmp', grid_map, cmap='gray', vmin=0, vmax=255)
     return grid_map
 
 def main():

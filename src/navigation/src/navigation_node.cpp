@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
   (void)argv;
 
   printf("hello world navigation package\n");
-  cv::Mat img = cv::imread("grid_map.bmp", 0);
+  cv::Mat img = cv::imread("img/grid_map.bmp", 0);
   if (img.empty()) {
     printf("cannot read image file: grid_map.bmp\n");
     return -1;

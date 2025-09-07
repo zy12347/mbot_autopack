@@ -104,7 +104,7 @@ void Astar::PlotMap(std::vector<std::pair<int, int>>& path) {
   }
   cv::imshow("img", img);
   cv::waitKey(0);
-  cv::imwrite("path.png", img);
+  cv::imwrite("astar_path.png", img);
 }
 // void Astar::ProcessNode(GridNode& neighbor_node) {
 //   float total_score = TotalScore(neighbor_node);

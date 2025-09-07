@@ -7,36 +7,35 @@
 #include <unordered_map>
 #include <vector>
 
-struct Node {
-  int x, y;
-  float base_score;
-  float f_score;
-  int parent;
-
-  // 构造函数
-  Node(int x, int y, float f_score, int parent)
-      : x(x), y(y), f_score(f_score), parent(parent) {}
-
-  // 按坐标确定唯一性
-  bool operator==(const Node& other) const {
-    return x == other.x && y == other.y;
-  }
-};
-
-struct NodeComparator {
-  bool operator()(const Node& a, const Node& b) const {
-    if (a.f_score != b.f_score) {
-      return a.f_score < b.f_score; // 按分数排序
-    }
-    // 分数相同时按坐标排序，确保唯一性
-    if (a.x != b.x)
-      return a.x < b.x;
-    return a.y < b.y;
-  }
-};
-
 class Astar {
  public:
+  struct Node {
+    int x, y;
+    float base_score;
+    float f_score;
+    int parent;
+
+    // 构造函数
+    Node(int x, int y, float f_score, int parent)
+        : x(x), y(y), f_score(f_score), parent(parent) {}
+
+    // 按坐标确定唯一性
+    bool operator==(const Node& other) const {
+      return x == other.x && y == other.y;
+    }
+  };
+
+  struct NodeComparator {
+    bool operator()(const Node& a, const Node& b) const {
+      if (a.f_score != b.f_score) {
+        return a.f_score < b.f_score; // 按分数排序
+      }
+      // 分数相同时按坐标排序，确保唯一性
+      if (a.x != b.x)
+        return a.x < b.x;
+      return a.y < b.y;
+    }
+  };
   Astar(int width, int height, uint8_t* map_data)
       : width_(width), height_(height), map_data_(map_data) {
     size_ = width_ * height_;

@@ -113,5 +113,7 @@
         "xtr1common": "cpp",
         "xtree": "cpp",
         "xutility": "cpp"
-    }
+    },
+    "trae.tab.enableRename": false,
+    "trae.tab.enableAutoImport": false
 }

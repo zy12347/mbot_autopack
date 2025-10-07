@@ -72,7 +72,11 @@ install(DIRECTORY urdf/
 
 install(DIRECTORY worlds/
   DESTINATION share/${PROJECT_NAME}/worlds
-  FILES_MATCHING PATTERN "*.world"
+)
+
+install(DIRECTORY maps/
+  DESTINATION share/${PROJECT_NAME}/maps
+   FILES_MATCHING PATTERN "*.yaml" PATTERN "*.pgm"  # 只安装YAML和PGM文件
 )
 
 if(BUILD_TESTING)

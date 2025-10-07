@@ -1,0 +1,17 @@
+slam_toolbox:
+  ros__parameters:
+    use_sim_time: true
+    # 建图核心参数（TB3适配）
+    resolution: 0.05  # 地图分辨率（米/像素）
+    max_laser_range: 3.5  # TB3激光雷达最大测距（匹配模型）
+    min_laser_range: 0.1
+    laser_min_height: -0.1
+    laser_max_height: 0.1
+    # 优化参数（减少地图漂移）
+    loop_closing: true  # 启用回环检测，修正地图
+    loop_closing_variance_scale: 1.0
+    # 话题配置（匹配TB3激光雷达话题）
+    scan_topic: /scan
+    base_frame: base_footprint  # 机器人基坐标系
+    odom_frame: odom  # 里程计坐标系
+    map_frame: map  # 地图坐标系

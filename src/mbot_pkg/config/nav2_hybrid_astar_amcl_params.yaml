@@ -1,0 +1,51 @@
+# 1. AMCL定位配置（核心：基于SLAM实时地图匹配）
+amcl:
+  ros__parameters:
+    use_sim_time: true
+    alpha1: 0.2  # 里程计旋转噪声系数
+    alpha2: 0.2  # 里程计平移噪声系数
+    alpha3: 0.2  # 里程计平移噪声系数
+    alpha4: 0.2  # 里程计旋转噪声系数
+    alpha5: 0.1  # 里程计噪声系数（适配TB3）
+    base_frame_id: base_footprint
+    odom_frame_id: odom
+    map_frame_id: map
+    scan_topic: /scan
+    max_particles: 2000  # 粒子数（越多定位越准，性能消耗略高）
+    min_particles: 500
+    initial_pose_x: 0.0  # 初始位置（匹配Gazebo机器人初始位姿）
+    initial_pose_y: 0.0
+    initial_pose_a: 0.0
+    initial_cov_xx: 0.5 * 0.5  # 初始位置协方差（小范围即可）
+    initial_cov_yy: 0.5 * 0.5
+    initial_cov_aa: (3.14/12) * (3.14/12)
+
+# 2. 之前的Hybrid A*规划器配置（不变）
+planner_server:
+  ros__parameters:
+    expected_planner_frequency: 20.0
+    planner_plugins: ["HybridAStarPlanner"]
+    HybridAStarPlanner:
+      plugin: "nav2_hybrid_astar_planner/HybridAStarPlanner"
+      tolerance: 0.2
+      use_astar: true
+      min_turning_radius: 0.2  # TB3最小转弯半径
+      wheelbase: 0.16  # TB3轴距
+      max_nu: 0.5
+      max_omega: 1.8
+      inflation_cost_scaling_factor: 3.0
+
+# 3. 控制器配置（默认即可，确保机器人能跟踪路径）
+controller_server:
+  ros__parameters:
+    use_sim_time: true
+    controller_plugins: ["FollowPath"]
+    FollowPath:
+      plugin: "nav2_regulated_pure_pursuit_controller/RegulatedPurePursuitController"
+      desired_linear_vel: 0.22  # TB3最大线速度
+      max_linear_accel: 0.5
+      max_linear_decel: 0.2
+      desired_angular_vel: 1.82  # TB3最大角速度
+      max_angular_accel: 2.0
+      max_angular_decel: 1.0
+      lookahead_distance: 0.3

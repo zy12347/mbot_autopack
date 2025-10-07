@@ -17,6 +17,16 @@ class GridMap {
     //           << std::endl;
   };
 
+  GridMap(uint8_t* data, int w = 400, int h = 400, float r = 0.05)
+      : width(w), height(h), resolution(r) {
+    origin_x = -width * resolution / 2;
+    origin_y = -height * resolution / 2;
+    map_ = new uint8_t[width * height]();
+    std::copy(data, data + width * height, map_);
+    // std::cout << "GridMap: Constructor called, map_=" << (void*)map_
+    //           << std::endl;
+  };
+
   // 拷贝构造函数
   GridMap(const GridMap& other)
       : width(other.width), height(other.height), resolution(other.resolution) {

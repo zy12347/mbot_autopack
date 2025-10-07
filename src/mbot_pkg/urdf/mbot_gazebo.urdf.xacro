@@ -2,7 +2,7 @@
 <robot name="mbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- 包含基础结构 -->
   <xacro:include filename="mbot_base.urdf.xacro" />
-
+  <!-- <xacro:mbot_base /> -->
   <!-- Gazebo插件配置 -->
   <gazebo>
     <plugin name="differential_drive" filename="libgazebo_ros_diff_drive.so">
@@ -23,6 +23,19 @@
       <publish_odom>true</publish_odom>
       <publish_odom_tf>true</publish_odom_tf>
       <publish_wheel_tf>true</publish_wheel_tf>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="ground_truth_plugin" filename="libgazebo_ros_p3d.so">
+       <ros>
+            <namespace>/mbot</namespace>
+            <remapping>odom:=gazebo_pose</remapping>
+       </ros>
+      <frame_name>world</frame_name>
+      <body_name>base_link</body_name>
+      <update_rate>50.0</update_rate>
+      <gaussian_noise>0</gaussian_noise>
     </plugin>
   </gazebo>
 

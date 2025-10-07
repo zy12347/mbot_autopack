@@ -3,11 +3,13 @@ std::vector<std::pair<int, int>> Astar::PlanPath(int start_idx, int start_idy,
                                                  int target_idx,
                                                  int target_idy) {
   if (map_data_ == nullptr) {
+    std::cout << "map_data nullptr" << std::endl;
     return std::vector<std::pair<int, int>>();
   }
   if (start_idx < 0 || start_idx >= width_ || start_idy < 0 ||
       start_idy >= height_ || target_idx < 0 || target_idx >= width_ ||
       target_idy < 0 || target_idy >= height_) {
+    std::cout << "unvalid id" << std::endl;
     return std::vector<std::pair<int, int>>();
   }
   target_idx_ = target_idx;

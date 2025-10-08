@@ -38,6 +38,7 @@ def generate_launch_description():
     doc = xacro.process_file(urdf_file)
     # print(doc)
     robot_description = {'robot_description': doc.toxml()} 
+    # print(robot_description)
     
     # 启动Gazebo服务器
     gazebo_server = IncludeLaunchDescription(
@@ -97,28 +98,34 @@ def generate_launch_description():
     # )
     
     # 启动SLAM节点
-    # slam_node = Node(
-    #     package='slam',
-    #     executable='slam_node',
-    #     name='slam_node',
-    #     output='screen',
-    #     # condition=IfCondition(use_slam)
-    #     condition=IfCondition(LaunchConfiguration('use_slam'))
-    # )
-    # 3. 启动SLAM Toolbox（实时建图，核心参数：仿真时间、建图模式）
-    slam_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(pkg_slam, 'launch', 'online_async_launch.py')),
-        launch_arguments={
-            'use_sim_time': 'true',  # 匹配Gazebo仿真时间
-            'params_file': os.path.join(pkg_mbot, 'config', 'slam_params.yaml'),  # 自定义SLAM参数
-            'use_ros2_control': 'false'  # TB3仿真无需ros2_control
-        }.items()
+    slam_node = Node(
+        package='slam',
+        executable='slam_node',
+        name='slam_node',
+        output='screen'
     )
+    # 3. 启动SLAM Toolbox（实时建图，核心参数：仿真时间、建图模式）
+    # slam_node = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(os.path.join(pkg_slam, 'launch', 'online_async_launch.py')),
+    #     launch_arguments={
+    #         'use_sim_time': 'true',  # 匹配Gazebo仿真时间
+    #         'params_file': os.path.join(pkg_mbot, 'config', 'slam_params.yaml'),  # 自定义SLAM参数
+    #         'use_ros2_control': 'false'  # TB3仿真无需ros2_control
+    #     }.items()
+    # )
     # 启动control节点
     control_node = Node(
         package='control',
         executable='control_node',
         name='control_node',
+        output='screen'
+    )
+
+     #启动navi节点
+    navigation_node = Node(
+        package='navigation',
+        executable='navigation_node',
+        name='navigation_node',
         output='screen'
     )
 
@@ -145,6 +152,7 @@ def generate_launch_description():
         spawn_entity,
         # gazebo_pose_publisher_node,
         slam_node, 
+        navigation_node,
         # control_node,
         rviz2_node]
     # if use_slam:

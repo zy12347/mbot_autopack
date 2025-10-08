@@ -21,6 +21,15 @@
     <color rgba="0.0 0.0 0.0 1.0" />
   </material>
 
+  <!-- 新增：base_footprint（地面投影坐标系，z=0） -->
+  <link name="base_footprint">
+    <!-- 虚拟坐标系，无需视觉/碰撞模型 -->
+    <inertial>
+      <mass value="0.001" /> <!-- 极小质量，避免动力学问题 -->
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
   <!-- 底盘 -->
   <link name="base_link">
     <visual>
@@ -160,6 +169,16 @@
     </inertial>
   </link>
 
+   <!-- 新增：base_footprint到base_link的固定关节 -->
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint" /> <!-- 父级：地面坐标系 -->
+    <child link="base_link" />       <!-- 子级：机器人本体 -->
+    <!-- z方向偏移：确保base_footprint在地面（z=0），base_link在其上方 -->
+    <!-- 计算方式：轮子半径（0.05） + 底盘高度的一半（0.05/2） -->
+    <origin xyz="0 0 ${wheel_radius + base_height/2}" rpy="0 0 0" />
+  </joint>
+
+
   <!-- 左轮关节 -->
   <joint name="left_wheel_joint" type="continuous">
     <parent link="base_link" />
@@ -211,7 +230,7 @@
   <link name="odom" />
   <joint name="odom_joint" type="fixed">
     <parent link="odom" />
-    <child link="base_link" />
+    <child link="base_footprint" />
     <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
 </xacro:macro>

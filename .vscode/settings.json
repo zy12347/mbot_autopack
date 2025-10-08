@@ -115,7 +115,8 @@
         "xutility": "cpp",
         "any": "cpp",
         "*.inc": "cpp",
-        "geometry": "cpp"
+        "geometry": "cpp",
+        "mbot_interface": "cpp"
     },
     "trae.tab.enableRename": false,
     "trae.tab.enableAutoImport": false

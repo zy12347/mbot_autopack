@@ -23,25 +23,13 @@ class NavigationManager : public rclcpp ::Node {
             [this](const geometry_msgs::msg::PoseStamped& msg) {
               this->goal_pose_event_callback(msg);
             });
-
-    click_subscriber_ =
-        this->create_subscription<geometry_msgs::msg::PointStamped>(
-            "/clicked_point", 1,
-            [this](const geometry_msgs::msg::PointStamped& msg) {
-              this->click_callback(msg);
-            });
+    map_sub_ptr_ = this->create_subscription<nav_msgs::msg::OccupancyGrid>(
+        "/map", 1, [this](const nav_msgs::msg::OccupancyGrid::SharedPtr msg) {
+          this->map_callback(msg);
+        });
 
     path_publisher_ =
         this->create_publisher<nav_msgs::msg::Path>("/planned_path", 10);
-
-    path_publisher1_ =
-        this->create_publisher<nav_msgs::msg::Path>("/planned_path1", 10);
-
-    map_publisher_ =
-        this->create_publisher<nav_msgs::msg::OccupancyGrid>("/map", 10);
-
-    timer_ = this->create_wall_timer(std::chrono::seconds(1),
-                                     [this]() { this->publish_map(); });
   }
 
   float idx2x(int idx) {
@@ -81,63 +69,21 @@ class NavigationManager : public rclcpp ::Node {
     RCLCPP_INFO(this->get_logger(), "收到目标点: x=%.2f, y=%.2f, theta:%.2f",
                 goal_pose_.pose.position.x, goal_pose_.pose.position.y,
                 goal_pose_angle_);
-    plan_path();
+    // plan_path();
+    generateRectangle();
   }
+  // 将物理坐标转换为栅格索引
 
-  // 点击回调：处理鼠标点击事件
-  void click_callback(const geometry_msgs::msg::PointStamped click) {
-    // 检查坐标系是否匹配
-    if (click.header.frame_id != map_msg_.header.frame_id) {
-      RCLCPP_WARN(this->get_logger(), "点击坐标与地图坐标系不匹配: %s vs %s",
-                  click.header.frame_id.c_str(),
-                  map_msg_.header.frame_id.c_str());
-      return;
-    }
-
-    // 将物理坐标转换为栅格索引
-    int grid_x = x2idx(click.point.x);
-
-    int grid_y = y2idy(click.point.y);
-
-    // 计算栅格在数据数组中的索引
-    int index = grid_x + grid_y * map_msg_.info.width;
-
-    // 修改栅格值为100（障碍物）
-    if (index >= 0 && index < map_msg_.data.size()) {
-      // map_msg_.data[index] = 100;
-      click_obs_.emplace_back(grid_x, grid_y);
-      RCLCPP_INFO(this->get_logger(), "已在栅格(%d, %d)添加障碍物", grid_x,
-                  grid_y);
-
-      // 更新时间戳并发布修改后的地图
-      map_msg_.header.stamp = this->get_clock()->now();
-      publish_map();
-    }
+  void map_callback(const nav_msgs::msg::OccupancyGrid::SharedPtr msg) {
+    map_msg_ = *msg;
   }
-
   void plan_path() {
     // 1. 调用路径规划算法（如A*、RRT）生成路径点列表
-    // 假设路径点存储在 std::vector<geometry_msgs::msg::PoseStamped> path_poses
-    // 中
-    // std::vector<geometry_msgs::msg::PoseStamped> path_poses =
-    //     generate_path_points();
-    // uint8_t* map_data_ =
-    //     new uint8_t[map_msg_.info.width * map_msg_.info.height]();
-    // for (int i = 0; i < map_msg_.info.width * map_msg_.info.height; i++) {
-    //   map_data_[i] = map_msg_.data[i] == 0 ? 100 : 0;
-    // }
-    // Astar astar(map_msg_.info.width, map_msg_.info.height, map_data_);
     HybridAStar hybrid_star(map_msg_);
     std::vector<State> planned_path = hybrid_star.plan(
         start_pose_.pose.position.x, start_pose_.pose.position.y,
         start_pose_angle_, goal_pose_.pose.position.x,
         goal_pose_.pose.position.y, goal_pose_angle_);
-    // RandomTree rrt(map_msg_.info.width, map_msg_.info.height, map_data_);
-    // std::vector<std::pair<int, int>> planned_path = astar.PlanPath(
-    //     x2idx(start_pose_.pose.position.x),
-    //     y2idy(start_pose_.pose.position.y),
-    //     x2idx(goal_pose_.pose.position.x),
-    //     y2idy(goal_pose_.pose.position.y));
     std::vector<geometry_msgs::msg::PoseStamped> path_poses;
     for (auto p : planned_path) {
       geometry_msgs::msg::PoseStamped pose;
@@ -163,113 +109,118 @@ class NavigationManager : public rclcpp ::Node {
 
     // 3. 发布路径消息
     path_publisher_->publish(path_msg);
-
-    uint8_t* map_data_ =
-        new uint8_t[map_msg_.info.width * map_msg_.info.height]();
-    for (int i = 0; i < map_msg_.info.width * map_msg_.info.height; i++) {
-      map_data_[i] = map_msg_.data[i] == 0 ? 100 : 0;
-    }
-    Astar astar(map_msg_.info.width, map_msg_.info.height, map_data_);
-    std::vector<std::pair<int, int>> planned_path1 = astar.PlanPath(
-        x2idx(start_pose_.pose.position.x), y2idy(start_pose_.pose.position.y),
-        x2idx(goal_pose_.pose.position.x), y2idy(goal_pose_.pose.position.y));
-    // RandomTree rrt(map_msg_.info.width, map_msg_.info.height, map_data_);
-    // std::vector<std::pair<int, int>> planned_path = astar.PlanPath(
-    //     x2idx(start_pose_.pose.position.x),
-    //     y2idy(start_pose_.pose.position.y),
-    //     x2idx(goal_pose_.pose.position.x),
-    //     y2idy(goal_pose_.pose.position.y));
-    std::vector<geometry_msgs::msg::PoseStamped> path_poses1;
-    for (auto p : planned_path1) {
-      geometry_msgs::msg::PoseStamped pose;
-
-      // 设置坐标系和时间戳（与地图一致）
-      pose.header.frame_id = "map";                 // 必须与地图frame_id一致
-      pose.header.stamp = this->get_clock()->now(); // 当前时间戳
-      pose.pose.position.x = idx2x(p.first);
-      pose.pose.position.y = idy2y(p.second);
-      pose.pose.position.z = 0.0;
-
-      pose.pose.orientation.x = 0.0;
-      pose.pose.orientation.y = 0.0;
-      pose.pose.orientation.z = 0;
-      pose.pose.orientation.w = 0;
-      path_poses1.push_back(pose);
-    }
-    // 2. 封装为 nav_msgs::msg::Path
-    nav_msgs::msg::Path path_msg1;
-    path_msg1.header.frame_id = "map"; // 必须与RViz2的Fixed Frame一致
-    path_msg1.header.stamp = this->get_clock()->now();
-    path_msg1.poses = path_poses1; // 将路径点赋值给 Path 的 poses 字段
-    path_publisher1_->publish(path_msg1);
-    RCLCPP_INFO(this->get_logger(), "已发布路径，包含 %d 个点",
-                (int)path_poses1.size());
   }
 
-  void publish_map() {
-    // 设置地图元数据
-    map_msg_.header.stamp = this->get_clock()->now();
-    map_msg_.header.frame_id = "map";
-    map_msg_.info.width = 500;           // 地图宽度（单元格数）
-    map_msg_.info.height = 500;          // 地图高度（单元格数）
-    map_msg_.info.resolution = 0.05;     // 每个单元格的尺寸（米）
-    map_msg_.info.origin.position.x = 0; // 地图原点
-    map_msg_.info.origin.position.y = 0;
-    map_msg_.info.origin.orientation.w = 1.0;
+  void generateRectangle() {
+    nav_msgs::msg::Path path_msg;
 
-    // 初始化地图数据（-1表示未知，0表示空闲，100表示障碍物）
-    map_msg_.data.resize(map_msg_.info.width * map_msg_.info.height, 0);
+    // 设置路径头部信息
+    path_msg.header.frame_id = "world";               // 路径所在坐标系
+    path_msg.header.stamp = this->get_clock()->now(); // 当前时间戳
 
-    // 添加一些障碍物
-    add_obstacle(map_msg_, 100, 100, 50, 50); // x, y, width, height
-    add_obstacle(map_msg_, 300, 200, 80, 40);
-    add_obstacle(map_msg_, 200, 350, 60, 60);
-    for (auto obs : click_obs_) {
-      add_obstacle(map_msg_, obs.first, obs.second, 10, 10);
+    // 生成1m×1m矩形路径的四个顶点
+    // 从原点(0,0)开始，顺时针生成矩形
+    std::vector<geometry_msgs::msg::PoseStamped> waypoints;
+
+    // 点1: 起点 (0, 0)
+    waypoints.push_back(create_waypoint(0.0, 0.0, 0.0));
+
+    // 点2: 右移1米 (1, 0)
+    waypoints.push_back(create_waypoint(1.0, 0.0, 0));
+
+    // 点3: 上移1米 (1, 1)
+    waypoints.push_back(create_waypoint(1.0, 1.0, 0));
+
+    // 点4: 左移1米 (0, 1)
+    waypoints.push_back(create_waypoint(0.0, 1.0, 0));
+
+    // 点5: 下移1米回到起点 (0, 0)
+    waypoints.push_back(create_waypoint(0.0, 0.0, 0));
+
+    // 为了使路径更平滑，可以在顶点之间添加中间点
+    add_intermediate_points(waypoints, 5); // 每个边添加5个中间点
+
+    // 将路点添加到路径消息中
+    path_msg.poses = waypoints;
+
+    // 发布路径
+    path_publisher_->publish(path_msg);
+    for (auto p : path_msg.poses) {
+      std::cout << p.pose.position.x << " " << p.pose.position.y << std::endl;
     }
-
-    map_publisher_->publish(map_msg_);
+    RCLCPP_DEBUG(this->get_logger(), "已发布矩形路径，包含%d个路点",
+                 path_msg.poses.size());
   }
 
-  void add_obstacle(nav_msgs::msg::OccupancyGrid& map, int x, int y, int width,
-                    int height) {
-    for (int i = x; i < x + width && i < map.info.width; i++) {
-      for (int j = y; j < y + height && j < map.info.height; j++) {
-        int index = i + j * map.info.width;
-        if (index >= 0 && index < map.data.size()) {
-          map.data[index] = 100;
-        }
+  geometry_msgs::msg::PoseStamped create_waypoint(double x, double y,
+                                                  double z) {
+    geometry_msgs::msg::PoseStamped waypoint;
+    waypoint.header.frame_id = "world";
+    waypoint.header.stamp = this->get_clock()->now();
+
+    // 设置位置
+    waypoint.pose.position.x = x;
+    waypoint.pose.position.y = y;
+    waypoint.pose.position.z = z; // 2D路径可以设为0
+
+    // 设置姿态（默认朝向）
+    waypoint.pose.orientation.w = 1.0; // 单位四元数，表示无旋转
+
+    return waypoint;
+  }
+
+  void add_intermediate_points(
+      std::vector<geometry_msgs::msg::PoseStamped>& waypoints, int num_points) {
+    if (waypoints.size() < 2 || num_points <= 0)
+      return;
+
+    std::vector<geometry_msgs::msg::PoseStamped> new_waypoints;
+
+    for (size_t i = 0; i < waypoints.size() - 1; ++i) {
+      // 添加当前点
+      new_waypoints.push_back(waypoints[i]);
+
+      // 计算当前点和下一个点之间的步长
+      double dx =
+          (waypoints[i + 1].pose.position.x - waypoints[i].pose.position.x) /
+          (num_points + 1);
+      double dy =
+          (waypoints[i + 1].pose.position.y - waypoints[i].pose.position.y) /
+          (num_points + 1);
+      double dz =
+          (waypoints[i + 1].pose.position.z - waypoints[i].pose.position.z) /
+          (num_points + 1);
+
+      // 添加中间点
+      for (int j = 1; j <= num_points; ++j) {
+        geometry_msgs::msg::PoseStamped intermediate = waypoints[i];
+        intermediate.pose.position.x += dx * j;
+        intermediate.pose.position.y += dy * j;
+        intermediate.pose.position.z += dz * j;
+        new_waypoints.push_back(intermediate);
       }
     }
+
+    // 添加最后一个点
+    new_waypoints.push_back(waypoints.back());
+
+    // 更新路点列表
+    waypoints = new_waypoints;
   }
-  // rclcpp::Subscription<nav_msgs::msg::OccupancyGrid>::SharedPtr
-  // map_subscriber_;
 
   rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_publisher_;
 
-  rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_publisher1_;
-
-  rclcpp::Publisher<nav_msgs::msg::OccupancyGrid>::SharedPtr map_publisher_;
-  rclcpp::TimerBase::SharedPtr timer_;
-
-  rclcpp::Subscription<geometry_msgs::msg::PointStamped>::SharedPtr
-      click_subscriber_;
   rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr
       init_pose_sub_ptr_;
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr
       goal_pose_sub_ptr_;
+  rclcpp::Subscription<nav_msgs::msg::OccupancyGrid>::SharedPtr map_sub_ptr_;
 
   geometry_msgs::msg::PoseStamped start_pose_;
   geometry_msgs::msg::PoseStamped goal_pose_;
   nav_msgs::msg::OccupancyGrid map_msg_;
-  std::vector<std::pair<int, int>> click_obs_;
   float start_pose_angle_;
   float goal_pose_angle_;
-  // GridMap map_;
-  // std::vector<signed char> map_data_;
-  // int width_;
-  // int height_;
-  // float resolution_;
 };
 
 int main(int argc, char** argv) {
@@ -277,12 +228,5 @@ int main(int argc, char** argv) {
   auto node = std::make_shared<NavigationManager>();
   rclcpp::spin(node);
   rclcpp::shutdown();
-
-  // printf("hello world navigation package\n");
-  // cv::Mat img = cv::imread("img/grid_map.bmp", 0);
-  // if (img.empty()) {
-  //   printf("cannot read image file: grid_map.bmp\n");
-  //   return -1;
-  // }
   return 0;
 }

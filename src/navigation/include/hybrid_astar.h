@@ -62,13 +62,13 @@ class HybridAStar {
   int width_, height_;         // 地图尺寸（栅格数）
 
   // 机器人参数（可根据实际调整）
-  const double step_len_ = 0.5;         // 步长（米）
-  const double theta_step_ = M_PI / 36; // 转向角度增量（5°）
+  const double step_len_ = 0.3;         // 步长（米）
+  const double theta_step_ = M_PI / 18; // 转向角度增量（5°）
   const double min_turn_radius_ = 0.2;  // 最小转弯半径（米）
 
   // 目标阈值（位置误差<0.1m，角度误差<5°）
-  const double goal_dist_thresh_ = 0.25;
-  const double goal_theta_thresh_ = M_PI / 18;
+  const double goal_dist_thresh_ = step_len_;
+  const double goal_theta_thresh_ = theta_step_;
 
   float goal_x_;
   float goal_y_;

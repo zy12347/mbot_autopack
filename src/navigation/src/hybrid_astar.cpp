@@ -32,7 +32,6 @@ std::vector<State> HybridAStar::plan(double start_x, double start_y,
     // 取出代价最小的状态
     State current = open_list.top();
     open_list.pop();
-    std::cout << "x y: " << current.x << " " << current.y << std::endl;
     iter++;
 
     // 判断是否到达目标
@@ -40,16 +39,15 @@ std::vector<State> HybridAStar::plan(double start_x, double start_y,
     double theta_diff = std::fabs(normalize_angle(current.theta - goal_theta));
     if (dist_to_goal < goal_dist_thresh_ && theta_diff < goal_theta_thresh_) {
       goal_state = std::make_shared<State>(current);
+      std::cout << "到达目标点" << std::endl;
       break;
     }
-
     // 若已在封闭列表，跳过
     std::string current_key = current.hash_key();
     if (closed_list.find(current_key) != closed_list.end()) {
       continue;
     }
     closed_list[current_key] = true;
-
     // 生成后继状态
     std::vector<State> successors = generate_successors(current);
     for (const auto& succ : successors) {
@@ -65,6 +63,7 @@ std::vector<State> HybridAStar::plan(double start_x, double start_y,
   std::vector<State> path;
   if (goal_state != nullptr) {
     std::shared_ptr<State> curr = goal_state;
+    std::cout << "reached" << std::endl;
     while (curr != nullptr) {
       path.push_back(*curr);
       curr = curr->parent;
@@ -91,15 +90,20 @@ double HybridAStar::heuristic(double x, double y, double theta, double goal_x,
 
 // 碰撞检测（简化为点碰撞，实际应检测机器人轮廓）
 bool HybridAStar::is_collision(double x, double y) {
-  int grid_x = x2idx(x);
-  int grid_y = y2idy(y);
-  if (grid_x < 0 || grid_x > width_ || grid_y < 0 || grid_y > height_) {
-    return true; // 超出地图范围视为碰撞
+  for (float dx = -0.25; dx <= 0.25; dx += 0.05) {
+    for (float dy = -0.25; dy <= 0.25; dy += 0.05) {
+      int grid_x = x2idx(x + dx);
+      int grid_y = y2idy(y + dy);
+      if (grid_x < 0 || grid_x > width_ || grid_y < 0 || grid_y > height_) {
+        return true; // 超出地图范围视为碰撞
+      }
+      int index = grid_x + grid_y * width_;
+      if (map_.data[index] == 100) {
+        return true; // 碰撞
+      }
+    }
   }
-  // 栅格索引（行优先）
-  int index = grid_x + grid_y * width_;
-  // 地图值为100时是障碍物
-  return (map_.data[index] == 100);
+  return false; // 无碰撞
 }
 
 // 生成后继状态（基于差速模型）
@@ -107,12 +111,12 @@ std::vector<State> HybridAStar::generate_successors(const State& current) {
   std::vector<State> successors;
   // 可能的转向角度（直走、左转、右转）
   std::vector<double> delta_thetas = {
-      0,               // 直走
-      theta_step_,     // 左转
-      -theta_step_,    // 右转
-      theta_step_ / 2, // 左转（小步）
-      -theta_step_ / 2 // 右转（小步）
+      0,            // 直走
+      theta_step_,  // 左转
+      -theta_step_, // 右转
   };
+
+  // std::vector<double> delta_dis = {-step_len_, step_len_};
 
   for (double d_theta : delta_thetas) {
     // 计算新朝向

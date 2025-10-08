@@ -11,7 +11,7 @@
         <remapping>cmd_vel:=cmd_vel</remapping>
         <remapping>odom:=odom</remapping>
       </ros>
-      
+      <base_link>base_footprint</base_link>
       <wheel_separation>${wheel_separation}</wheel_separation>
       <wheel_diameter>${wheel_radius * 2}</wheel_diameter>
       <max_wheel_speed>2.0</max_wheel_speed>
@@ -23,19 +23,6 @@
       <publish_odom>true</publish_odom>
       <publish_odom_tf>true</publish_odom_tf>
       <publish_wheel_tf>true</publish_wheel_tf>
-    </plugin>
-  </gazebo>
-
-  <gazebo>
-    <plugin name="ground_truth_plugin" filename="libgazebo_ros_p3d.so">
-       <ros>
-            <namespace>/mbot</namespace>
-            <remapping>odom:=gazebo_pose</remapping>
-       </ros>
-      <frame_name>world</frame_name>
-      <body_name>base_link</body_name>
-      <update_rate>50.0</update_rate>
-      <gaussian_noise>0</gaussian_noise>
     </plugin>
   </gazebo>
 

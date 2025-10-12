@@ -128,7 +128,7 @@
     <!-- 碰撞模型：与视觉模型一致，避免碰撞 -->
     <collision>
       <geometry>
-        <cylinder radius="${lidar_radius}" length="${lidar_radius}" />
+        <cylinder radius="${lidar_radius}" length="${lidar_height}" />
       </geometry>
       <origin xyz="0 0 0" rpy="0 0 0" />
     </collision>

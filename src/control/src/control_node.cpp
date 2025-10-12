@@ -70,8 +70,8 @@ class MotionController : public rclcpp::Node {
     RCLCPP_INFO(this->get_logger(), "Start Following Path");
     if (pid_path_follower_ == nullptr) {
       pid_path_follower_ = std::make_unique<PathFollower>();
-      pid_path_follower_->setLinearParams(0.01, 0.001, 0, -0.3, 0.3);
-      pid_path_follower_->setAngularParams(0.1, 0.001, 0, -3.14, 3.14);
+      pid_path_follower_->setLinearParams(0.1, 0.01, 0, -0.3, 0.3, 0.1);
+      pid_path_follower_->setAngularParams(0.1, 0.01, 0, -3.14, 3.14, 0.75);
     }
     pid_path_follower_->setPath(msg);
     path_updated_ = true;

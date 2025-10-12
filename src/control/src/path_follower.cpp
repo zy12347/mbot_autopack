@@ -2,25 +2,28 @@
 
 void PathFollower::setAngularParams(float angular_kp, float angular_ki,
                                     float angular_kd, float min_angular,
-                                    float max_angular) {
+                                    float max_angular,
+                                    float integral_threshold) {
   if (angular_pid_ == nullptr) {
     angular_pid_ = std::make_unique<PIDController>(
-        angular_kp, angular_ki, angular_kd, min_angular, max_angular);
+        angular_kp, angular_ki, angular_kd, min_angular, max_angular,
+        integral_threshold);
   } else {
     angular_pid_->setParams(angular_kp, angular_ki, angular_kd, min_angular,
-                            max_angular);
+                            max_angular, integral_threshold);
   }
 }
 
 void PathFollower::setLinearParams(float linear_kp, float linear_ki,
                                    float linear_kd, float min_linear,
-                                   float max_linear) {
+                                   float max_linear, float integral_threshold) {
   if (linear_pid_ == nullptr) {
     linear_pid_ = std::make_unique<PIDController>(
-        linear_kp, linear_ki, linear_kd, min_linear, max_linear);
+        linear_kp, linear_ki, linear_kd, min_linear, max_linear,
+        integral_threshold);
   } else {
     linear_pid_->setParams(linear_kp, linear_ki, linear_kd, min_linear,
-                           max_linear);
+                           max_linear, integral_threshold);
   }
 }
 
@@ -39,12 +42,11 @@ void PathFollower::run(const geometry_msgs::msg::PoseStamped& current_pose,
       target_waypoint.pose.position.x - current_pose.pose.position.x,
       target_waypoint.pose.position.y - current_pose.pose.position.y);
   float target_v = linear_pid_->compute(dis_error);
-  //   std::cout << " pose: delta_dis: target_v: " <<
-  //   target_waypoint.pose.position.x
-  //             << " " << current_pose.pose.position.x << " "
-  //             << target_waypoint.pose.position.y << " "
-  //             << current_pose.pose.position.y << " " << dis_error << ""
-  //             << target_v << std::endl;
+  std::cout << " pose: delta_dis: target_v: " << target_waypoint.pose.position.x
+            << " " << current_pose.pose.position.x << " "
+            << target_waypoint.pose.position.y << " "
+            << current_pose.pose.position.y << " " << dis_error << ""
+            << target_v << std::endl;
   float target_pose_angle = std::atan2(
       target_waypoint.pose.position.y - current_pose.pose.position.y,
       target_waypoint.pose.position.x - current_pose.pose.position.x);

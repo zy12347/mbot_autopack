@@ -7,10 +7,12 @@ class PathFollower {
  public:
   PathFollower() {};
   void setLinearParams(float linear_kp, float linear_ki, float linear_kd,
-                       float min_linear, float max_linear);
+                       float min_linear, float max_linear,
+                       float integral_threshold);
 
   void setAngularParams(float angular_kp, float angular_ki, float angular_kd,
-                        float min_angular, float max_angular);
+                        float min_angular, float max_angular,
+                        float integral_threshold);
   void setPath(const nav_msgs::msg::Path& msg) {
     cur_waypoint_index_ = 0;
     current_path_ = msg;

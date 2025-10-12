@@ -75,7 +75,7 @@ def generate_launch_description():
                 executable='spawn_entity.py',
                 name='spawn_mbot',
                 output='screen',
-                arguments=['-entity', 'mbot', '-topic', 'robot_description'],
+                arguments=['-entity', 'mbot', '-topic', 'robot_description','-x','0.0','-y','0.0','-z','0.0'],
             )
     ])
 
